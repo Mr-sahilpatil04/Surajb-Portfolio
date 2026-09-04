@@ -30,7 +30,7 @@ service cloud.firestore {
                       request.resource.data.studentName.size() < 100 &&
                       request.resource.data.className is string &&
                       request.resource.data.noteId is string;
-      allow read: if isAdmin();
+      allow read: if true;
       allow update, delete: if isAdmin();
     }
 
