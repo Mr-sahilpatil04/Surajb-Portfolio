@@ -1,442 +1,406 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome — To my website</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;1,300&display=swap" rel="stylesheet" />
-  <style>
-
-    /* ══ Reset ══ */
-    *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-
-    html, body {
-      width: 100%; height: 100%;
-      overflow: hidden;
-      background: #050810;
-      cursor: none;
-    }
-
-    /* ══ Neural canvas ══ */
-    #neural-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-    }
-
-    /* ══ Dark vignette centre focus ══ */
-    .vignette {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background: radial-gradient(
-        ellipse 70% 70% at 50% 50%,
-        transparent 30%,
-        rgba(5,8,16,0.60) 80%,
-        rgba(5,8,16,0.90) 100%
-      );
-    }
-
-    /* ══ Content wrapper ══ */
-    .welcome-wrap {
-      position: fixed;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-      gap: 2.5rem;
-    }
-
-    /* ══ Big WELCOME ══ */
-    .welcome-word {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(4.5rem, 16vw, 13rem);
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      line-height: 1;
-      background: linear-gradient(
-        135deg,
-        #7a5a10 0%,
-        #d4af37 25%,
-        #f5e070 50%,
-        #d4af37 75%,
-        #7a5a10 100%
-      );
-      background-size: 300% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      opacity: 0;
-      animation:
-        wFadeUp   1.4s cubic-bezier(0.22,1,0.36,1) 0.4s forwards,
-        wShimmer  5s  linear                        1.8s infinite;
-    }
-
-    @keyframes wFadeUp {
-      from { opacity:0; transform: translateY(50px) scale(0.96); }
-      to   { opacity:1; transform: translateY(0)    scale(1);    }
-    }
-
-    @keyframes wShimmer {
-      0%   { background-position: 0%   center; }
-      100% { background-position: 300% center; }
-    }
-
-    /* ══ Divider line ══ */
-    .welcome-line {
-      width: 0;
-      height: 1px;
-      background: linear-gradient(90deg,
-        transparent, rgba(212,175,55,0.6), rgba(245,224,112,0.9), rgba(212,175,55,0.6), transparent
-      );
-      border: none;
-      animation: lineExpand 1.1s ease 1.6s forwards;
-    }
-
-    @keyframes lineExpand {
-      to { width: min(520px, 72vw); }
-    }
-
-    /* ══ Quote ══ */
-    .welcome-quote {
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: clamp(1.15rem, 3vw, 1.85rem);
-      font-weight: 300;
-      font-style: italic;
-      color: rgba(240,230,204,0.78);
-      max-width: 700px;
-      line-height: 1.75;
-      letter-spacing: 0.015em;
-      opacity: 0;
-      animation: qFadeUp 1.3s cubic-bezier(0.22,1,0.36,1) 2s forwards;
-    }
-
-    @keyframes qFadeUp {
-      from { opacity:0; transform: translateY(30px); }
-      to   { opacity:1; transform: translateY(0);    }
-    }
-
-    .welcome-quote-author {
-      display: block;
-      margin-top: 0.75rem;
-      font-family: 'Playfair Display', Georgia, serif;
-      font-style: normal;
-      font-size: 0.65em;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(212,175,55,0.5);
-    }
-
-    /* ══ Gold progress bar at bottom ══ */
-    .progress-track {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: rgba(212,175,55,0.1);
-      z-index: 5;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #7a5a10, #f5e070, #d4af37);
-      box-shadow: 0 0 10px rgba(212,175,55,0.7);
-      animation: fillBar 8s linear 0.5s forwards;
-    }
-
-    @keyframes fillBar {
-      to { width: 100%; }
-    }
-
-    /* ══ Skip hint ══ */
-    .skip-hint {
-      position: fixed;
-      bottom: 1.6rem;
-      right: 2rem;
-      z-index: 6;
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 0.82rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(212,175,55,0.32);
-      cursor: pointer;
-      transition: color 0.35s ease, letter-spacing 0.35s ease;
-      opacity: 0;
-      animation: skipFade 0.8s ease 3.5s forwards;
-      user-select: none;
-    }
-
-    .skip-hint:hover {
-      color: rgba(212,175,55,0.9);
-      letter-spacing: 0.22em;
-    }
-
-    @keyframes skipFade {
-      to { opacity: 1; }
-    }
-
-    /* ══ Page exit ══ */
-    body.exiting {
-      animation: exitAnim 0.85s ease forwards;
-    }
-
-    @keyframes exitAnim {
-      0%   { opacity:1; filter: blur(0px);   transform: scale(1);    }
-      100% { opacity:0; filter: blur(12px);  transform: scale(1.06); }
-    }
-
-    /* ══ Custom cursor ══ */
-    #c-dot {
-      position: fixed;
-      width: 7px; height: 7px;
-      background: #d4af37;
-      border-radius: 50%;
-      transform: translate(-50%,-50%);
-      pointer-events: none;
-      z-index: 9999;
-    }
-
-    #c-ring {
-      position: fixed;
-      width: 30px; height: 30px;
-      border: 1.5px solid rgba(212,175,55,0.55);
-      border-radius: 50%;
-      transform: translate(-50%,-50%);
-      pointer-events: none;
-      z-index: 9998;
-    }
-
-    /* ══ Responsive ══ */
-    @media (max-width: 600px) {
-      .welcome-wrap { gap: 2rem; }
-      .welcome-quote { font-size: 1.15rem; }
-      .skip-hint { right: 1.2rem; }
-    }
-
-  </style>
+  <title>Suraj Bhoite</title>
+  <meta name="description" content="Faculty Portfolio of Suraj Bhoite — Professor, Computer Science & Engineering" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/cursor.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="icon" type="image/x-icon" href="fevicon.ico" />
 </head>
 <body>
 
   <!-- Cursor -->
-  <div id="c-dot"></div>
-  <div id="c-ring"></div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
 
-  <!-- Neural canvas -->
-  <canvas id="neural-canvas"></canvas>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">SB</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Mr. Suraj Bhoite</span>
+          <span class="nav-logo-title">Assistant Professor</span>
+        </div>
+      </a>
 
-  <!-- Vignette -->
-  <div class="vignette"></div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">Profile</a>
+        <a href="skills.html" class="nav-link">Skills</a>
+        <a href="experience.html" class="nav-link">Experience</a>
+        <a href="research.html" class="nav-link">Research</a>
+        <a href="courses.html" class="nav-link">Certificates</a>
+        <a href="notes.html"   class="nav-link">Notes</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
 
-  <!-- Content -->
-  <div class="welcome-wrap">
-    <h1 class="welcome-word">Welcome</h1>
-    <hr class="welcome-line" />
-    <p class="welcome-quote">
-      "The beautiful thing about learning is that<br />
-      no one can take it away from you."
-      <span class="welcome-quote-author">— Suraj Bhoite</span>
-    </p>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <span class="theme-icon-dark">🌙</span>
+          <span class="theme-icon-light">☀️</span>
+        </button>
+        <button class="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="index.html" class="nav-link active">🏠 Home</a>
+    <a href="about.html" class="nav-link">👤 Profile</a>
+    <a href="skills.html" class="nav-link">⚡ Skills</a>
+    <a href="experience.html" class="nav-link">💼 Experience</a>
+    <a href="research.html" class="nav-link">🔬 Research</a>
+    <a href="courses.html" class="nav-link">🎓 Certificates</a>
+    <a href="notes.html" class="nav-link">📒 Notes</a>
+    <a href="gallery.html" class="nav-link">🖼️ Gallery</a>
+    <a href="contact.html" class="nav-link">📬 Contact</a>
   </div>
 
-  <!-- Progress bar -->
-  <div class="progress-track">
-    <div class="progress-fill"></div>
-  </div>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-bg-gradient"></div>
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+      <div class="hero-grid"></div>
+    </div>
 
-  <!-- Skip -->
-  <div class="skip-hint" id="skip-btn">Skip ›</div>
+    <div class="container">
+      <div class="hero-content">
 
+        <!-- Text Side -->
+        <div class="hero-text">
+          <div class="hero-eyebrow">
+            <div class="hero-eyebrow-line"></div>
+            <span class="hero-eyebrow-text">Faculty Portfolio</span>
+          </div>
+
+          <p class="hero-greeting">Hello, I'm</p>
+
+          <h1 class="hero-name">
+            <span class="last-name">Mr. Suraj Bhoite</span>
+          </h1>
+
+          <div class="hero-designation">
+            <span class="badge">🎓 Assistant Professor</span>
+            <span class="badge">💻 Data Analyst</span>
+            <span class="badge">🔬 Researcher</span>
+          </div>
+
+          <p class="hero-dept">Department of Artificial Intelligence & Data Science — DYPCOEI, Pune</p>
+
+          <p class="hero-desc">
+            Dedicated academician and researcher with 7+ years of experience in Computer Science Education, 
+            specializing in Data Structure, Artifcial Intelligence & Machine Learning.
+            Passionate about bridging the gap between academia and industry.
+          </p>
+
+          <!-- Social Links -->
+          <div class="hero-social">
+            <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener" class="social-btn linkedin">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </a>
+            <a href="https://scholar.google.com/citations?user=your-id" target="_blank" rel="noopener" class="social-btn scholar">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/>
+              </svg>
+              Google Scholar
+            </a>
+          
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="hero-cta">
+            <a href="assets/Suraj_Bhoite CV.pdf" class="btn btn-primary">Resume →</a>
+            <a href="contact.html" class="btn btn-outline">Get In Touch</a>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number" data-count="7" data-suffix="+">0</span>
+              <span class="stat-label">Years Teaching</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-count="9" data-suffix="+">0</span>
+              <span class="stat-label">Publications</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-count="6" data-suffix="+">0</span>
+              <span class="stat-label">Copyrights</span>
+            </div>
+             <div class="stat-item">
+              <span class="stat-number" data-count="4" data-suffix="+">0</span>
+              <span class="stat-label">Patents</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Side -->
+        <div class="hero-photo-wrapper">
+          <div class="hero-photo-frame">
+            <div class="hero-photo-bg-shape"></div>
+            <div class="hero-photo-ring-1"></div>
+            <div class="hero-photo-ring-2"></div>
+            <div class="hero-photo-placeholder">
+              <img src="assets/faculty img (1).png" alt="Mr. Suraj Bhoite" class="hero-photo-img" />
+            </div>
+            <!-- Replace above div with: <img src="assets/images/faculty_photo.jpg" alt="Mr. Suraj Bhoite" class="hero-photo-img" /> -->
+          </div>
+
+          <!-- Floating Info Badges -->
+          <div class="hero-badge hero-badge-1">
+            <div class="hero-badge-title">Copyrights</div>
+            <div class="hero-badge-value">06 ©️</div>
+          </div>
+          <div class="hero-badge hero-badge-2">
+            <div class="hero-badge-title">Patents</div>
+            <div class="hero-badge-value">04 🔐</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <span>Scroll Down</span>
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/theme.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/animations.js"></script>
   <script>
-  /* ═══════════════════════════════════════════
-     NEURAL NETWORK
-  ═══════════════════════════════════════════ */
-  const canvas = document.getElementById('neural-canvas');
-  const ctx    = canvas.getContext('2d');
-  let W, H, nodes = [], pulses = [];
-  const mouse = { x:-9999, y:-9999 };
-
-  const GOLD  = a => `rgba(212,175,55,${a})`;
-  const BLUE  = a => `rgba(74,158,255,${a})`;
-  const TEAL  = a => `rgba(32,178,170,${a})`;
-  const CREAM = a => `rgba(240,230,204,${a})`;
-  const PALETTE = [GOLD,GOLD,GOLD,GOLD,BLUE,TEAL,CREAM];
-
-  function r(a,b){ return Math.random()*(b-a)+a; }
-
-  function resize(){
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-
-  function makeNode(sx, sy){
-    return {
-      x:     sx ?? r(0,W),
-      y:     sy ?? r(0,H),
-      vx:    r(-0.28, 0.28),
-      vy:    r(-0.28, 0.28),
-      rad:   r(2.5, 5.5),
-      col:   PALETTE[Math.floor(Math.random()*PALETTE.length)],
-      alpha: r(0.45, 0.95),
-      pulse: 0,
-    };
-  }
-
-  function buildNodes(){
-    const n = Math.min(Math.floor((W*H)/11000), 80);
-    nodes   = Array.from({length:n}, makeNode);
-  }
-
-  function firePulse(from){
-    nodes.forEach(to=>{
-      if(to===from) return;
-      if(Math.hypot(from.x-to.x, from.y-to.y) < 200 && Math.random()>0.42)
-        pulses.push({from, to, t:0, col:from.col});
+    // Counter animation for stats on hero
+    document.addEventListener('DOMContentLoaded', () => {
+      const counters = document.querySelectorAll('[data-count]');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.dataset.counted) {
+            entry.target.dataset.counted = true;
+            const el = entry.target;
+            const target = parseInt(el.dataset.count);
+            const suffix = el.dataset.suffix || '';
+            let count = 0;
+            const inc = target / 60;
+            const timer = setInterval(() => {
+              count = Math.min(count + inc, target);
+              el.textContent = Math.floor(count) + suffix;
+              if (count >= target) clearInterval(timer);
+            }, 25);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(c => observer.observe(c));
     });
-  }
-
-  function autoFire(){
-    const n = nodes[Math.floor(Math.random()*nodes.length)];
-    if(n){ n.pulse=1; firePulse(n); }
-  }
-
-  /* draw */
-  function drawLines(){
-    for(let i=0;i<nodes.length;i++){
-      for(let j=i+1;j<nodes.length;j++){
-        const d=Math.hypot(nodes[i].x-nodes[j].x, nodes[i].y-nodes[j].y);
-        if(d<195){
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x,nodes[i].y);
-          ctx.lineTo(nodes[j].x,nodes[j].y);
-          ctx.strokeStyle=GOLD((1-d/195)*0.28);
-          ctx.lineWidth=0.75;
-          ctx.stroke();
-        }
-      }
-    }
-  }
-
-  function drawNodes(){
-    nodes.forEach(n=>{
-      if(n.pulse>0){
-        ctx.beginPath();
-        ctx.arc(n.x,n.y, n.rad+n.pulse*24, 0, Math.PI*2);
-        ctx.strokeStyle=n.col(n.pulse*0.5);
-        ctx.lineWidth=1.5;
-        ctx.stroke();
-        n.pulse=Math.max(0, n.pulse-0.022);
-      }
-      /* Outer glow */
-      const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.rad*3.5);
-      g.addColorStop(0,n.col(0.12)); g.addColorStop(1,n.col(0));
-      ctx.beginPath(); ctx.arc(n.x,n.y,n.rad*3.5,0,Math.PI*2);
-      ctx.fillStyle=g; ctx.fill();
-      /* Core */
-      const c=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.rad);
-      c.addColorStop(0,n.col(n.alpha)); c.addColorStop(1,n.col(n.alpha*0.25));
-      ctx.beginPath(); ctx.arc(n.x,n.y,n.rad,0,Math.PI*2);
-      ctx.fillStyle=c; ctx.fill();
-    });
-  }
-
-  function drawPulses(){
-    for(let i=pulses.length-1;i>=0;i--){
-      const p=pulses[i];
-      p.t+=0.024;
-      if(p.t>=1){pulses.splice(i,1);continue;}
-      const x=p.from.x+(p.to.x-p.from.x)*p.t;
-      const y=p.from.y+(p.to.y-p.from.y)*p.t;
-      const a=Math.sin(p.t*Math.PI);
-      /* Glow blob */
-      const g=ctx.createRadialGradient(x,y,0,x,y,12);
-      g.addColorStop(0,p.col(a*0.65)); g.addColorStop(1,p.col(0));
-      ctx.beginPath(); ctx.arc(x,y,12,0,Math.PI*2);
-      ctx.fillStyle=g; ctx.fill();
-      /* Bright dot */
-      ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2);
-      ctx.fillStyle=p.col(a*0.95); ctx.fill();
-      if(p.t>0.94) p.to.pulse=0.9;
-    }
-  }
-
-  function loop(){
-    ctx.clearRect(0,0,W,H);
-    /* Mouse repulsion */
-    nodes.forEach(n=>{
-      const dx=n.x-mouse.x, dy=n.y-mouse.y;
-      const d=Math.hypot(dx,dy);
-      if(d<160&&d>0){const f=(160-d)/160*0.75; n.vx+=(dx/d)*f; n.vy+=(dy/d)*f;}
-      n.vx*=0.97; n.vy*=0.97;
-      const spd=Math.hypot(n.vx,n.vy);
-      if(spd>1.5){n.vx=(n.vx/spd)*1.5; n.vy=(n.vy/spd)*1.5;}
-      n.x+=n.vx; n.y+=n.vy;
-      if(n.x<n.rad){n.x=n.rad;n.vx*=-1;}
-      if(n.x>W-n.rad){n.x=W-n.rad;n.vx*=-1;}
-      if(n.y<n.rad){n.y=n.rad;n.vy*=-1;}
-      if(n.y>H-n.rad){n.y=H-n.rad;n.vy*=-1;}
-    });
-    drawLines(); drawNodes(); drawPulses();
-    requestAnimationFrame(loop);
-  }
-
-  resize(); buildNodes(); loop();
-  window.addEventListener('resize',()=>{resize();buildNodes();},{passive:true});
-  window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;},{passive:true});
-  window.addEventListener('click',e=>{
-    let near=null,minD=Infinity;
-    nodes.forEach(n=>{const d=Math.hypot(n.x-e.clientX,n.y-e.clientY);if(d<minD){minD=d;near=n;}});
-    if(near){near.pulse=1;firePulse(near);}
-  });
-
-  /* Auto fire pulses every 2s */
-  const autoInterval = setInterval(autoFire, 2000);
-
-  /* ═══════════════════════════════════════════
-     CURSOR
-  ═══════════════════════════════════════════ */
-  const dot=document.getElementById('c-dot');
-  const ring=document.getElementById('c-ring');
-  let rx=innerWidth/2, ry=innerHeight/2, mx=rx, my=ry;
-
-  document.addEventListener('mousemove',e=>{
-    mx=e.clientX; my=e.clientY;
-    dot.style.left=mx+'px'; dot.style.top=my+'px';
-  },{passive:true});
-
-  (function cursorRaf(){
-    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
-    ring.style.left=rx+'px'; ring.style.top=ry+'px';
-    requestAnimationFrame(cursorRaf);
-  })();
-
-  /* ═══════════════════════════════════════════
-     REDIRECT  — 8 seconds then go to index.html
-  ═══════════════════════════════════════════ */
-  function goNow(){
-    clearInterval(autoInterval);
-    clearTimeout(autoRedirect);
-    document.body.classList.add('exiting');
-    setTimeout(()=>{ window.location.href='home.html'; }, 850);
-  }
-
-  const autoRedirect = setTimeout(goNow, 8000);
-
-  /* Skip button */
-  document.getElementById('skip-btn').addEventListener('click', goNow);
-
-  /* Any key also skips */
-  document.addEventListener('keydown', goNow);
   </script>
+</body>
 
+</html>
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Suraj Bhoite</title>
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/cursor.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/bg-motion.css" />
+  <link rel="icon" type="image/x-icon" href="fevicon.ico" />
+</head>
+<body>
+
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Live Motion Background -->
+ <canvas id="particles-canvas"></canvas>
+ <div class="motion-orb motion-orb-1"></div>
+ <div class="motion-orb motion-orb-2"></div>
+ <div class="motion-orb motion-orb-3"></div>
+ <div class="motion-orb motion-orb-4"></div>
+ <div class="motion-grid"></div>
+ <div class="motion-scanline"></div>
+
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">// Who I Am</span>
+        <h1 class="section-title">About <span>Me</span></h1>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">A passionate educator, researcher, and mentor shaping the next generation of technologists.</p>
+      </div>
+
+      <div class="about-grid">
+        <!-- Photo -->
+        <div class="about-photo-container reveal-left">
+          <div class="about-photo-wrap">
+            <div style="width:100%; height:500px; background:var(--bg-card); border-radius:var(--border-radius-lg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem;">
+              <img src="assets/faculty img (1).png" alt="Mr. Suraj Bhoite" />
+            </div>
+            <!-- Replace with: <img src="assets/images/faculty_photo.jpg" alt="Mr. Suraj Bhoite" /> -->
+            <div class="about-photo-overlay"></div>
+            <div class="about-photo-info">
+              <div class="about-photo-name">Mr. Suraj Bhoite</div>
+              <div class="about-photo-role">Assistant Professor</div>
+            </div>
+          </div>
+          <div class="about-photo-border"></div>
+          <div class="about-decor-shape"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="about-content reveal-right">
+          <span class="section-tag">// About the Faculty</span>
+          <h2 style="margin-top:1rem">Bridging <span class="gradient-text">Academia</span> & Innovation</h2>
+          <p class="about-tagline">"Education is not the filling of a pail, but the lighting of a fire."</p>
+
+          <div class="about-description">
+            <p>
+              I'm Mr. Suraj Bhoite, an Assistant Professor in the Department of Artificial Intelligence and Data Science
+              at Dr. D. Y. Patil College of Engineering & Innovation, with over 7 years of experience in teaching, research, and academic development.
+              My work is dedicated to advancing Computer Science education and fostering innovation in emerging technologies.
+            </p>
+            <p>
+              My research interests include Artificial Intelligence, Machine Learning, Data Science, and Educational Technology.
+              I have published more than 9 research papers in reputed international journals and conferences,
+              I hold 4 patents for innovative technological solutions, and I have secured 6 copyrights for original intellectual contributions.
+            </p>
+            <p>
+              I teach courses in Data Science, Data Structures, Theory of Computation, and Machine Learning,
+              and I am deeply passionate about mentoring students and cultivating an environment that encourages
+              curiosity, critical thinking, and continuous learning.
+            </p>
+          </div>
+
+          <div class="about-info-grid">
+            <div class="about-info-item">
+              <span class="about-info-label">Designation</span>
+              <span class="about-info-value">Assistant Professor</span>
+            </div>
+            <div class="about-info-item">
+              <span class="about-info-label">Department</span>
+              <span class="about-info-value">Artificial Intelligence & Data Science</span>
+            </div>
+            <div class="about-info-item">
+              <span class="about-info-label">Institution</span>
+              <span class="about-info-value">Dr. D. Y. Patil College of Engineering & Innovations, Pune</span>
+            </div>
+            <div class="about-info-item">
+              <span class="about-info-label">Experience</span>
+              <span class="about-info-value">7+ Years</span>
+            </div>
+
+            <div class="about-info-item">
+              <span class="about-info-label">Membership</span>
+              <span class="about-info-value">ISTE- Member/ M.NO: LM138643</span>
+            </div>
+
+            <div class="about-info-item">
+              <span class="about-info-label">Highest Qualification</span>
+              <span class="about-info-value">M.Tech — Computer Engineering</span>
+            </div>
+          </div>
+
+          <div class="about-expertise">
+            <h4>Research Interests</h4>
+            <div class="expertise-tags">
+              <span class="expertise-tag">Data Science</span>
+              <span class="expertise-tag">Data Structur & Algorithms</span>
+              <span class="expertise-tag">Artificial Intelligence</span>
+              <span class="expertise-tag">Machine Learning</span>
+              <span class="expertise-tag">Deep Learning</span>
+              <span class="expertise-tag">Educational Technology</span>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+            <a href="contact.html" class="btn btn-primary">📬 Contact Me</a>
+            <a href="research.html" class="btn btn-outline">🔬 View Research</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section class="about-achievements">
+    <div class="container">
+      <div class="section-header reveal" style="margin-bottom:3rem;">
+        <span class="section-tag">// By the Numbers</span>
+        <h2 class="section-title">Academic <span>Achievements</span></h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="achievements-grid">
+        <div class="card achievement-card reveal delay-1">
+          <span class="achievement-number" data-count="7" data-suffix="+">0+</span>
+          <span class="achievement-label">Years of Teaching</span>
+        </div>
+        <div class="card achievement-card reveal delay-2">
+          <span class="achievement-number" data-count="9" data-suffix="+">0+</span>
+          <span class="achievement-label">Research Publications</span>
+        </div>
+        <div class="card achievement-card reveal delay-1">
+          <span class="achievement-number" data-count="4" data-suffix="">0+</span>
+          <span class="achievement-label">Patents Granted</span>
+        </div>
+        <div class="card achievement-card reveal delay-2">
+          <span class="achievement-number" data-count="6" data-suffix="">0+</span>
+          <span class="achievement-label">Copyrights</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-copy">
+        © 2026 Copyright &nbsp;|&nbsp; <span>Mr. Suraj Bhoite</span>&nbsp;|&nbsp; <span>Department of Artificial Intelligence & Data Science, DYPCOEI</span> &nbsp;|&nbsp; All Rights Reserved
+      </div>
+      <div class="footer-designed">
+        <span>Designed & Developed By</span>
+        <a href="https://www.linkedin.com/in/sahil-patil-907398267" target="_blank" rel="noopener" class="footer-name">Sahil Patil</a>
+        <span class="footer-divider">l</span>
+        <a href="https://www.linkedin.com/in/dhanshri-kangane" target="_blank" rel="noopener" class="footer-name">Dhanashri Kangane</a>
+        <span class="footer-divider">l</span>
+        <a href="https://www.linkedin.com/in/aarti-ghate" target="_blank" rel="noopener" class="footer-name">Arati Gate</a>
+        <span class="footer-divider">l</span>
+        <a href="https://www.linkedin.com/in/pallavi" target="_blank" rel="noopener" class="footer-name">Pallavi Gaikwad</a>
+      </div>
+      <div><a href="https://www.linkedin.com/in/pallavi" target="_blank" rel="noopener" class="footer-name">DYPCOEI INCUBATION CENTRE</a></div>
+    </div>
+  </footer>
+
+  <script src="js/theme.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/bg-motion.js"></script>
 </body>
 </html>
