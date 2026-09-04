@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
   loadNotes();
   listenRecentActivity();
   setupModal();
-  setupWidget();
   setInterval(refreshRelativeTimes, 30000);
 });
 
@@ -260,19 +259,17 @@ async function logAccess(note, studentInfo) {
   }
 }
 
-/* ---------- Recent activity (table + widget) ---------- */
+/* ---------- Recent activity table ---------- */
 let recentLogs = [];
 
 function listenRecentActivity() {
   const tbody = document.getElementById("activity-table-body");
-  const widgetBody = document.getElementById("widget-body");
-  if (!tbody && !widgetBody) return;
+  if (!tbody) return;
 
   const q = query(collection(db, "noteAccessLogs"), orderBy("accessedAt", "desc"), limit(10));
   onSnapshot(q, (snap) => {
     recentLogs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderActivityTable();
-    renderWidget();
   }, (err) => console.error("Activity listener error:", err));
 }
 
@@ -295,45 +292,9 @@ function renderActivityTable() {
   `).join("");
 }
 
-function renderWidget() {
-  const widgetBody = document.getElementById("widget-body");
-  const countEl = document.getElementById("widget-count");
-  if (!widgetBody) return;
-  const top5 = recentLogs.slice(0, 5);
-  widgetBody.innerHTML = top5.map(log => `
-    <div class="notes-widget-item" data-ts="${log.accessedAt ? log.accessedAt.toMillis() : ""}">
-      <div class="notes-widget-name">${escapeHtml(log.studentName)}</div>
-      <div class="notes-widget-sub">${escapeHtml(log.subject)} • ${escapeHtml(log.unit)} — <span class="wtime">${log.accessedAt ? relativeTime(log.accessedAt) : "just now"}</span></div>
-    </div>
-  `).join("") + `<div class="notes-widget-footer">${recentLogs.length} recent note ${recentLogs.length === 1 ? "access" : "accesses"}</div>`;
-  if (countEl) countEl.textContent = recentLogs.length;
-}
-
 function refreshRelativeTimes() {
   document.querySelectorAll(".activity-time[data-ts]").forEach(el => {
     const ts = Number(el.dataset.ts);
     if (ts) el.textContent = relativeTime(new Date(ts));
-  });
-  document.querySelectorAll(".notes-widget-item[data-ts] .wtime").forEach(el => {
-    const parent = el.closest("[data-ts]");
-    const ts = Number(parent.dataset.ts);
-    if (ts) el.textContent = relativeTime(new Date(ts));
-  });
-}
-
-function setupWidget() {
-  const widget = document.getElementById("notes-widget");
-  const toggle = document.getElementById("widget-toggle");
-  const header = document.getElementById("widget-header");
-  if (!widget) return;
-  const collapse = () => widget.classList.add("collapsed");
-  const expand = () => widget.classList.remove("collapsed");
-
-  toggle?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    widget.classList.contains("collapsed") ? expand() : collapse();
-  });
-  header?.addEventListener("click", () => {
-    if (widget.classList.contains("collapsed")) expand();
   });
 }

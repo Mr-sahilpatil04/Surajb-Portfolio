@@ -111,44 +111,6 @@
 .activity-table tbody tr:hover { background: var(--bg-hover); }
 .activity-time { color: var(--accent-gold); font-family: var(--font-mono); font-size: 0.78rem; }
 
-/* ---------- Floating widget ---------- */
-.notes-widget {
-  position: fixed;
-  right: 1.5rem;
-  bottom: 1.5rem;
-  width: 280px;
-  background: var(--bg-glass);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-lg);
-  z-index: 500;
-  overflow: hidden;
-  transition: var(--transition-med);
-}
-.notes-widget.collapsed { width: 56px; height: 56px; border-radius: 50%; cursor: none; }
-.notes-widget.collapsed .notes-widget-body,
-.notes-widget.collapsed .notes-widget-header span { display: none; }
-.notes-widget.collapsed .notes-widget-header { justify-content: center; height: 100%; padding: 0; }
-
-.notes-widget-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0.85rem 1rem; background: var(--bg-card); cursor: none;
-  font-family: var(--font-sans); font-size: 0.8rem; font-weight: 600; color: var(--text-primary);
-}
-.notes-widget-toggle { background: none; border: none; color: var(--text-secondary); font-size: 1rem; padding: 0.2rem; }
-.notes-widget-body { padding: 0.75rem 1rem 1rem; max-height: 260px; overflow-y: auto; }
-.notes-widget-item { padding: 0.6rem 0; border-top: 1px solid var(--border-subtle); font-family: var(--font-sans); }
-.notes-widget-item:first-child { border-top: none; }
-.notes-widget-name { font-size: 0.82rem; color: var(--text-primary); font-weight: 500; }
-.notes-widget-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.1rem; }
-.notes-widget-footer { font-size: 0.72rem; color: var(--accent-gold); padding-top: 0.5rem; text-align: center; border-top: 1px solid var(--border-subtle); margin-top: 0.25rem; }
-
-@media (max-width: 640px) {
-  .notes-widget { right: 1rem; bottom: 1rem; width: calc(100vw - 2rem); }
-  .notes-widget.collapsed { width: 52px; height: 52px; }
-}
-
 /* =============================================
    ADMIN PANEL
    ============================================= */
