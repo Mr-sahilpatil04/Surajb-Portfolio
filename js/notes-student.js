@@ -3,14 +3,15 @@ import {
   collection, query, where, orderBy, limit, getDocs, addDoc, doc, updateDoc,
   increment, serverTimestamp, onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-import { getNotesStructure, CLASS_OPTIONS, DIVISION_OPTIONS, relativeTime, formatFileSize, fileIcon } from "./notes-common.js";
+import { getNotesStructure, loadSharedNotesStructure, CLASS_OPTIONS, DIVISION_OPTIONS, relativeTime, formatFileSize, fileIcon } from "./notes-common.js";
 
 const SESSION_KEY = "notesStudentInfo";
 let allNotes = [];
 let pendingNote = null;
 
 /* ---------- Init ---------- */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadSharedNotesStructure();
   populateFilterDropdowns();
   populateFormDropdowns();
   loadNotes();

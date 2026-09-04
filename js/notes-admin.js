@@ -8,7 +8,7 @@ import {
   signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, inMemoryPersistence
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 import {
-  getNotesStructure, ensureDefaultSubjects, addCustomSubject, deleteSubject, CLASS_OPTIONS, DIVISION_OPTIONS, ALLOWED_FILE_TYPES, MAX_FILE_SIZE_BYTES,
+  getNotesStructure, ensureDefaultSubjects, saveSharedNotesStructure, addCustomSubject, deleteSubject, CLASS_OPTIONS, DIVISION_OPTIONS, ALLOWED_FILE_TYPES, MAX_FILE_SIZE_BYTES,
   relativeTime, formatFileSize, generateSafeFileName, generateDisplayTitle, fileIcon
 } from "./notes-common.js";
 
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       await signOut(auth);
       return;
     }
-    ensureDefaultSubjects();
+    await ensureDefaultSubjects();
     showDashboard(user, adminDoc.data());
   }));
 
@@ -75,7 +75,7 @@ function showDashboard(user, adminData) {
   loadAll();
 }
 
-function handleAddSubject(e) {
+async function handleAddSubject(e) {
   e.preventDefault();
   const nameInput = document.getElementById("new-subject-name");
   const classInput = document.getElementById("new-subject-class");
@@ -94,12 +94,13 @@ function handleAddSubject(e) {
   }
 
   addCustomSubject(subjectName, className, units);
+  await saveSharedNotesStructure(getNotesStructure());
   document.getElementById("add-subject-form")?.reset();
   populateDropdowns();
   toast(`Subject "${subjectName}" added.`);
 }
 
-function handleDeleteSubject(e) {
+async function handleDeleteSubject(e) {
   e.preventDefault();
   const subjectSelect = document.getElementById("delete-subject-select");
   const subjectName = subjectSelect?.value;
@@ -113,6 +114,7 @@ function handleDeleteSubject(e) {
   if (!confirmDelete) return;
 
   deleteSubject(subjectName);
+  await saveSharedNotesStructure(getNotesStructure());
   populateDropdowns();
   toast(`Subject "${subjectName}" deleted.`);
 }

@@ -33,5 +33,12 @@ service cloud.firestore {
       allow read: if isAdmin();
       allow update, delete: if false;
     }
+
+    // Shared subject catalog — readable by students, editable by admins.
+    match /settings/{settingId} {
+      allow read: if true;
+      allow create, update: if isAdmin();
+      allow delete: if false;
+    }
   }
 }

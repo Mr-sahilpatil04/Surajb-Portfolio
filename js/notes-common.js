@@ -2,6 +2,11 @@
    NOTES — SHARED CONSTANTS & UTILITIES
    ============================================= */
 
+import { db } from "./firebase-config.js";
+import {
+  doc, getDoc, setDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
 // Structure: Subject → Class → [Units]
 // Default subjects are preloaded here; custom additions are saved in localStorage and reused by the UI.
 const DEFAULT_NOTES_STRUCTURE = {
@@ -55,6 +60,7 @@ const DEFAULT_NOTES_STRUCTURE = {
     "BE": []
   }
 };
+const NOTES_STRUCTURE_REF = doc(db, "settings", "notesStructure");
 
 function cloneStructure(value) {
   return JSON.parse(JSON.stringify(value));
@@ -89,17 +95,38 @@ export function saveNotesStructure(structure) {
 }
 
 export function ensureDefaultSubjects() {
-  const structure = getNotesStructure();
-  let changed = false;
+  return loadSharedNotesStructure(true);
+}
 
-  for (const [subjectName, subjectClasses] of Object.entries(DEFAULT_NOTES_STRUCTURE)) {
-    if (!structure[subjectName]) {
-      structure[subjectName] = cloneStructure(subjectClasses);
-      changed = true;
+export async function loadSharedNotesStructure(initializeIfMissing = false) {
+  try {
+    const snapshot = await getDoc(NOTES_STRUCTURE_REF);
+    if (snapshot.exists()) {
+      const shared = snapshot.data().structure;
+      if (shared && typeof shared === "object" && !Array.isArray(shared)) {
+        saveNotesStructure(shared);
+        return shared;
+      }
     }
+
+    if (initializeIfMissing) {
+      const structure = typeof localStorage !== "undefined" && localStorage.getItem("notesStructure") !== null
+        ? getNotesStructure()
+        : cloneStructure(DEFAULT_NOTES_STRUCTURE);
+      await setDoc(NOTES_STRUCTURE_REF, { structure, updatedAt: serverTimestamp() });
+      saveNotesStructure(structure);
+      return structure;
+    }
+  } catch (err) {
+    console.warn("Unable to sync shared notes structure:", err);
   }
 
-  if (changed) saveNotesStructure(structure);
+  return getNotesStructure();
+}
+
+export async function saveSharedNotesStructure(structure) {
+  await setDoc(NOTES_STRUCTURE_REF, { structure, updatedAt: serverTimestamp() });
+  saveNotesStructure(structure);
   return structure;
 }
 
