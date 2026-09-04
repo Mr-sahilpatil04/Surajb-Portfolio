@@ -144,31 +144,33 @@
         <h3 class="contact-form-title">Send a Message</h3>
         <p class="contact-form-sub">I typically respond within 1–2 business days.</p>
 
-        <div id="contact-form">
+        <form id="contact-form" action="https://formsubmit.co/sbhoite94@gmail.com" method="POST" accept-charset="UTF-8">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_subject" value="New contact form submission from website">
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">First Name *</label>
-              <input type="text" class="form-control" placeholder="Your first name" id="fname" />
+              <input type="text" class="form-control" placeholder="Your first name" id="fname" name="first_name" required />
             </div>
             <div class="form-group">
               <label class="form-label">Last Name *</label>
-              <input type="text" class="form-control" placeholder="Your last name" id="lname" />
+              <input type="text" class="form-control" placeholder="Your last name" id="lname" name="last_name" required />
             </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Email Address *</label>
-            <input type="email" class="form-control" placeholder="your.email@example.com" id="email" />
+            <input type="email" class="form-control" placeholder="your.email@example.com" id="email" name="email" required />
           </div>
 
           <div class="form-group">
             <label class="form-label">Organization / Institution</label>
-            <input type="text" class="form-control" placeholder="Your university, company, or organization" id="org" />
+            <input type="text" class="form-control" placeholder="Your university, company, or organization" id="org" name="organization" />
           </div>
 
           <div class="form-group">
             <label class="form-label">Purpose of Contact</label>
-            <select class="form-control" id="purpose" style="cursor:none;">
+            <select class="form-control" id="purpose" name="purpose" style="cursor:none;">
               <option value="" disabled selected>Select a purpose...</option>
               <option value="research">Research Collaboration</option>
               <option value="consulting">Academic Consulting</option>
@@ -180,11 +182,11 @@
 
           <div class="form-group">
             <label class="form-label">Message *</label>
-            <textarea class="form-control" placeholder="Write your message here..." id="message" rows="5"></textarea>
+            <textarea class="form-control" placeholder="Write your message here..." id="message" name="message" rows="5" required></textarea>
           </div>
 
           <div class="form-submit">
-            <button class="btn btn-primary" onclick="handleFormSubmit()" style="width:100%; justify-content:center;">
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
               📨 Send Message
             </button>
           </div>
@@ -194,7 +196,7 @@
             <div style="font-family:var(--font-sans); font-size:0.95rem; color:var(--text-primary);">Message sent successfully!</div>
             <div style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">I'll get back to you within 1–2 business days.</div>
           </div>
-        </div>
+        </form>
       </div>
 
     </div>
@@ -249,12 +251,15 @@
   <script src="js/animations.js"></script>
   <script src="js/bg-motion.js"></script>
   <script>
-    function handleFormSubmit() {
+    const form = document.getElementById('contact-form');
+
+    form.addEventListener('submit', function (event) {
       const fname = document.getElementById('fname').value.trim();
       const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
 
       if (!fname || !email || !message) {
+        event.preventDefault();
         const btn = document.querySelector('.btn-primary');
         btn.textContent = '⚠️ Please fill required fields';
         btn.style.background = 'rgba(192,57,43,0.8)';
@@ -265,10 +270,9 @@
         return;
       }
 
-      // Simulate send
       document.querySelector('.form-submit').style.display = 'none';
       document.getElementById('form-success').style.display = 'block';
-    }
+    });
   </script>
           
 </body>
