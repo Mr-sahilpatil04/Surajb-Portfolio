@@ -5,7 +5,7 @@ import {
   serverTimestamp, where
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import {
-  signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence
+  signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, inMemoryPersistence
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 import {
   getNotesStructure, addCustomSubject, deleteSubject, CLASS_OPTIONS, DIVISION_OPTIONS, ALLOWED_FILE_TYPES, MAX_FILE_SIZE_BYTES,
@@ -17,14 +17,14 @@ let allAccessLogs = [];
 let editingNoteId = null;
 let currentPage = 1;
 const PAGE_SIZE = 15;
-const authPersistenceReady = setPersistence(auth, browserLocalPersistence);
+const authPersistenceReady = setPersistence(auth, inMemoryPersistence);
 
 /* ---------- Auth gate ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login-form")?.addEventListener("submit", handleLogin);
   document.getElementById("logout-btn")?.addEventListener("click", () => signOut(auth));
 
-  onAuthStateChanged(auth, async (user) => {
+  authPersistenceReady.then(() => signOut(auth)).then(() => onAuthStateChanged(auth, async (user) => {
     if (!user) {
       showLogin();
       return;
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     showDashboard(user, adminDoc.data());
-  });
+  }));
 
   document.getElementById("add-subject-form")?.addEventListener("submit", handleAddSubject);
   document.getElementById("delete-subject-form")?.addEventListener("submit", handleDeleteSubject);
@@ -56,7 +56,6 @@ async function handleLogin(e) {
   const err = document.getElementById("admin-login-error");
   err.style.display = "none";
   try {
-    await authPersistenceReady;
     await signInWithEmailAndPassword(auth, email, password);
   } catch (e2) {
     err.textContent = "Invalid email or password.";
