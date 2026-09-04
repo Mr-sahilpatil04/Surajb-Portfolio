@@ -31,7 +31,7 @@ service cloud.firestore {
                       request.resource.data.className is string &&
                       request.resource.data.noteId is string;
       allow read: if isAdmin();
-      allow update, delete: if false;
+      allow update, delete: if isAdmin();
     }
 
     // Shared subject catalog — readable by students, editable by admins.

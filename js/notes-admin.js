@@ -23,6 +23,7 @@ const authPersistenceReady = setPersistence(auth, inMemoryPersistence);
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login-form")?.addEventListener("submit", handleLogin);
   document.getElementById("logout-btn")?.addEventListener("click", () => signOut(auth));
+  document.getElementById("reset-access-btn")?.addEventListener("click", resetAccessHistory);
 
   authPersistenceReady.then(() => signOut(auth)).then(() => onAuthStateChanged(auth, async (user) => {
     if (!user) {
@@ -228,6 +229,37 @@ async function loadAccessLogs() {
   // Fetch the most recent 500 logs for client-side filtering/pagination — adequate at portfolio scale.
   const snap = await getDocs(query(collection(db, "noteAccessLogs"), orderBy("accessedAt", "desc"), limit(500)));
   allAccessLogs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+}
+
+async function resetAccessHistory() {
+  if (!window.confirm("Delete all access history and reset every note counter to zero? This cannot be undone.")) return;
+
+  const button = document.getElementById("reset-access-btn");
+  if (button) {
+    button.disabled = true;
+    button.textContent = "Resetting...";
+  }
+
+  try {
+    const logsSnapshot = await getDocs(collection(db, "noteAccessLogs"));
+    await Promise.all(logsSnapshot.docs.map(log => deleteDoc(doc(db, "noteAccessLogs", log.id))));
+    await Promise.all(allNotes.map(note => updateDoc(doc(db, "notes", note.id), { accessCount: 0 })));
+    allAccessLogs = [];
+    allNotes = allNotes.map(note => ({ ...note, accessCount: 0 }));
+    renderStats();
+    renderNotesTable();
+    renderMostAccessed();
+    renderAccessTable();
+    toast("Access history reset to zero.");
+  } catch (err) {
+    console.error("Failed to reset access history:", err);
+    toast("Could not reset access history. Please try again.");
+  } finally {
+    if (button) {
+      button.disabled = false;
+      button.textContent = "Reset Access History";
+    }
+  }
 }
 
 /* ---------- Stats ---------- */
