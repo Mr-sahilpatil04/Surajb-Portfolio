@@ -212,6 +212,14 @@
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+.admin-credit {
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
 @media (max-width: 640px) {
   .admin-table th:nth-child(n+5), .admin-table td:nth-child(n+5) { display: none; }
 }
