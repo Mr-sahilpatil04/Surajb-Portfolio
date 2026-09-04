@@ -48,7 +48,7 @@
 
     .rc-title    { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: .55rem; line-height: 1.4; }
     .rc-meta     { font-family: var(--font-sans); font-size: .82rem; color: var(--text-muted); margin-bottom: .75rem; }
-    .rc-abstract { font-size: .9rem; color: var(--text-secondary); line-height: 1.72; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .rc-abstract { font-size: .9rem; color: var(--text-secondary); line-height: 1.72; display: -webkit-box; line-clamp: 3; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .rc-footer   { display: flex; align-items: center; justify-content: space-between; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); }
     .rc-year     { font-family: var(--font-mono); font-size: .75rem; color: var(--text-muted); }
     .rc-arrow    { font-size: 1.1rem; color: var(--accent-gold); transition: transform var(--transition-fast); }
@@ -271,13 +271,21 @@
 
         <div class="rc reveal delay-1" data-modal="modal-pt1" tabindex="0">
           <div class="rc-type tt">🔐 Patent — Granted</div>
+          <div class="rc-title">DRUG DELIVERY DEVICE</div>
+          <div class="rc-meta">Patent No: 494469-001 · Filed: 12 March 2026</div>
+          <div class="rc-abstract">Innovative medical device engineered for targeted, precise, and controlled therapeutic drug delivery to improve clinical outcomes and patient compliance.</div>
+          <div class="rc-footer"><span class="rc-badge">✅ Granted</span><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-1" data-modal="modal-pt2" tabindex="0">
+          <div class="rc-type tt">🔐 Patent — Granted</div>
           <div class="rc-title">AI-Powered Predictive Systems for Amputation Risk Assessment in Peripheral Vascular Disease</div>
           <div class="rc-meta">Patent No: 472946-001 · Filed: 9 September 2025</div>
           <div class="rc-abstract">Advanced AI diagnostic tool for early vascular complication assessment and amputation prevention.</div>
           <div class="rc-footer"><span class="rc-badge">✅ Granted</span><span class="rc-arrow">→</span></div>
         </div>
 
-        <div class="rc reveal delay-2" data-modal="modal-pt2" tabindex="0">
+        <div class="rc reveal delay-2" data-modal="modal-pt3" tabindex="0">
           <div class="rc-type tt">🔐 Patent — Granted</div>
           <div class="rc-title">AI-Driven Portable Device for Rapid Oral Cancer Screening and Detection</div>
           <div class="rc-meta">Patent No: 472947-001 · Filed: 9 September 2025</div>
@@ -285,7 +293,15 @@
           <div class="rc-footer"><span class="rc-badge">✅ Granted</span><span class="rc-arrow">→</span></div>
         </div>
 
-        <div class="rc reveal delay-3" data-modal="modal-pt3" tabindex="0">
+        <div class="rc reveal delay-2" data-modal="modal-pt4" tabindex="0">
+          <div class="rc-type tt">🔐 Patent — Granted</div>
+          <div class="rc-title">A Robust Multi-Model Machine Learning Paradigm for Hourly Solar Energy Prediction</div>
+          <div class="rc-meta">Patent No: 471862-001 · Filed: 30 August 2025</div>
+          <div class="rc-abstract">An advanced multi-model machine learning framework designed for high-accuracy, hourly solar energy forecasting, optimizing renewable grid efficiency and power distribution.</div>
+          <div class="rc-footer"><span class="rc-badge">✅ Granted</span><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-3" data-modal="modal-pt5" tabindex="0">
           <div class="rc-type tt">🔐 Patent — Granted</div>
           <div class="rc-title">Artificial Intelligence Based Stress Detection Device</div>
           <div class="rc-meta">Patent No: 443868-001 · Filed: 11 January 2025</div>
@@ -293,7 +309,7 @@
           <div class="rc-footer"><span class="rc-badge">✅ Granted</span><span class="rc-arrow">→</span></div>
         </div>
 
-        <div class="rc reveal delay-4" data-modal="modal-pt4" tabindex="0">
+        <div class="rc reveal delay-4" data-modal="modal-pt6" tabindex="0">
           <div class="rc-type tt">🔐 Patent — Granted</div>
           <div class="rc-title">Blockchain Based Medical Data Storing Device</div>
           <div class="rc-meta">Patent No: 417223-001 · Filed: 15 July 2024</div>
@@ -852,7 +868,20 @@
   </div></div>
 
   <!-- ═══════════ MODALS — Patents ═══════════ -->
-  <div class="modal-overlay" id="modal-pt1"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt1')">✕</button>
+   <div class="modal-overlay" id="modal-pt1"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt1')">✕</button>
+    <div class="rc-type tt">🔐 Patent — Granted</div>
+    <h2 class="m-title">Drug Delivery Device</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🔢 <strong>494469-001</strong></div>
+      <div class="m-meta-item">📅 Filed:12 March 2026</div>
+      <div class="m-meta-item">✅ Status: Granted</div>
+    </div>
+    <div class="m-section-lbl">Description</div>
+    <p class="m-abstract">This Design Registration (Design No. 494469-001), granted by the Patent Office, Government of India, on March 12, 2026, under Class 24-01, protects the novel design and aesthetic configuration of a "DRUG DELIVERY DEVICE". Developed by a multi-disciplinary team comprising Mr. Suraj Shivaji Bhoite, Mrs. Sarita Gopinath Kalokhe, Devayani Girasey, Richa Sharma, Ms. Mrunali Manohar Bhong, and Mrs. Jayshree Navnath Pohkar, the device is tailored for clinical and biomedical applications. Class 24-01 specifically covers medical equipment, lab apparatus, and specialized pharmaceutical containers, highlighting the device's application in targeted, precise, and controlled therapeutic administration. By combining ergonomic functionality with modern design standards, this innovation aims to enhance treatment efficacy, improve patient compliance, and support streamlined drug administration across medical environments.</p>
+    <a href="{css,js,assets\Research\Patent\Patent_March_2026.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Patent Record →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-pt2"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt2')">✕</button>
     <div class="rc-type tt">🔐 Patent — Granted</div>
     <h2 class="m-title">AI-Powered Predictive Systems for Amputation Risk Assessment in Peripheral Vascular Disease</h2>
     <div class="m-meta">
@@ -865,7 +894,7 @@
     <a href="{css,js,assets\Research\Patent\Patent_September_2025(2).pdf" target="_blank" rel="noopener" class="m-link">🔗 View Patent Record →</a>
   </div></div>
 
-  <div class="modal-overlay" id="modal-pt2"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt2')">✕</button>
+  <div class="modal-overlay" id="modal-pt3"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt3')">✕</button>
     <div class="rc-type tt">🔐 Patent — Granted</div>
     <h2 class="m-title">AI-Driven Portable Device for Rapid Oral Cancer Screening and Detection</h2>
     <div class="m-meta">
@@ -878,7 +907,20 @@
     <a href="{css,js,assets\Research\Patent\Patent_September_2025.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Patent Record →</a>
   </div></div>
 
-  <div class="modal-overlay" id="modal-pt3"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt3')">✕</button>
+  <div class="modal-overlay" id="modal-pt4"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt4')">✕</button>
+    <div class="rc-type tt">🔐 Patent — Granted</div>
+    <h2 class="m-title">A Robust Multi-Model Machine Learning Paradigm for Hourly Solar Energy Prediction</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🔢 <strong>471862-001</strong></div>
+      <div class="m-meta-item">📅 Filed: 30 August 2025</div>
+      <div class="m-meta-item">✅ Status: Granted</div>
+    </div>
+    <div class="m-section-lbl">Description</div>
+    <p class="m-abstract">This Design Registration (Design No. 471862-001), granted by the Patent Office, Government of India, on August 30, 2025, under Class 14-02, protects the proprietary visual and structural design for "A ROBUST MULTI-MODEL MACHINE LEARNING PARADIGM FOR HOURLY SOLAR ENERGY PREDICTION". Developed jointly by Mr. Suraj Shivaji Bhoite, Ms. Swapnali K. Londhe, Ms. Pooja Hande, Mrs. Manjiree Otari, and Ms. Ankita Sunil Bonde, the technology integrates an advanced, multi-model artificial intelligence architecture engineered to deliver precise, hourly solar power generation forecasts. By capturing high-frequency variations in solar exposure, the system provides real-time predictive analytics to optimize renewable power grid integration, streamline energy storage deployment, and enhance overall load balancing efficiency for modern clean energy infrastructure.</p>
+    <a href="{css,js,assets\Research\Patent\Patent_August_2025.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Patent Record →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-pt5"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt5')">✕</button>
     <div class="rc-type tt">🔐 Patent — Granted</div>
     <h2 class="m-title">Artificial Intelligence Based Stress Detection Device</h2>
     <div class="m-meta">
@@ -891,7 +933,7 @@
     <a href="{css,js,assets\Research\Patent\Patent_January_2025.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Patent Record →</a>
   </div></div>
 
-  <div class="modal-overlay" id="modal-pt4"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt4')">✕</button>
+  <div class="modal-overlay" id="modal-pt6"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt6')">✕</button>
     <div class="rc-type tt">🔐 Patent — Granted</div>
     <h2 class="m-title">Blockchain Based Medical Data Storing Device</h2>
     <div class="m-meta">
