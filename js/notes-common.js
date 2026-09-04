@@ -88,6 +88,21 @@ export function saveNotesStructure(structure) {
   NOTES_STRUCTURE = getNotesStructure();
 }
 
+export function ensureDefaultSubjects() {
+  const structure = getNotesStructure();
+  let changed = false;
+
+  for (const [subjectName, subjectClasses] of Object.entries(DEFAULT_NOTES_STRUCTURE)) {
+    if (!structure[subjectName]) {
+      structure[subjectName] = cloneStructure(subjectClasses);
+      changed = true;
+    }
+  }
+
+  if (changed) saveNotesStructure(structure);
+  return structure;
+}
+
 export function addCustomSubject(subjectName, className, units = []) {
   const cleanedName = String(subjectName || "").trim();
   if (!cleanedName) return getNotesStructure();

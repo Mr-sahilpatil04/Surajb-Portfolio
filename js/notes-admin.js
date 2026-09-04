@@ -8,7 +8,7 @@ import {
   signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, inMemoryPersistence
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 import {
-  getNotesStructure, addCustomSubject, deleteSubject, CLASS_OPTIONS, DIVISION_OPTIONS, ALLOWED_FILE_TYPES, MAX_FILE_SIZE_BYTES,
+  getNotesStructure, ensureDefaultSubjects, addCustomSubject, deleteSubject, CLASS_OPTIONS, DIVISION_OPTIONS, ALLOWED_FILE_TYPES, MAX_FILE_SIZE_BYTES,
   relativeTime, formatFileSize, generateSafeFileName, generateDisplayTitle, fileIcon
 } from "./notes-common.js";
 
@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       await signOut(auth);
       return;
     }
+    ensureDefaultSubjects();
     showDashboard(user, adminDoc.data());
   }));
 
