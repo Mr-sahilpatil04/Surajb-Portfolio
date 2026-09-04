@@ -100,6 +100,17 @@
 
 .access-form-submit { width: 100%; justify-content: center; margin-top: 0.5rem; }
 
+/* ---------- Recent activity table ---------- */
+.activity-section { padding: 1rem 0 4rem; }
+.activity-table-wrap { overflow-x: auto; border-radius: var(--border-radius); border: 1px solid var(--border-color); }
+.activity-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: 0.85rem; }
+.activity-table th, .activity-table td { padding: 0.85rem 1rem; text-align: left; white-space: nowrap; }
+.activity-table thead { background: var(--bg-card); }
+.activity-table th { color: var(--text-secondary); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.activity-table tbody tr { border-top: 1px solid var(--border-subtle); }
+.activity-table tbody tr:hover { background: var(--bg-hover); }
+.activity-time { color: var(--accent-gold); font-family: var(--font-mono); font-size: 0.78rem; }
+
 /* =============================================
    ADMIN PANEL
    ============================================= */
