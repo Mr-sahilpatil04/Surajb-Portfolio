@@ -123,7 +123,7 @@ function renderFilteredNotes() {
       <div class="note-card-info">
         <span><span>Size</span><span>${formatFileSize(note.fileSize)}</span></span>
         <span><span>Uploaded</span><span>${note.createdAt ? relativeTime(note.createdAt) : "—"}</span></span>
-        <span><span>By</span><span>${escapeHtml(note.uploadedBy || "Faculty")}</span></span>
+        <span><span>By</span><span>Mr. Suraj Bhoite</span></span>
         <span><span>Accessed</span><span>${note.accessCount || 0} times</span></span>
       </div>
       <div class="note-card-actions">
