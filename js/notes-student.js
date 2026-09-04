@@ -1,7 +1,7 @@
 import { db } from "./firebase-config.js";
 import {
   collection, query, where, orderBy, getDocs, addDoc, doc, updateDoc,
-  increment, serverTimestamp, limit, onSnapshot
+  increment, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { getNotesStructure, loadSharedNotesStructure, CLASS_OPTIONS, DIVISION_OPTIONS, relativeTime, formatFileSize, fileIcon } from "./notes-common.js";
 
@@ -14,9 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   populateFilterDropdowns();
   populateFormDropdowns();
   loadNotes();
-  listenRecentActivity();
   setupModal();
-  setInterval(refreshRelativeTimes, 30000);
 });
 
 function populateFilterDropdowns() {
@@ -263,42 +261,3 @@ async function logAccess(note, studentInfo) {
   }
 }
 
-/* ---------- Recent activity table ---------- */
-let recentLogs = [];
-
-function listenRecentActivity() {
-  const tbody = document.getElementById("activity-table-body");
-  if (!tbody) return;
-
-  const activityQuery = query(collection(db, "noteAccessLogs"), orderBy("accessedAt", "desc"), limit(10));
-  onSnapshot(activityQuery, (snapshot) => {
-    recentLogs = snapshot.docs.map(item => ({ id: item.id, ...item.data() }));
-    renderActivityTable();
-  }, (err) => console.error("Activity listener error:", err));
-}
-
-function renderActivityTable() {
-  const tbody = document.getElementById("activity-table-body");
-  if (!tbody) return;
-  if (!recentLogs.length) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);">No activity yet.</td></tr>`;
-    return;
-  }
-  tbody.innerHTML = recentLogs.map(log => `
-    <tr>
-      <td>${escapeHtml(log.studentName)}</td>
-      <td>${escapeHtml(log.subject)}</td>
-      <td>${escapeHtml(log.unit)}</td>
-      <td>${escapeHtml(log.noteTitle)}</td>
-      <td>${escapeHtml(log.className)} ${log.division ? `- ${escapeHtml(log.division)}` : ""}</td>
-      <td class="activity-time" data-ts="${log.accessedAt ? log.accessedAt.toMillis() : ""}">${log.accessedAt ? relativeTime(log.accessedAt) : "just now"}</td>
-    </tr>
-  `).join("");
-}
-
-function refreshRelativeTimes() {
-  document.querySelectorAll(".activity-time[data-ts]").forEach(el => {
-    const timestamp = Number(el.dataset.ts);
-    if (timestamp) el.textContent = relativeTime(new Date(timestamp));
-  });
-}
