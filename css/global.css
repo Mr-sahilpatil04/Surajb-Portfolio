@@ -28,6 +28,7 @@ body {
 }
 
 body.cursor-default { cursor: default; }
+body.cursor-default button { cursor: pointer; }
 
 a {
   color: inherit;
