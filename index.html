@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/navbar.css" />
   <link rel="stylesheet" href="css/cursor.css" />
   <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/pages.css" />
   <link rel="icon" type="image/x-icon" href="fevicon.ico" />
 </head>
 <body>
@@ -185,43 +186,21 @@
     </div>
   </section>
 
-  <script src="js/theme.js"></script>
-  <script src="js/cursor.js"></script>
-  <script src="js/navbar.js"></script>
-  <script src="js/animations.js"></script>
-  <script>
-    // Counter animation for stats on hero
-    document.addEventListener('DOMContentLoaded', () => {
-      const counters = document.querySelectorAll('[data-count]');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !entry.target.dataset.counted) {
-            entry.target.dataset.counted = true;
-            const el = entry.target;
-            const target = parseInt(el.dataset.count);
-            const suffix = el.dataset.suffix || '';
-            let count = 0;
-            const inc = target / 60;
-            const timer = setInterval(() => {
-              count = Math.min(count + inc, target);
-              el.textContent = Math.floor(count) + suffix;
-              if (count >= target) clearInterval(timer);
-            }, 25);
-          }
-        });
-      }, { threshold: 0.5 });
-      counters.forEach(c => observer.observe(c));
-    });
-  </script>
-</body>
+  <section class="about-hero">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">// Who I Am</span>
+        <h1 class="section-title">About <span>Me</span></h1>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">A passionate educator, researcher, and mentor shaping the next generation of technologists.</p>
+      </div>
 
-</html>
+      <div class="about-grid">
         <div class="about-photo-container reveal-left">
           <div class="about-photo-wrap">
             <div style="width:100%; height:500px; background:var(--bg-card); border-radius:var(--border-radius-lg); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem;">
               <img src="assets/faculty img (1).png" alt="Mr. Suraj Bhoite" />
             </div>
-            <!-- Replace with: <img src="assets/images/faculty_photo.jpg" alt="Mr. Suraj Bhoite" /> -->
             <div class="about-photo-overlay"></div>
             <div class="about-photo-info">
               <div class="about-photo-name">Mr. Suraj Bhoite</div>
@@ -232,7 +211,6 @@
           <div class="about-decor-shape"></div>
         </div>
 
-        <!-- Content -->
         <div class="about-content reveal-right">
           <span class="section-tag">// About the Faculty</span>
           <h2 style="margin-top:1rem">Bridging <span class="gradient-text">Academia</span> & Innovation</h2>
@@ -273,12 +251,10 @@
               <span class="about-info-label">Experience</span>
               <span class="about-info-value">7+ Years</span>
             </div>
-
             <div class="about-info-item">
               <span class="about-info-label">Membership</span>
               <span class="about-info-value">ISTE- Member/ M.NO: LM138643</span>
             </div>
-
             <div class="about-info-item">
               <span class="about-info-label">Highest Qualification</span>
               <span class="about-info-value">M.Tech — Computer Engineering</span>
@@ -306,7 +282,6 @@
     </div>
   </section>
 
-  <!-- Achievements -->
   <section class="about-achievements">
     <div class="container">
       <div class="section-header reveal" style="margin-bottom:3rem;">
@@ -324,35 +299,45 @@
           <span class="achievement-label">Research Publications</span>
         </div>
         <div class="card achievement-card reveal delay-1">
-          <span class="achievement-number" data-count="6" data-suffix="">0+</span>
+          <span class="achievement-number" data-count="6" data-suffix="+">0+</span>
           <span class="achievement-label">Patents Granted</span>
         </div>
         <div class="card achievement-card reveal delay-2">
-          <span class="achievement-number" data-count="6" data-suffix="">0+</span>
+          <span class="achievement-number" data-count="6" data-suffix="+">0+</span>
           <span class="achievement-label">Copyrights</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ FOOTER ══ -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-copy">
-        © 2026 Copyright &nbsp;|&nbsp; <span>Mr. Suraj Bhoite</span>&nbsp;|&nbsp; <span>Department of Artificial Intelligence & Data Science, DYPCOEI</span> &nbsp;|&nbsp; All Rights Reserved
-      </div>
-      <div class="footer-designed">
-        <span>Designed & Developed By</span>
-        <a href="https://www.linkedin.com/in/sahil-patil-907398267" target="_blank" rel="noopener" class="footer-name">Sahil Patil</a>
-        <span class="footer-divider">l</span>
-      </div>
-    </div>
-  </footer>
-
   <script src="js/theme.js"></script>
   <script src="js/cursor.js"></script>
   <script src="js/navbar.js"></script>
   <script src="js/animations.js"></script>
-  <script src="js/bg-motion.js"></script>
+  <script>
+    // Counter animation for stats on hero
+    document.addEventListener('DOMContentLoaded', () => {
+      const counters = document.querySelectorAll('[data-count]');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.dataset.counted) {
+            entry.target.dataset.counted = true;
+            const el = entry.target;
+            const target = parseInt(el.dataset.count);
+            const suffix = el.dataset.suffix || '';
+            let count = 0;
+            const inc = target / 60;
+            const timer = setInterval(() => {
+              count = Math.min(count + inc, target);
+              el.textContent = Math.floor(count) + suffix;
+              if (count >= target) clearInterval(timer);
+            }, 25);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(c => observer.observe(c));
+    });
+  </script>
 </body>
+
 </html>
