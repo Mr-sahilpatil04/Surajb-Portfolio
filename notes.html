@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes — Suraj Bhoite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/cursor.css" />
+  <link rel="stylesheet" href="css/bg-motion.css" />
+  <link rel="stylesheet" href="css/notes.css" />
+  <link rel="icon" type="image/x-icon" href="fevicon.ico" />
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Motion Background -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="motion-orb motion-orb-1"></div>
+  <div class="motion-orb motion-orb-2"></div>
+  <div class="motion-orb motion-orb-3"></div>
+  <div class="motion-orb motion-orb-4"></div>
+  <div class="motion-grid"></div>
+  <div class="motion-scanline"></div>
+  <div class="motion-corner motion-corner-tl"></div>
+  <div class="motion-corner motion-corner-br"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">SB</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Mr. Suraj Bhoite</span>
+          <span class="nav-logo-title">Assistant Professor</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html"      class="nav-link">Home</a>
+        <a href="about.html"      class="nav-link">About</a>
+        <a href="skills.html"     class="nav-link">Skills</a>
+        <a href="experience.html" class="nav-link">Experience</a>
+        <a href="research.html"   class="nav-link">Research</a>
+        <a href="courses.html"    class="nav-link">Certificates</a>
+        <a href="notes.html"      class="nav-link active">Notes</a>
+        <a href="gallery.html"    class="nav-link">Gallery</a>
+        <a href="contact.html"    class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle">
+          <span class="theme-icon-dark">🌙</span>
+          <span class="theme-icon-light">☀️</span>
+        </button>
+        <button class="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu">
+    <a href="index.html"      class="nav-link">🏠 Home</a>
+    <a href="about.html"      class="nav-link">👤 About</a>
+    <a href="skills.html"     class="nav-link">⚡ Skills</a>
+    <a href="experience.html" class="nav-link">💼 Experience</a>
+    <a href="research.html"   class="nav-link">🔬 Research</a>
+    <a href="courses.html"    class="nav-link">🎓 Certificates</a>
+    <a href="notes.html"      class="nav-link active">📒 Notes</a>
+    <a href="gallery.html"    class="nav-link">🖼️ Gallery</a>
+    <a href="contact.html"    class="nav-link">📬 Contact</a>
+  </div>
+
+  <!-- ═══════════ MAIN CONTENT ═══════════ -->
+  <main>
+    <div class="container">
+      <section class="notes-hero">
+        <div class="section-tag">📒 Study Resources</div>
+        <h1 class="section-title"><span class="gold">Notes</span></h1>
+        <p class="section-subtitle">Lecture notes and reference material, organized by class and unit.</p>
+      </section>
+
+      <div class="notes-filter-row">
+        <select id="filter-subject"><option value="">All Subjects</option></select>
+        <select id="filter-class"><option value="">All Classes</option></select>
+        <select id="filter-unit"><option value="">All Units</option></select>
+      </div>
+
+      <div id="notes-grid" class="notes-grid">
+        <div class="notes-empty">Loading notes…</div>
+      </div>
+    </div>
+
+    <!-- Recent Notes Activity -->
+    <section class="activity-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">🕒 Live</span>
+          <h2 class="section-title">Recent Notes <span class="gold">Activity</span></h2>
+        </div>
+        <div class="activity-table-wrap">
+          <table class="activity-table">
+            <thead>
+              <tr><th>Student</th><th>Subject</th><th>Unit</th><th>Note</th><th>Class / Div</th><th>Accessed</th></tr>
+            </thead>
+            <tbody id="activity-table-body">
+              <tr><td colspan="6" style="text-align:center;color:var(--text-muted);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Instant Access Form Modal (native <dialog> — browser-rendered, immune to CSS stacking issues) -->
+  <dialog id="access-modal" class="access-dialog">
+    <div class="access-form-box">
+      <button type="button" class="modal-close" id="access-modal-close">✕</button>
+      <div class="access-form-title">Quick access</div>
+      <p class="access-form-sub">A couple of details before opening the note — this helps us track resource usage.</p>
+      <form id="access-form">
+        <div class="access-form-group">
+          <label for="access-name">Full Name</label>
+          <input type="text" id="access-name" required autocomplete="name" />
+        </div>
+        <div class="access-form-group">
+          <label for="access-class">Class</label>
+          <select id="access-class" required><option value="" disabled selected>Select class</option></select>
+        </div>
+        <div class="access-form-group">
+          <label for="access-division">Division</label>
+          <select id="access-division" required><option value="" disabled selected>Select division</option></select>
+        </div>
+        <div class="access-form-error" id="access-form-error"></div>
+        <button type="submit" class="btn btn-primary access-form-submit">Continue / Open Note →</button>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Floating Access Activity Widget -->
+  <div class="notes-widget" id="notes-widget">
+    <div class="notes-widget-header" id="widget-header">
+      <span>🔔 Recent Access (<span id="widget-count">0</span>)</span>
+      <button class="notes-widget-toggle" id="widget-toggle">–</button>
+    </div>
+    <div class="notes-widget-body" id="widget-body"></div>
+  </div>
+
+  <script src="js/theme.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/bg-motion.js"></script>
+  <script type="module" src="js/notes-student.js"></script>
+  <script>
+    /* Hamburger */
+    const ham = document.querySelector('.hamburger');
+    const mob = document.querySelector('.mobile-menu');
+    if (ham) ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      mob.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

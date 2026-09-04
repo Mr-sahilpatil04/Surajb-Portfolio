@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Suraj Bhoite</title>
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/cursor.css" />
+  <link rel="stylesheet" href="css/secondary-pages.css" />
+  <link rel="stylesheet" href="css/bg-motion.css" />
+  <link rel="icon" type="image/x-icon" href="fevicon.ico" />
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Live Motion Background -->
+ <canvas id="particles-canvas"></canvas>
+ <div class="motion-orb motion-orb-1"></div>
+ <div class="motion-orb motion-orb-2"></div>
+ <div class="motion-orb motion-orb-3"></div>
+ <div class="motion-orb motion-orb-4"></div>
+ <div class="motion-grid"></div>
+ <div class="motion-scanline"></div>
+ <div class="motion-corner motion-corner-tl"></div>
+ <div class="motion-corner motion-corner-br"></div>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">SB</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Mr. Suraj Bhoite</span>
+          <span class="nav-logo-title">Assistant Professor</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">Profile</a>
+        <a href="skills.html" class="nav-link">Skills</a>
+        <a href="experience.html" class="nav-link">Experience</a>
+        <a href="research.html" class="nav-link">Research</a>
+        <a href="courses.html" class="nav-link">Certificates</a>
+        <a href="notes.html"   class="nav-link">Notes</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle"><span class="theme-icon-dark">🌙</span><span class="theme-icon-light">☀️</span></button>
+        <button class="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html" class="nav-link">🏠 Home</a>
+    <a href="about.html" class="nav-link">👤 Profile</a>
+    <a href="skills.html" class="nav-link">⚡ Skills</a>
+    <a href="experience.html" class="nav-link">💼 Experience</a>
+    <a href="research.html" class="nav-link">🔬 Research</a>
+    <a href="courses.html" class="nav-link">🎓 Certificates</a>
+    <a href="notes.html" class="nav-link">📒 Notes</a>
+    <a href="gallery.html" class="nav-link">🖼️ Gallery</a>
+    <a href="contact.html" class="nav-link active">📬 Contact</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="contact-hero">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag">// Reach Out</span>
+        <h1 class="section-title" style="margin-top:0.5rem">Get In <span>Touch</span></h1>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Whether it's collaboration, research, consultancy, or just a conversation — I'm always happy to connect.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Layout -->
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- Left: Info -->
+      <div class="reveal-left">
+        <h2 class="contact-info-title">Contact <span class="gradient-text">Information</span></h2>
+        <p class="contact-info-sub">Feel free to reach out for academic collaborations, research partnerships, speaking engagements, or student mentorship.</p>
+
+        <div class="contact-items">
+          <a href="mailto:arsharma@university.edu.in" class="contact-item">
+            <div class="contact-item-icon">📧</div>
+            <div class="contact-item-info">
+              <div class="contact-item-label">Email (Official)</div>
+              <div class="contact-item-value">sbhoite94@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="mailto:ananya.r.sharma@gmail.com" class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-info">
+              <div class="contact-item-label">Email (Personal)</div>
+              <div class="contact-item-value">sbhoite94@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="tel:+919876543210" class="contact-item">
+            <div class="contact-item-icon">📱</div>
+            <div class="contact-item-info">
+              <div class="contact-item-label">Mobile</div>
+              <div class="contact-item-value">(+91) 9922372083</div>
+            </div>
+          </a>
+
+          <div class="contact-item" style="cursor:default;">
+            <div class="contact-item-icon">🏛️</div>
+            <div class="contact-item-info">
+              <div class="contact-item-label">Address</div>
+              <div class="contact-item-value"> Old Sangvi, Pimpri-Chinchawad, Pune, Maharashtra, India - 411027</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Social Links -->
+        <div style="margin-bottom:1rem;">
+          <div style="font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); margin-bottom:1rem;">Connect Online</div>
+          <div class="contact-social-links">
+            <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener" class="contact-social-link" data-tooltip="LinkedIn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="https://scholar.google.com/citations?user=your-id" target="_blank" rel="noopener" class="contact-social-link" data-tooltip="Google Scholar">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+            </a>
+            <a href="https://researchgate.net/profile/your-profile" target="_blank" rel="noopener" class="contact-social-link" data-tooltip="ResearchGate">RG</a>
+            <a href="https://orcid.org/your-orcid" target="_blank" rel="noopener" class="contact-social-link" data-tooltip="ORCID">iD</a>
+            <a href="https://twitter.com/your-handle" target="_blank" rel="noopener" class="contact-social-link" data-tooltip="Twitter / X">𝕏</a>
+            <a href="https://github.com/your-handle" target="_blank" rel="noopener" class="contact-social-link" data-tooltip="GitHub">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="contact-form-wrap reveal-right">
+        <h3 class="contact-form-title">Send a Message</h3>
+        <p class="contact-form-sub">I typically respond within 1–2 business days.</p>
+
+        <div id="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name *</label>
+              <input type="text" class="form-control" placeholder="Your first name" id="fname" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name *</label>
+              <input type="text" class="form-control" placeholder="Your last name" id="lname" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address *</label>
+            <input type="email" class="form-control" placeholder="your.email@example.com" id="email" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Organization / Institution</label>
+            <input type="text" class="form-control" placeholder="Your university, company, or organization" id="org" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Purpose of Contact</label>
+            <select class="form-control" id="purpose" style="cursor:none;">
+              <option value="" disabled selected>Select a purpose...</option>
+              <option value="research">Research Collaboration</option>
+              <option value="consulting">Academic Consulting</option>
+              <option value="speaking">Speaking / Keynote</option>
+              <option value="student">Student Mentorship</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Message *</label>
+            <textarea class="form-control" placeholder="Write your message here..." id="message" rows="5"></textarea>
+          </div>
+
+          <div class="form-submit">
+            <button class="btn btn-primary" onclick="handleFormSubmit()" style="width:100%; justify-content:center;">
+              📨 Send Message
+            </button>
+          </div>
+
+          <div id="form-success" style="display:none; margin-top:1.5rem; padding:1.25rem; background:rgba(32,178,170,0.1); border:1px solid rgba(32,178,170,0.3); border-radius:var(--border-radius-sm); text-align:center;">
+            <div style="font-size:1.5rem; margin-bottom:0.5rem;">✅</div>
+            <div style="font-family:var(--font-sans); font-size:0.95rem; color:var(--text-primary);">Message sent successfully!</div>
+            <div style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">I'll get back to you within 1–2 business days.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Office / Campus Info -->
+  <section class="contact-office">
+    <div class="container">
+      <div class="section-header reveal" style="margin-bottom:3rem;">
+        <span class="section-tag">// Visit Us</span>
+        <h2 class="section-title">Campus & <span>Office</span></h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="office-grid">
+        <div class="card office-card reveal delay-1">
+          <div style="font-size:2.5rem; margin-bottom:1rem;">🏛️</div>
+          <h4>Main Campus</h4>
+          <p>Dr. D. Y. College of Engineering & Innovation<br>Varale, Talegaon Dabhade, Pune – 410507</p>
+        </div>
+        <div class="card office-card reveal delay-2">
+          <div style="font-size:2.5rem; margin-bottom:1rem;">💻</div>
+          <h4>AI & DS Department</h4>
+          <p>DYPCOEI, Lab No.103, 1st Floor<br>Open: Mon–Sat, 9:30 AM – 4:00 PM</p>
+        </div>
+        <div class="card office-card reveal delay-4">
+          <div style="font-size:2.5rem; margin-bottom:1rem;">🗺️</div>
+          <h4>How to Reach</h4>
+          <p>Dr. D Y Patil College of Engineering & Innovation, Varale, Talegaon, Pune 27/A/1/2C, Varale, Maharashtra 410507<br>
+          <a href="https://maps.app.goo.gl/uEEatjY5GrebPcsK6" target="_blank" rel="noopener" style="color:var(--accent-gold);">Open in Google Maps →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-copy">
+        © 2026 Copyright &nbsp;|&nbsp; <span>Mr. Suraj Bhoite</span>&nbsp;|&nbsp; <span>Department of Artificial Intelligence & Data Science, DYPCOEI</span> &nbsp;|&nbsp; All Rights Reserved
+      </div>
+      <div class="footer-designed">
+        <span>Designed & Developed By</span>
+        <a href="https://www.linkedin.com/in/sahil-patil-907398267" target="_blank" rel="noopener" class="footer-name">Sahil Patil</a>
+        <span class="footer-divider">l</span>
+        <a href="https://www.linkedin.com/in/dhanshri-kangane" target="_blank" rel="noopener" class="footer-name">Dhanashri Kangane</a>
+        <span class="footer-divider">l</span>
+        <a href="https://www.linkedin.com/in/aarti-ghate" target="_blank" rel="noopener" class="footer-name">Arati Gate</a>
+        <span class="footer-divider">l</span>
+        <a href="https://www.linkedin.com/in/pallavi" target="_blank" rel="noopener" class="footer-name">Pallavi Gaikwad</a>
+      </div>
+      <div><a href="https://www.linkedin.com/in/pallavi" target="_blank" rel="noopener" class="footer-name">DYPCOEI INCUBATION CENTRE</a></div>
+    </div>
+  </footer>
+
+  <script src="js/theme.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/bg-motion.js"></script>
+  <script>
+    function handleFormSubmit() {
+      const fname = document.getElementById('fname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!fname || !email || !message) {
+        const btn = document.querySelector('.btn-primary');
+        btn.textContent = '⚠️ Please fill required fields';
+        btn.style.background = 'rgba(192,57,43,0.8)';
+        setTimeout(() => {
+          btn.innerHTML = '📨 Send Message';
+          btn.style.background = '';
+        }, 2500);
+        return;
+      }
+
+      // Simulate send
+      document.querySelector('.form-submit').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    }
+  </script>
+          
+</body>
+</html>

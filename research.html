@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research — Suraj Bhoite</title>
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/cursor.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/bg-motion.css" />
+  <link rel="icon" type="image/x-icon" href="fevicon.ico" />
+  <style>
+    .research-hero { position: relative; padding: 8rem 0 4rem; text-align: center; overflow: hidden; }
+    .r-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .18; pointer-events: none; }
+    .r-orb-1 { width: 480px; height: 480px; background: radial-gradient(circle, var(--accent-gold), transparent); top: -120px; right: -80px; }
+    .r-orb-2 { width: 360px; height: 360px; background: radial-gradient(circle, var(--accent-blue), transparent); bottom: -60px; left: -60px; }
+
+    .stat-strip { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
+    .stat-chip { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 1.4rem 2rem; min-width: 130px; text-align: center; transition: var(--transition-med); }
+    .stat-chip:hover { border-color: var(--accent-gold); box-shadow: var(--shadow-gold); transform: translateY(-3px); }
+    .stat-chip-num { font-family: var(--font-display); font-size: 2.1rem; font-weight: 900; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
+    .stat-chip-lbl { font-family: var(--font-mono); font-size: .67rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-top: .3rem; }
+
+    .r-tab-bar { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; padding: 2.5rem 0 0; }
+    .r-tab { display: inline-flex; align-items: center; gap: .55rem; padding: .8rem 1.6rem; border-radius: var(--border-radius-full); font-family: var(--font-sans); font-size: .88rem; font-weight: 500; background: var(--bg-card); border: 1.5px solid var(--border-color); color: var(--text-secondary); transition: var(--transition-med); cursor: pointer; }
+    .r-tab:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+    .r-tab.active { background: var(--gradient-gold); border-color: transparent; color: #0a0e1a; font-weight: 700; box-shadow: 0 4px 20px rgba(212,175,55,.38); }
+    .tab-count { background: rgba(255,255,255,.25); border-radius: 999px; padding: .1rem .55rem; font-size: .72rem; font-weight: 700; }
+    .r-tab.active .tab-count { background: rgba(10,14,26,.2); }
+
+    .r-panel { display: none; padding: 3rem 0 6rem; animation: fadeInUp .45s ease; }
+    .r-panel.active { display: block; }
+
+    .r-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.75rem; }
+
+    .rc { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 1.75rem; transition: var(--transition-med); cursor: pointer; position: relative; overflow: hidden; }
+    .rc::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-gold); transform: scaleX(0); transition: transform var(--transition-med); }
+    .rc:hover { border-color: var(--border-strong); box-shadow: var(--shadow-gold); transform: translateY(-5px); }
+    .rc:hover::before { transform: scaleX(1); }
+    .rc-type { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--font-mono); font-size: .67rem; letter-spacing: .12em; text-transform: uppercase; padding: .28rem .75rem; border-radius: var(--border-radius-full); margin-bottom: 1rem; }
+    .tp  { background: rgba(212,175,55,.12); color: var(--accent-gold); border: 1px solid rgba(212,175,55,.25); }
+    .tt  { background: rgba(74,158,255,.1);  color: var(--accent-blue);  border: 1px solid rgba(74,158,255,.2);  }
+    .tc  { background: rgba(32,178,170,.1);  color: var(--accent-teal);  border: 1px solid rgba(32,178,170,.2);  }
+    .tpr { background: rgba(192,57,43,.1);   color: #e05a40;             border: 1px solid rgba(192,57,43,.2);   }
+    .tf  { background: rgba(150,100,200,.12);color: #b07ee0;             border: 1px solid rgba(150,100,200,.25);}
+
+    .rc-title    { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: .55rem; line-height: 1.4; }
+    .rc-meta     { font-family: var(--font-sans); font-size: .82rem; color: var(--text-muted); margin-bottom: .75rem; }
+    .rc-abstract { font-size: .9rem; color: var(--text-secondary); line-height: 1.72; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .rc-footer   { display: flex; align-items: center; justify-content: space-between; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); }
+    .rc-year     { font-family: var(--font-mono); font-size: .75rem; color: var(--text-muted); }
+    .rc-arrow    { font-size: 1.1rem; color: var(--accent-gold); transition: transform var(--transition-fast); }
+    .rc:hover .rc-arrow { transform: translateX(5px); }
+    .rc-badge    { display: inline-block; font-family: var(--font-mono); font-size: .68rem; padding: .2rem .65rem; border-radius: 4px; background: rgba(212,175,55,.1); color: var(--accent-gold); border: 1px solid rgba(212,175,55,.2); }
+
+    .fdp-list { display: grid; gap: 1.1rem; }
+    .fdp-row { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 1.4rem 2rem; display: grid; grid-template-columns: 48px 1fr auto; gap: 1.5rem; align-items: center; transition: var(--transition-med); cursor: pointer; }
+    .fdp-row:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); transform: translateX(5px); }
+    .fdp-idx  { font-family: var(--font-display); font-size: 2rem; font-weight: 900; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; opacity: .35; line-height: 1; }
+    .fdp-name { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: .3rem; }
+    .fdp-sub  { font-family: var(--font-sans); font-size: .82rem; color: var(--text-muted); }
+    .fdp-cert { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--font-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; padding: .5rem 1rem; border-radius: var(--border-radius-full); background: rgba(212,175,55,.1); border: 1px solid rgba(212,175,55,.25); color: var(--accent-gold); white-space: nowrap; text-decoration: none; transition: var(--transition-fast); }
+    .fdp-cert:hover { background: rgba(212,175,55,.22); }
+
+    .panel-header { margin-bottom: 2.5rem; }
+    .panel-header h2 { font-family: var(--font-display); font-size: clamp(1.4rem,2.5vw,1.9rem); font-weight: 700; margin-bottom: .4rem; }
+    .panel-header p  { font-size: 1rem; color: var(--text-secondary); }
+
+    /* Modal */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.88); backdrop-filter: blur(14px); z-index: 9000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .35s ease; }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal-box { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--border-radius-lg); padding: 3rem; max-width: 780px; width: 92%; max-height: 88vh; overflow-y: auto; transform: scale(.92) translateY(18px); transition: transform .35s cubic-bezier(.4,0,.2,1); position: relative; }
+    .modal-overlay.active .modal-box { transform: scale(1) translateY(0); }
+    .m-close { position: absolute; top: 1.4rem; right: 1.4rem; width: 34px; height: 34px; border-radius: 50%; background: var(--bg-hover); border: 1px solid var(--border-color); color: var(--text-secondary); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition-fast); }
+    .m-close:hover { color: var(--accent-gold); border-color: var(--accent-gold); }
+    .m-title { font-family: var(--font-display); font-size: clamp(1.2rem,2.8vw,1.75rem); font-weight: 700; color: var(--text-primary); margin: 1rem 0; line-height: 1.3; }
+    .m-meta { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); }
+    .m-meta-item { display: flex; align-items: center; gap: .4rem; font-family: var(--font-sans); font-size: .84rem; color: var(--text-secondary); }
+    .m-meta-item strong { color: var(--text-primary); }
+    .m-section-lbl { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: .65rem; }
+    .m-abstract { font-size: 1rem; color: var(--text-secondary); line-height: 1.85; margin-bottom: 1.8rem; }
+    .m-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2rem; }
+    .m-tag  { font-family: var(--font-mono); font-size: .7rem; padding: .25rem .7rem; border-radius: 4px; background: var(--bg-secondary); color: var(--text-muted); border: 1px solid var(--border-subtle); }
+    .m-link { display: inline-flex; align-items: center; gap: .6rem; padding: .85rem 2rem; border-radius: var(--border-radius-full); background: var(--gradient-gold); color: #0a0e1a; font-family: var(--font-sans); font-size: .9rem; font-weight: 700; transition: var(--transition-med); text-decoration: none; box-shadow: 0 4px 20px rgba(212,175,55,.3); }
+    .m-link:hover { box-shadow: 0 8px 32px rgba(212,175,55,.55); transform: translateY(-2px); }
+
+    @media (max-width:768px) { .r-grid { grid-template-columns: 1fr; } .fdp-row { grid-template-columns: 1fr; } .fdp-idx { display: none; } .modal-box { padding: 2rem 1.4rem; } }
+    @media (max-width:480px) { .r-tab { padding: .65rem 1rem; font-size: .8rem; } }
+  </style>
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Live Motion Background -->
+ <canvas id="particles-canvas"></canvas>
+ <div class="motion-orb motion-orb-1"></div>
+ <div class="motion-orb motion-orb-2"></div>
+ <div class="motion-orb motion-orb-3"></div>
+ <div class="motion-orb motion-orb-4"></div>
+ <div class="motion-grid"></div>
+ <div class="motion-scanline"></div>
+ <div class="motion-corner motion-corner-tl"></div>
+ <div class="motion-corner motion-corner-br"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">SB</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Mr. Suraj Bhoite</span>
+          <span class="nav-logo-title">Assistant Professor</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html"      class="nav-link">Home</a>
+        <a href="about.html"      class="nav-link">Profile</a>
+        <a href="skills.html"     class="nav-link">Skills</a>
+        <a href="experience.html" class="nav-link">Experience</a>
+        <a href="research.html"   class="nav-link active">Research</a>
+        <a href="courses.html"    class="nav-link">Certificates</a>
+        <a href="notes.html"      class="nav-link">Notes</a>
+        <a href="gallery.html"    class="nav-link">Gallery</a>
+        <a href="contact.html"    class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle"><span class="theme-icon-dark">🌙</span><span class="theme-icon-light">☀️</span></button>
+        <button class="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html"      class="nav-link">🏠 Home</a>
+    <a href="about.html"      class="nav-link">👤 Profile</a>
+    <a href="skills.html"     class="nav-link">⚡ Skills</a>
+    <a href="experience.html" class="nav-link">💼 Experience</a>
+    <a href="research.html"   class="nav-link active">🔬 Research</a>
+    <a href="courses.html"    class="nav-link">🎓 Certificates</a>
+    <a href="notes.html"      class="nav-link">📒 Notes</a>
+    <a href="gallery.html"    class="nav-link">🖼️ Gallery</a>
+    <a href="contact.html"    class="nav-link">📬 Contact</a>
+  </div>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="research-hero">
+    <div class="r-orb r-orb-1"></div>
+    <div class="r-orb r-orb-2"></div>
+    <div class="container" style="position:relative;z-index:2;">
+      <div class="reveal">
+        <span class="section-tag">// Scholarly Contributions</span>
+        <h1 class="section-title" style="margin-top:.6rem">Research &amp; <span>Publications</span></h1>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Peer-reviewed publications, patents, funded projects, copyrights, and professional development programmes.</p>
+      </div>
+      <div class="stat-strip reveal">
+        <div class="stat-chip"><div class="stat-chip-num">9+</div><div class="stat-chip-lbl">Publications</div></div>
+        <div class="stat-chip"><div class="stat-chip-num">4+</div><div class="stat-chip-lbl">Patents</div></div>
+        <div class="stat-chip"><div class="stat-chip-num">(Soon)</div><div class="stat-chip-lbl">Funded Projects</div></div>
+        <div class="stat-chip"><div class="stat-chip-num">6+</div><div class="stat-chip-lbl">Copyrights</div></div>
+        <div class="stat-chip"><div class="stat-chip-num">10+</div><div class="stat-chip-lbl">FDPs</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ TABS ═══════════ -->
+  <div class="container">
+    <div class="r-tab-bar">
+      <button class="r-tab active" data-panel="p-papers">   📄 Publications  <span class="tab-count">9</span></button>
+      <button class="r-tab"        data-panel="p-patents">  🔐 Patents       <span class="tab-count">4</span></button>
+      <button class="r-tab"        data-panel="p-copyrights">©️ Copyrights   <span class="tab-count">6</span></button>
+      <button class="r-tab"        data-panel="p-projects"> 🔬 Projects      <span class="tab-count">(Soon)</span></button>
+      <button class="r-tab"        data-panel="p-fdp">      🎓 FDPs          <span class="tab-count">10</span></button>
+    </div>
+  </div>
+
+  <!-- ═══════════ PANEL 1 — PUBLICATIONS ═══════════ -->
+  <div class="r-panel active" id="p-papers">
+    <div class="container">
+      <div class="panel-header reveal">
+        <h2>📄 Paper <span class="gradient-text">Publications</span></h2>
+        <p>Peer-reviewed articles in SCI / Scopus-indexed journals and conferences. Click any card for full details &amp; DOI link.</p>
+      </div>
+      <div class="r-grid">
+
+        <div class="rc reveal delay-1" data-modal="modal-p1" tabindex="0">
+          <div class="rc-type tp">📄 International Journal of Innovative Research in Technology (IJIRT)</div>
+          <div class="rc-title">Multimodal Artificial Intelligence for Brain Tumor Prediction: Bridging Accuracy and Explainability</div>
+          <div class="rc-meta">· Oct 2025</div>
+          <div class="rc-abstract">Proposes a framework combining MRI sequences and clinical metadata. It uses Explainable AI (XAI) to make deep learning predictions transparent for clinicians.</div>
+          <div class="rc-footer"><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-2" data-modal="modal-p2" tabindex="0">
+          <div class="rc-type tp">📄 International Journal for Research in Applied Science & Engineering Technology (IJRASET)</div>
+          <div class="rc-title">Intelligent Traffic System (ITS)</div>
+          <div class="rc-meta">· Nov 2023</div>
+          <div class="rc-abstract">Addresses urban congestion by replacing fixed-time traffic lights with an IoT-enabled system that adjusts timing based on real-time vehicle density.</div>
+          <div class="rc-footer"><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-3" data-modal="modal-p3" tabindex="0">
+          <div class="rc-type tp">📄 Gradiva Review Journal</div>
+          <div class="rc-title">Automated Text Document Classification Using Predictive Network</div>
+          <div class="rc-meta">· April 2023</div>
+          <div class="rc-abstract">Focuses on reducing ambiguity in text using WordNet embedding and organizing research papers into relevant categories via K-Means.</div>
+          <div class="rc-footer"><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-4" data-modal="modal-p4" tabindex="0">
+          <div class="rc-type tp">📄 International Research Journal on Advanced Science Hub (IRJASH)</div>
+          <div class="rc-title">Aspect Based Online Sentiment Analysis Product Review and Feature Using Machine Learning</div>
+          <div class="rc-meta">· July 2021</div>
+          <div class="rc-abstract">Analyzes customer reviews at the "feature level" (e.g., a phone's battery vs. its camera) to provide more granular feedback for manufacturers.</div>
+          <div class="rc-footer"><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-5" data-modal="modal-p5" tabindex="0">
+          <div class="rc-type tp">📄 International Journal for Research & Development in Technology (IJRDT)</div>
+          <div class="rc-title">Speedy Grocer based on Android Technology</div>
+          <div class="rc-meta">· March 2020</div>
+          <div class="rc-abstract">An Android-based application designed to optimize home delivery routing and automate inventory restocking for small to medium businesses.</div>
+          <div class="rc-footer"><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-6" data-modal="modal-p6" tabindex="0">
+          <div class="rc-type tp">📄 International Journal for Research & Development in Technology (IJRDT)</div>
+          <div class="rc-title">Systematic Review Paper on Descriptive Clustering of Documents on the Basis of Predictive Network</div>
+          <div class="rc-meta">· March 2019</div>
+          <div class="rc-abstract">Evaluates the efficiency of predictive networks in managing the "data tsunami." It analyzes how automated disambiguation improves the accuracy of retrieving and grouping research information.</div>
+          <div class="rc-footer"><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-7" data-modal="modal-p7" tabindex="0">
+          <div class="rc-type tp">📄 International Journal of Engineering Research in Computer Science and Engineering (IJERCSE)</div>
+          <div class="rc-title">Information Extraction Using by Big Data</div>
+          <div class="rc-meta">· March 2018</div>
+          <div class="rc-abstract">Examines the technical challenges of data acquisition. It focuses on converting unstructured sources, like social media and video, into structured formats for better semantic search and decision-making.</div>
+          <div class="rc-footer"><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-8" data-modal="modal-p8" tabindex="0">
+          <div class="rc-type tp">📄 Enhanced Translating Relational Queries into Spreadsheets</div>
+          <div class="rc-title">Enhanced Translating Relational Queries into Spreadsheets</div>
+          <div class="rc-meta">· April 2016</div>
+          <div class="rc-abstract">A technical bridge for users who prefer spreadsheets over databases, allowing complex SQL queries to be executed directly within a standard worksheet.</div>
+          <div class="rc-footer"><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-9" data-modal="modal-p9" tabindex="0">
+          <div class="rc-type tp">📄 Journal of Computer, Internet and Network Security (Mantech Publications)</div>
+          <div class="rc-title">Descriptive Clustering of Documents on the Basis of Predictive Network</div>
+          <div class="rc-meta">· 2020</div>
+          <div class="rc-abstract">Uses WordNet and Machine Learning to replace words with their contextual meanings. This removes ambiguity, allowing documents to be organized by semantic intent rather than just keywords.</div>
+          <div class="rc-footer"><span class="rc-arrow">→</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PANEL 2 — PATENTS ═══════════ -->
+  <div class="r-panel" id="p-patents">
+    <div class="container">
+      <div class="panel-header reveal">
+        <h2>🔐 <span class="gradient-text">Patents</span></h2>
+        <p>Granted and published patents at the Indian Patent Office (IPO). Click any card for full description.</p>
+      </div>
+      <div class="r-grid">
+
+        <div class="rc reveal delay-1" data-modal="modal-pt1" tabindex="0">
+          <div class="rc-type tt">🔐 Patent — Granted</div>
+          <div class="rc-title">AI-Powered Predictive Systems for Amputation Risk Assessment in Peripheral Vascular Disease</div>
+          <div class="rc-meta">Patent No: 472946-001 · Filed: 9 September 2025</div>
+          <div class="rc-abstract">Advanced AI diagnostic tool for early vascular complication assessment and amputation prevention.</div>
+          <div class="rc-footer"><span class="rc-badge">✅ Granted</span><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-2" data-modal="modal-pt2" tabindex="0">
+          <div class="rc-type tt">🔐 Patent — Granted</div>
+          <div class="rc-title">AI-Driven Portable Device for Rapid Oral Cancer Screening and Detection</div>
+          <div class="rc-meta">Patent No: 472947-001 · Filed: 9 September 2025</div>
+          <div class="rc-abstract">Portable, high-speed AI screening solution for early-stage oral cancer detection.</div>
+          <div class="rc-footer"><span class="rc-badge">✅ Granted</span><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-3" data-modal="modal-pt3" tabindex="0">
+          <div class="rc-type tt">🔐 Patent — Granted</div>
+          <div class="rc-title">Artificial Intelligence Based Stress Detection Device</div>
+          <div class="rc-meta">Patent No: 443868-001 · Filed: 11 January 2025</div>
+          <div class="rc-abstract">Innovative AI-driven hardware architecture for real-time mental health and stress monitoring.</div>
+          <div class="rc-footer"><span class="rc-badge">✅ Granted</span><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-4" data-modal="modal-pt4" tabindex="0">
+          <div class="rc-type tt">🔐 Patent — Granted</div>
+          <div class="rc-title">Blockchain Based Medical Data Storing Device</div>
+          <div class="rc-meta">Patent No: 417223-001 · Filed: 15 July 2024</div>
+          <div class="rc-abstract">Secure, decentralized hardware solution for tamper-proof medical record management.</div>
+          <div class="rc-footer"><span class="rc-badge">✅ Granted</span><span class="rc-arrow">→</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PANEL 3 — COPYRIGHTS ═══════════ -->
+  <div class="r-panel" id="p-copyrights">
+    <div class="container">
+      <div class="panel-header reveal">
+        <h2>©️ <span class="gradient-text">Copyrights</span></h2>
+        <p>Works registered under the Copyright Act, 1957 with the Copyright Office, Govt. of India. Click any card for details.</p>
+      </div>
+      <div class="r-grid">
+
+        <div class="rc reveal delay-1" data-modal="modal-c1" tabindex="0">
+          <div class="rc-type tc">©️ Computer Software</div>
+          <div class="rc-title">AI-Enhanced Career Guidance System for Personalized Career</div>
+          <div class="rc-meta">Reg. No: LD-35220/2025-CO · Year: 2025</div>
+          <div class="rc-abstract">An AI-driven framework that evaluates academic history and psychometric profiles to provide customized career roadmaps and real-time learning module recommendations.</div>
+          <div class="rc-footer"><span class="rc-year">Computer Software</span><span class="rc-arrow">→</span></div>
+       </div>
+
+        <div class="rc reveal delay-2" data-modal="modal-c2" tabindex="0">
+          <div class="rc-type tc">©️ Computer Software</div>
+          <div class="rc-title">Bridging Database and Spreadsheets: Query Translation Technique</div>
+          <div class="rc-meta">Reg. No: LD-32334/2025-CO · Year: 2025</div>
+          <div class="rc-abstract">A technical innovation allowing seamless interoperability between SQL databases and spreadsheets via a compiler that converts complex queries into spreadsheet formulas.</div>
+          <div class="rc-footer"><span class="rc-year">Computer Software</span><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-3" data-modal="modal-c3" tabindex="0">
+         <div class="rc-type tc">©️ Computer Software</div>
+         <div class="rc-title">AI-Driven Job Matching and User Identification System</div>
+         <div class="rc-meta">Reg. No: L-160304/2025 · Year: 2025</div>
+         <div class="rc-abstract">A precision recruitment platform using machine learning to match job seekers with roles while ensuring profile authenticity through a secure user identification layer.</div>
+         <div class="rc-footer"><span class="rc-year">Computer Software</span><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-4" data-modal="modal-c4" tabindex="0">
+         <div class="rc-type tc">©️ Computer Software</div>
+         <div class="rc-title">Enhancing Emergency Response for Travelers with Legal Consistency Using Machine Learning</div>
+         <div class="rc-meta">Reg. No: L-147823/2024 · Year: 2024</div>
+         <div class="rc-abstract">An ML-based safety system for travelers that optimizes response times while ensuring all automated interventions comply with local and international legal jurisdictions.</div>
+         <div class="rc-footer"><span class="rc-year">Computer Software</span><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-5" data-modal="modal-c5" tabindex="0">
+         <div class="rc-type tc">©️ Computer Software</div>
+         <div class="rc-title">Automated Text Document Classification Using Predictive Network</div>
+         <div class="rc-meta">Reg. No: L-142125/2024 · Year: 2024</div>
+         <div class="rc-abstract">A deep learning framework designed to automatically categorize large-scale unstructured text into specific domains like Legal, Medical, or Finance.</div>
+         <div class="rc-footer"><span class="rc-year">Computer Software</span><span class="rc-arrow">→</span></div>
+        </div>
+
+        <div class="rc reveal delay-6" data-modal="modal-c6" tabindex="0">
+         <div class="rc-type tc">©️ Computer Software</div>
+         <div class="rc-title">Social Network Mental Disorders Detection via Online Social Media Mining Using Machine Learning</div>
+         <div class="rc-meta">Reg. No: L-145513/2024 · Year: 2024</div>
+         <div class="rc-abstract">A non-intrusive mental health screening tool using NLP and sentiment analysis to monitor social media activity for early warning signs of depression or anxiety.</div>
+         <div class="rc-footer"><span class="rc-year">Computer Software</span><span class="rc-arrow">→</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PANEL 4 — PROJECTS ═══════════ -->
+   <div class="r-panel" id="p-projects">
+    <div class="container">
+ 
+      <!-- Coming Soon Block -->
+      <div class="cs-wrap reveal">
+ 
+        <!-- Animated rings -->
+        <div class="cs-rings">
+          <div class="cs-ring cs-ring-1"></div>
+          <div class="cs-ring cs-ring-2"></div>
+          <div class="cs-ring cs-ring-3"></div>
+          <div class="cs-icon">🔬</div>
+        </div>
+ 
+        <!-- Badge -->
+        <div class="cs-badge">
+          <span class="cs-dot"></span>
+          Preparing to Upload
+        </div>
+ 
+        <!-- Heading -->
+        <h2 class="cs-title">
+          Projects Will Be<br />
+          <span class="gradient-text">Available Soon</span>
+        </h2>
+ 
+        <!-- Subtitle -->
+        <p class="cs-subtitle">
+          Research projects are currently being documented and will be uploaded shortly.<br />
+          Stay tuned for detailed information on funded research, outcomes, and publications.
+        </p>
+ 
+        <!-- Divider -->
+        <div class="cs-divider"></div>
+ 
+        <!-- Placeholder skeleton cards -->
+        <div class="cs-skeleton-grid">
+          <div class="cs-skeleton-card">
+            <div class="cs-sk-tag"></div>
+            <div class="cs-sk-title"></div>
+            <div class="cs-sk-line"></div>
+            <div class="cs-sk-line cs-sk-short"></div>
+            <div class="cs-sk-line cs-sk-shorter"></div>
+          </div>
+          <div class="cs-skeleton-card cs-skeleton-card-2">
+            <div class="cs-sk-tag"></div>
+            <div class="cs-sk-title"></div>
+            <div class="cs-sk-line"></div>
+            <div class="cs-sk-line cs-sk-short"></div>
+            <div class="cs-sk-line cs-sk-shorter"></div>
+          </div>
+          <div class="cs-skeleton-card cs-skeleton-card-3">
+            <div class="cs-sk-tag"></div>
+            <div class="cs-sk-title"></div>
+            <div class="cs-sk-line"></div>
+            <div class="cs-sk-line cs-sk-short"></div>
+            <div class="cs-sk-line cs-sk-shorter"></div>
+          </div>
+        </div>
+ 
+        <!-- Notify note -->
+        <p class="cs-note">
+          📬 &nbsp;For project inquiries, please visit the
+          <a href="contact.html" class="cs-link">Contact page</a>
+        </p>
+ 
+      </div><!-- /cs-wrap -->
+ 
+    </div>
+  </div>
+
+   <style>
+    /* ── Wrapper ── */
+    .cs-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 1rem 6rem;
+      gap: 2rem;
+    }
+ 
+    /* ── Animated rings around icon ── */
+    .cs-rings {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+ 
+    .cs-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--accent-gold);
+      animation: csRingExpand 3s ease-out infinite;
+    }
+ 
+    .cs-ring-1 { width:120px; height:120px; animation-delay:0s;   opacity:.5; }
+    .cs-ring-2 { width:120px; height:120px; animation-delay:1s;   opacity:.35; }
+    .cs-ring-3 { width:120px; height:120px; animation-delay:2s;   opacity:.2; }
+ 
+    @keyframes csRingExpand {
+      0%   { transform:scale(0.6); opacity:0.8; }
+      100% { transform:scale(2.2); opacity:0;   }
+    }
+ 
+    .cs-icon {
+      font-size: 2.8rem;
+      position: relative;
+      z-index: 2;
+      animation: csIconFloat 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(212,175,55,0.5));
+    }
+ 
+    @keyframes csIconFloat {
+      0%,100% { transform:translateY(0);    }
+      50%      { transform:translateY(-8px); }
+    }
+ 
+    /* ── Status badge ── */
+    .cs-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.4rem 1.2rem;
+      background: rgba(212,175,55,0.1);
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+    }
+ 
+    .cs-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      animation: csDotPulse 1.4s ease-in-out infinite;
+    }
+ 
+    @keyframes csDotPulse {
+      0%,100% { opacity:1; transform:scale(1);   }
+      50%      { opacity:.4; transform:scale(0.7); }
+    }
+ 
+    /* ── Title ── */
+    .cs-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.25;
+    }
+ 
+    /* ── Subtitle ── */
+    .cs-subtitle {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.85;
+      max-width: 620px;
+    }
+ 
+    /* ── Gold divider ── */
+    .cs-divider {
+      width: 280px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+      opacity: 0.4;
+    }
+ 
+    /* ── Skeleton card grid ── */
+    .cs-skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 860px;
+    }
+ 
+    @media (max-width:768px) {
+      .cs-skeleton-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .cs-skeleton-card-2,
+      .cs-skeleton-card-3 { display: none; }
+    }
+ 
+    .cs-skeleton-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+      overflow: hidden;
+      animation: csCardFloat ease-in-out infinite;
+    }
+ 
+    .cs-skeleton-card:nth-child(1) { animation-duration:4s;  animation-delay:0s;   }
+    .cs-skeleton-card:nth-child(2) { animation-duration:5s;  animation-delay:0.8s; }
+    .cs-skeleton-card:nth-child(3) { animation-duration:4.5s;animation-delay:1.5s; }
+ 
+    @keyframes csCardFloat {
+      0%,100% { transform:translateY(0);    opacity:0.6; }
+      50%      { transform:translateY(-5px); opacity:0.9; }
+    }
+ 
+    /* Shimmer sweep on skeleton cards */
+    .cs-skeleton-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        110deg,
+        transparent 25%,
+        rgba(212,175,55,0.07) 50%,
+        transparent 75%
+      );
+      background-size: 200% 100%;
+      animation: csShimmer 2.5s linear infinite;
+    }
+ 
+    @keyframes csShimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+ 
+    /* Skeleton lines */
+    .cs-sk-tag {
+      height: 20px;
+      width: 90px;
+      background: rgba(212,175,55,0.15);
+      border-radius: 999px;
+    }
+ 
+    .cs-sk-title {
+      height: 16px;
+      width: 90%;
+      background: var(--bg-secondary);
+      border-radius: 6px;
+    }
+ 
+    .cs-sk-line {
+      height: 10px;
+      width: 100%;
+      background: var(--bg-secondary);
+      border-radius: 4px;
+      opacity: 0.6;
+    }
+ 
+    .cs-sk-short   { width: 80%; }
+    .cs-sk-shorter { width: 60%; }
+ 
+    /* ── Bottom note ── */
+    .cs-note {
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+ 
+    .cs-link {
+      color: var(--accent-gold);
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px dashed rgba(212,175,55,0.4);
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+ 
+    .cs-link:hover {
+      color: var(--accent-gold-light);
+      border-bottom-color: var(--accent-gold-light);
+    }
+  </style>
+
+  <!-- ═══════════ PANEL 5 — FDPs ═══════════ -->
+  <div class="r-panel" id="p-fdp">
+    <div class="container">
+      <div class="panel-header reveal">
+        <h2>🎓 Faculty Development <span class="gradient-text">Programmes</span></h2>
+        <p>Short-term training programmes and workshops for continuous professional development. Click any row for full details and certificate.</p>
+      </div>
+      <div class="fdp-list">
+
+        <div class="fdp-row reveal delay-1" data-modal="modal-f1" tabindex="0">
+          <div class="fdp-idx">01</div>
+          <div>
+            <div class="fdp-name">Modern Indian Languages - Marathi (आधुनिक भारतीय भाषा-मराठी)</div>
+            <div class="fdp-sub">S.N.D. College of Engineering & Research Center, Yeola (In association with Savitribai Phule Pune University) <br> &nbsp;·&nbsp; January 20, 2026 &nbsp;·&nbsp; One-Day Online/Offline Workshop</div>
+          </div>
+          <a href="#" class="fdp-cert" onclick="openModal('modal-f1');return false;">🎓 Certificate</a>
+        </div>
+
+        <div class="fdp-row reveal delay-2" data-modal="modal-f2" tabindex="0">
+          <div class="fdp-idx">02</div>
+          <div>
+            <div class="fdp-name">Industry-Integrated AI & ML: Tools, Trends, and Agentive AI Evolution</div>
+            <div class="fdp-sub">Dr. D.Y. Patil Institute of Technology, Pimpri, Pune (Dept. of Computer Engineering) <br> &nbsp;·&nbsp; January 7, 2026 – January 12, 2026 &nbsp;·&nbsp; One Week Online International Faculty Development Program (FDP)</div>
+          </div>
+          <a href="#" class="fdp-cert" onclick="openModal('modal-f2');return false;">🎓 Certificate</a>
+        </div>
+
+        <div class="fdp-row reveal delay-3" data-modal="modal-f3" tabindex="0">
+          <div class="fdp-idx">03</div>
+          <div>
+            <div class="fdp-name">Data Driven Business Analytics Using DOMO BI</div>
+            <div class="fdp-sub">Keystone School of Engineering, Pune (In association with ISTE Faculty Chapter and DOMO) <br> &nbsp;·&nbsp; September 16, 2025 – September 20, 2025 &nbsp;·&nbsp; One Week National Level Faculty Development Program</div>
+          </div>
+          <a href="#" class="fdp-cert" onclick="openModal('modal-f3');return false;">🎓 Certificate</a>
+        </div>
+
+        <div class="fdp-row reveal delay-4" data-modal="modal-f4" tabindex="0">
+          <div class="fdp-idx">04</div>
+          <div>
+            <div class="fdp-name">Next-Gen AI: From Research to Real-World Impact</div>
+            <div class="fdp-sub">Department of Information Technology, Dr. D. Y. Patil Institute of Technology, Pimpri, Pune <br> &nbsp;·&nbsp; August 30, 2025 – September 9, 2025 &nbsp;·&nbsp; Five-Days Online FDP - Lecture Series</div>
+          </div>
+          <a href="#" class="fdp-cert" onclick="openModal('modal-f4');return false;">🎓 Certificate</a>
+        </div>
+
+        <div class="fdp-row reveal delay-5" data-modal="modal-f5" tabindex="0">
+          <div class="fdp-idx">05</div>
+          <div>
+            <div class="fdp-name">IPR and Patenting: An Academic Perspective</div>
+            <div class="fdp-sub">Ajeenkya DY Patil School of Engineering, Pune (Dept. of Computer Engineering) <br> &nbsp;·&nbsp;August 26, 28–31, 2025 &nbsp;·&nbsp; 5-Day Faculty Development Program</div>
+          </div>
+          <a href="#" class="fdp-cert" onclick="openModal('modal-f5');return false;">🎓 Certificate</a>
+        </div>
+
+        <div class="fdp-row reveal delay-1" data-modal="modal-f6" tabindex="0">
+          <div class="fdp-idx">06</div>
+          <div>
+            <div class="fdp-name">Generative AI (AICTE Collaborative)</div>
+            <div class="fdp-sub">GH Raisoni College of Engineering and Management, Pune (In collaboration with Brainovision & AICTE) <br> &nbsp;·&nbsp; August 4, 2025 – August 8, 2025 &nbsp;·&nbsp; Faculty Development Program (FDP)</div>
+          </div>
+          <a href="#" class="fdp-cert" onclick="openModal('modal-f6');return false;">🎓 Certificate</a>
+        </div>
+
+        <div class="fdp-row reveal delay-2" data-modal="modal-f7" tabindex="0">
+          <div class="fdp-idx">07</div>
+          <div>
+            <div class="fdp-name">Generative AI & Applications</div>
+            <div class="fdp-sub">AISSMS Institute of Information Technology, Pune (Dept. of AI & Data Science) <br> &nbsp;·&nbsp; July 7, 2025 – July 11, 2025 &nbsp;·&nbsp; 5-Day Faculty Development Program</div>
+          </div>
+          <a href="#" class="fdp-cert" onclick="openModal('modal-f7');return false;">🎓 Certificate</a>
+        </div>
+
+        <div class="fdp-row reveal delay-3" data-modal="modal-f8" tabindex="0">
+          <div class="fdp-idx">08</div>
+          <div>
+            <div class="fdp-name">Generative AI and its Multidomain Use Cases</div>
+            <div class="fdp-sub">Vishwakarma Institute of Technology (VIT), Pune (Dept. of Information Technology) <br> &nbsp;·&nbsp; December 2, 2024 – December 6, 2024 &nbsp;·&nbsp; One Week Online Faculty Development Program</div>
+          </div>
+          <a href="#" class="fdp-cert" onclick="openModal('modal-f8');return false;">🎓 Certificate</a>
+        </div>
+
+        <div class="fdp-row reveal delay-4" data-modal="modal-f9" tabindex="0">
+          <div class="fdp-idx">09</div>
+          <div>
+            <div class="fdp-name">National Level FDP on Generative AI</div>
+            <div class="fdp-sub">Pimpri Chinchwad College of Engineering & Research (PCCOER), Ravet, Pune <br> &nbsp;·&nbsp; October 7, 2024 – October 12, 2024 &nbsp;·&nbsp; 6-Day Faculty Development Program</div>
+          </div>
+          <a href="#" class="fdp-cert" onclick="openModal('modal-f9');return false;">🎓 Certificate</a>
+        </div>
+
+        <div class="fdp-row reveal delay-5" data-modal="modal-f10" tabindex="0">
+          <div class="fdp-idx">10</div>
+          <div>
+            <div class="fdp-name">Orientation for Chairmen and Paper Setters</div>
+            <div class="fdp-sub">Savitribai Phule Pune University (Board of Studies - Computer Engineering) <br> &nbsp;·&nbsp; August 24, 2023 &nbsp;·&nbsp; One Day Orientation</div>
+          </div>
+          <a href="#" class="fdp-cert" onclick="openModal('modal-f10');return false;">🎓 Certificate</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MODALS — Papers ═══════════ -->
+  <div class="modal-overlay" id="modal-p1"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-p1')">✕</button>
+    <div class="rc-type tp">📄 International Journal of Innovative Research in Technology (IJIRT)</div>
+    <h2 class="m-title">Multimodal Artificial Intelligence for Brain Tumor Prediction: Bridging Accuracy and Explainability</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">📅 October 2025 &nbsp;</div>
+    </div>
+    <div class="m-section-lbl">Abstract</div>
+    <p class="m-abstract">Brain tumor diagnosis using medical imaging has gained significant support from Artificial Intelligence (AI), particularly deep learning models. However, existing approaches often focus on single imaging modalities, limiting diagnostic reliability and interpretability. This paper proposes a multimodal AI framework that integrates MRI sequences, radiomic features, and clinical metadata for brain tumor prediction. To address concerns of transparency and trust, Explainable AI (XAI) techniques are incorporated to visualize and justify model predictions. Experiments on publicly available MRI datasets demonstrate improved diagnostic accuracy and higher clinician acceptance compared to single-modality baselines. The findings highlight the importance of multimodal learning in capturing tumor heterogeneity and underscore the role of XAI in ensuring accountability in clinical practice.</p>
+    <a href="{css,js,assets/Research/Research Papers/October_2025_Multimodal Artificial Intelligence for Brain Tumor .pdf" target="_blank" rel="noopener" class="m-link">🔗 View Full Paper →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-p2"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-p2')">✕</button>
+    <div class="rc-type tp">📄 International Journal for Research in Applied Science & Engineering Technology (IJRASET)</div>
+    <h2 class="m-title">Intelligent Traffic System (ITS)</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">📅 November 2023 &nbsp;</div>
+    </div>
+    <div class="m-section-lbl">Abstract</div>
+    <p class="m-abstract">One of the main issues of the modern day is effectively monitoring traffic. The influence on automobiles has increased in step with the population's exponential growth during the past century. The current transportation systems are under a great deal of strain as a result of this. Several traffic systems still operate today, ignoring the amount of traffic at that intersection, by assigning set timeslots to each traffic light. Millions of people lose valuable time in traffic as a result, while noise and air pollution increase. Our research suggests an intelligent traffic management system based on the Internet of Things (IoT) that can be used for real-time traffic monitoring and management.</p>
+    <a href="{css,js,assets/Research/Research Papers/November_2023_Intelligent Traffic System (ITS).pdf" target="_blank" rel="noopener" class="m-link">🔗 View Full Paper →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-p3"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-p3')">✕</button>
+    <div class="rc-type tp">📄 Gradiva Review Journal</div>
+    <h2 class="m-title">Automated Text Document Classification Using Predictive Network</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">📅 April 2023 &nbsp;</div>
+    </div>
+    <div class="m-section-lbl">Abstract</div>
+    <p class="m-abstract">The automatic text classification methods are supposed to retrieve the RI (Relevant Information) as well as organize it according to its degree of relevancy with the given query. The main problem in organizing is to classify which document is relevant and which is not. Automated text classification consists of automatically organizing clustered data. We propose an automatic method of text classification using TF-IDF, WordNet word embedding algorithm, and K-means clustering machine learning algorithm. We use the WordNet word embedding algorithm to eliminate the ambiguity of words so that each word is replaced by its meaning in context. The closest ancestors of the senses of all the words in a given document are selected as classes for the specified document.</p>
+    <a href="{css,js,assets/Research/Research Papers/April_2023_AUTOMATED TEXT DOCUMENT CLASSIFICATION USING .pdf" target="_blank" rel="noopener" class="m-link">🔗 View Full Paper →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-p4"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-p4')">✕</button>
+    <div class="rc-type tp">📄 International Research Journal on Advanced Science Hub (IRJASH)</div>
+    <h2 class="m-title">Aspect Based Online Sentiment Analysis Product Review and Feature Using Machine Learning</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">📅 July 2022 &nbsp;</div>
+    </div>
+    <div class="m-section-lbl">Abstract</div>
+    <p class="m-abstract">Today people exchange their thoughts through online web forums, blogs, and different platforms for social media. In online shopping, they are giving reviews and opinions on various products, brands, and services. Their thoughts towards a product do not only drive purchase decisions but also help improve product quality based on requirements. The present system concentrates on the peer-reviewed review model and global qualification (rating) and tries to classify the semantic aspect and emotions at the feature level. This allows manufacturers to find out specific product problems and get excellent solutions.</p>
+    <a href="{css,js,assets/Research/Research Papers/July_2021_Aspect Based Online Sentiment Analysis Product Review and Feature .pdf" target="_blank" rel="noopener" class="m-link">🔗 View Full Paper →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-p5"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-p5')">✕</button>
+    <div class="rc-type tp">📄 International Journal for Research & Development in Technology (IJRDT)</div>
+    <h2 class="m-title">Speedy Grocer based on Android Technology</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">📅 March 2020 &nbsp;</div>
+    </div>
+    <div class="m-section-lbl">Abstract</div>
+    <p class="m-abstract">Many firms with shopper-direct service models, particularly grocery delivery services, have found that home delivery poses a logistics challenge because of the unpredictability of demand, strict delivery windows, and low profit margins. This system defines routing and planning issues that capture vital options of this business model and proposes a system supported by insertion heuristics for resolution. The stress is on profit maximization. The system automatically manages inventory, providing notifications to the admin when product quantities are low. It is designed to be user-friendly for clients to see supply, nutrient info, price, and quantity.</p>
+    <a href="{css,js,assets/Research/Research Papers/March_2020_Speedy Grocer based on Android Technology.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Full Paper →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-p6"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-p6')">✕</button>
+    <div class="rc-type tp">📄 International Journal for Research & Development in Technology (IJRDT)</div>
+    <h2 class="m-title">Systematic Review Paper on Descriptive Clustering of Documents on the Basis of Predictive Network</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">📅 March 2019 &nbsp;</div>
+    </div>
+    <div class="m-section-lbl">Abstract</div>
+    <p class="m-abstract">This systematic review examines the mass of data obtainable and the limitations of current automatic text classification methods. It explores the retrieval and organization of relevant information based on query relevancy. The paper reviews methods for automatically organizing clustered data, specifically focusing on Machine Learning techniques that utilize word disambiguation. By reviewing the WordNet embedding algorithm's role in replacing words with contextual meanings, the paper provides a comprehensive look at how predictive networks can improve the accuracy of document clustering.</p>
+    <a href="{css,js,assets/Research/Research Papers/March_2019_Systematic Review Paper on Descriptive Clustering of Documents on the Basis of Predictive Network.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Full Paper →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-p7"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-p7')">✕</button>
+    <div class="rc-type tp">📄 International Journal of Engineering Research in Computer Science and Engineering (IJERCSE)</div>
+    <h2 class="m-title">Information Extraction Using by Big Data</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">📅 March 2018 &nbsp;</div>
+    </div>
+    <div class="m-section-lbl">Abstract</div>
+    <p class="m-abstract">The promise of data-driven decision-making is now being recognized broadly through "Big Data." However, there is currently a wide gap between its potential and its realization. Heterogeneity, scale, timeliness, complexity, and privacy problems with Big Data impede progress. The problems start during data acquisition, where the data tsunami requires ad-hoc decisions about what to keep and how to store it reliably. Much data today is weakly structured (tweets, blogs) or unstructured (images, video). Transforming such content into a structured format for semantic content and search is a major challenge addressed in this paper.</p>
+    <a href="{css,js,assets/Research/Research Papers/March_2018_Information Extracting Using by Big Data.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Full Paper →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-p8"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-p8')">✕</button>
+    <div class="rc-type tp">📄 International Journal of Advanced Research in Computer Science and Software Engineering (IJARCSSE)</div>
+    <h2 class="m-title">Enhanced Translating Relational Queries into Spreadsheets</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">📅 April 2016 &nbsp;</div>
+    </div>
+    <div class="m-section-lbl">Abstract</div>
+    <p class="m-abstract">Spreadsheets are among the most commonly used applications for data management and analysis, yet they lack sufficient analysis for complex computation. In this paper, we determine that a spreadsheet can implement all data transformations definable in SQL simply by utilizing spreadsheet formulas. We provide a query compiler which translates any given SQL query into a worksheet of the same definition, including NULL values. Thereby, database operations become available to users who do not want to migrate to a database, allowing them to define queries in a high-level language and execute them in a plain vanilla spreadsheet.</p>
+    <a href="{css,js,assets/Research/Research Papers/April_2016_Enhanced Translating Relational Queries into Spreadsheets.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Full Paper →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-p9"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-p9')">✕</button>
+    <div class="rc-type tp">📄 Journal of Computer, Internet and Network Security (Mantech Publications)</div>
+    <h2 class="m-title">Descriptive Clustering of Documents on the Basis of Predictive Network</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">📅 2020</div>
+    </div>
+    <div class="m-section-lbl">Abstract</div>
+    <p class="m-abstract">With the mass of data obtainable, merely finding the information is not the only assignment of automatic text classification methods. Instead, they are supposed to retrieve and organize information according to the degree of relevancy. The main problem is classifying which document is relevant. We propose an automatic method of text classification using Machine Learning based on the disambiguation of meaning. We use the WordNet word embedding algorithm to eliminate word ambiguity so that each word is replaced by its meaning in context. This facilitates more accurate categorization based on the semantic senses of the words within the documents.</p>
+    <a href="{css,js,assets/Research/Research Papers/Descriptive Clustering of Documents on the Basis of Predictive .pdf" target="_blank" rel="noopener" class="m-link">🔗 View Full Paper →</a>
+  </div></div>
+
+  <!-- ═══════════ MODALS — Patents ═══════════ -->
+  <div class="modal-overlay" id="modal-pt1"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt1')">✕</button>
+    <div class="rc-type tt">🔐 Patent — Granted</div>
+    <h2 class="m-title">AI-Powered Predictive Systems for Amputation Risk Assessment in Peripheral Vascular Disease</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🔢 <strong>472946-001</strong></div>
+      <div class="m-meta-item">📅 Filed:09 September 2025</div>
+      <div class="m-meta-item">✅ Status: Granted</div>
+    </div>
+    <div class="m-section-lbl">Description</div>
+    <p class="m-abstract">This design relates to a sophisticated medical diagnostic system integrated with Artificial Intelligence specifically engineered for the vascular health sector. The device functions by collecting and analyzing complex physiological markers from patients suffering from Peripheral Vascular Disease (PVD). By utilizing predictive modeling, the system evaluates the severity of blood flow restriction and tissue degradation to provide a high-accuracy risk assessment for limb amputation. This allows healthcare providers to intervene earlier with targeted treatments, potentially saving limbs through data-driven clinical decision-making.</p>
+    <a href="{css,js,assets\Research\Patent\Patent_September_2025(2).pdf" target="_blank" rel="noopener" class="m-link">🔗 View Patent Record →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-pt2"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt2')">✕</button>
+    <div class="rc-type tt">🔐 Patent — Granted</div>
+    <h2 class="m-title">AI-Driven Portable Device for Rapid Oral Cancer Screening and Detection</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🔢 <strong>472947-001</strong></div>
+      <div class="m-meta-item">📅 Filed: 09 September 2025</div>
+      <div class="m-meta-item">✅ Status: Granted</div>
+    </div>
+    <div class="m-section-lbl">Description</div>
+    <p class="m-abstract">This design covers a specialized portable medical apparatus designed for non-invasive, rapid screening of oral malignancies. The device incorporates high-resolution imaging or sensor technology coupled with an onboard AI engine that identifies symptomatic patterns of oral cancer in its nascent stages. Designed for both clinical and remote field use, the device aims to bridge the gap in healthcare accessibility by providing immediate, automated feedback, significantly reducing the turnaround time for biopsy referrals and improving patient survival rates through early detection.</p>
+    <a href="{css,js,assets\Research\Patent\Patent_September_2025.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Patent Record →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-pt3"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt3')">✕</button>
+    <div class="rc-type tt">🔐 Patent — Granted</div>
+    <h2 class="m-title">Artificial Intelligence Based Stress Detection Device</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🔢 <strong>I443868-001</strong></div>
+      <div class="m-meta-item">📅 Filed: 11 January 2025</div>
+      <div class="m-meta-item">✅ Status: Granted</div>
+    </div>
+    <div class="m-section-lbl">Description</div>
+    <p class="m-abstract">This design encompasses an innovative hardware solution for mental health monitoring, featuring an AI-based stress detection architecture. The device is engineered to capture various physiological signals—such as heart rate variability, skin conductance, or thermal changes—and process them through an embedded machine learning algorithm to categorize stress levels in real-time. The ergonomic design focuses on portability and continuous monitoring, providing users and healthcare professionals with actionable insights into mental well-being and emotional regulation.</p>
+    <a href="{css,js,assets\Research\Patent\Patent_January_2025.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Patent Record →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-pt4"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-pt4')">✕</button>
+    <div class="rc-type tt">🔐 Patent — Granted</div>
+    <h2 class="m-title">Blockchain Based Medical Data Storing Device</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🔢 <strong>417223-001</strong></div>
+      <div class="m-meta-item">📅 Filed: 17 May 2024</div>
+      <div class="m-meta-item">✅ Status: Granted</div>
+    </div>
+    <div class="m-section-lbl">Description</div>
+    <p class="m-abstract">This design represents a secure hardware storage medium specifically tailored for the healthcare industry's data security needs. By integrating blockchain technology directly into the device's storage architecture, it ensures that medical records are kept in a decentralized and immutable ledger. Each data entry is timestamped and cryptographically secured, preventing unauthorized alterations and providing a transparent audit trail for patient history. This device addresses critical concerns regarding data breaches, interoperability between hospitals, and patient privacy in the digital age.</p>
+    <a href="{css,js,assets\Research\Patent\Patent_May_2024.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Patent Record →</a>
+  </div></div>
+
+  <!-- ═══════════ MODALS — Copyrights ═══════════ -->
+  <div class="modal-overlay" id="modal-c1">
+    <div class="modal-box">
+      <button class="m-close" onclick="closeModal('modal-c1')">✕</button>
+      <div class="rc-type tt">©️ Copyright — Registered</div>
+      <h2 class="m-title">AI-Enhanced Career Guidance System for Personalized Career</h2>
+      <div class="m-meta">
+       <div class="m-meta-item">🔢 <strong>LD-35220/2025-CO</strong></div>
+       <div class="m-meta-item">📅 Filed: 02 September 2025</div>
+       <div class="m-meta-item">✅ Status: Registered</div>
+     </div>
+     <div class="m-section-lbl">Description</div>
+     <p class="m-abstract">This work relates to an AI-driven counseling framework designed to evaluate a student's unique academic history, psychological profile, and technical skill sets. By utilizing predictive modeling, the system identifies specific industry gaps and suggests real-time certifications and learning modules. This allows educational institutions to provide tailored career roadmaps, significantly improving student employability and bridging the transition from campus to corporate environments through data-driven guidance.</p>
+     <a href="{css,js,assets/Research/Copyright/Copyright_September_2025.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Registration Record →</a>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-c2">
+    <div class="modal-box">
+      <button class="m-close" onclick="closeModal('modal-c2')">✕</button>
+      <div class="rc-type tt">©️ Copyright — Registered</div>
+      <h2 class="m-title">Bridging Database and Spreadsheets: Query Translation Technique</h2>
+      <div class="m-meta">
+       <div class="m-meta-item">🔢 <strong>LD-32334/2025-CO</strong></div>
+       <div class="m-meta-item">📅 Filed: 12 August 2025</div>
+       <div class="m-meta-item">✅ Status: Registered</div>
+      </div>
+      <div class="m-section-lbl">Description</div>
+      <p class="m-abstract">This technical innovation addresses the interoperability between structured databases (SQL) and common spreadsheets. It introduces a translation technique that allows complex database queries to be executed or mirrored within spreadsheet environments using automated formula mapping. This system enables business analysts and non-technical users to leverage the power of high-level data manipulation while maintaining the familiar interface of a spreadsheet, optimizing data workflow efficiency.</p>
+      <a href="{css,js,assets/Research/Copyright/Copyright_August_2025.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Registration Record →</a>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-c3">
+    <div class="modal-box">
+      <button class="m-close" onclick="closeModal('modal-c3')">✕</button>
+      <div class="rc-type tt">©️ Copyright — Registered</div>
+      <h2 class="m-title">AI-Driven Job Matching And User Identification System</h2>
+      <div class="m-meta">
+       <div class="m-meta-item">🔢 <strong>L-160304/2025</strong></div>
+       <div class="m-meta-item">📅 Filed: 03 February 2025</div>
+       <div class="m-meta-item">✅ Status: Registered</div>
+      </div>
+      <div class="m-section-lbl">Description</div>
+      <p class="m-abstract">This system leverages machine learning algorithms to facilitate high-precision matching between job seekers and vacancies. Beyond standard keyword matching, it incorporates a robust user identification layer to verify credentials and ensure profile authenticity. By analyzing multi-dimensional parameters such as behavioral traits and technical skills, the system predicts long-term candidate retention and cultural fit, streamlining the recruitment process for HR departments.</p>
+      <a href="{css,js,assets/Research/Copyright/Copyright_February_2025.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Registration Record →</a>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-c4">
+    <div class="modal-box">
+      <button class="m-close" onclick="closeModal('modal-c4')">✕</button>
+      <div class="rc-type tt">©️ Copyright — Registered</div>
+      <h2 class="m-title">Enhancing Emergency Response for Travelers with Legal Consistency Using Machine Learning</h2>
+      <div class="m-meta">
+       <div class="m-meta-item">🔢 <strong>L-147823/2024</strong></div>
+       <div class="m-meta-item">📅 Filed: 15 May 2024</div>
+       <div class="m-meta-item">✅ Status: Registered</div>
+      </div>
+      <div class="m-section-lbl">Description</div>
+      <p class="m-abstract">An intelligent safety system designed to optimize emergency response protocols for international and domestic travelers. The system utilizes machine learning to assess critical situations and trigger alerts. Uniquely, it features a "Legal Consistency" engine that ensures all automated interventions—such as data sharing with authorities or medical triage—remain compliant with the specific legal jurisdictions and privacy laws of the traveler’s current location.</p>
+      <a href="{css,js,assets/Research/Copyright/Copyright_May_2024.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Registration Record →</a>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-c5">
+    <div class="modal-box">
+      <button class="m-close" onclick="closeModal('modal-c5')">✕</button>
+      <div class="rc-type tt">©️ Copyright — Registered</div>
+      <h2 class="m-title">Social Network Mental Disorders Detection via Online Social Media Mining using Machine Learning.</h2>
+      <div class="m-meta">
+       <div class="m-meta-item">🔢 <strong>L-145513/2024</strong></div>
+       <div class="m-meta-item">📅 Filed: 21 March 2024</div>
+       <div class="m-meta-item">✅ Status: Registered</div>
+      </div>
+      <div class="m-section-lbl">Description</div>
+      <p class="m-abstract">This software solution utilizes online social media mining to identify early warning signs of mental health disorders like depression and anxiety. By applying Natural Language Processing (NLP) to anonymized activity patterns and sentiment analysis, the system flags significant behavioral shifts. This allows for non-intrusive, proactive mental health support, providing an early intervention tool that can connect at-risk individuals with professional care providers based on digital markers.</p>
+      <a href="{css,js,assets/Research/Copyright/Copyright_March_2024.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Registration Record →</a>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-c6">
+    <div class="modal-box">
+      <button class="m-close" onclick="closeModal('modal-c6')">✕</button>
+      <div class="rc-type tt">©️ Copyright — Registered</div>
+      <h2 class="m-title">Automated Text Document Classification using Predictive Networking.</h2>
+      <div class="m-meta">
+        <div class="m-meta-item">🔢 <strong>L-142125/2024</strong></div>
+        <div class="m-meta-item">📅 Filed: 25 January 2024</div>
+      <div class="m-meta-item">✅ Status: Registered</div>
+    </div>
+    <div class="m-section-lbl">Description</div>
+    <p class="m-abstract">This work establishes an automated framework for classifying vast amounts of text-based data using a "Predictive Network." It employs advanced deep learning architectures to recognize patterns in unstructured text, allowing for high-speed categorization of documents into specific domains (e.g., Legal, Medical, Finance). This system is designed to reduce the manual overhead of data entry and administrative filing.</p>
+    <a href="{css,js,assets/Research/Copyright/Copyright_January_2024.pdf" target="_blank" rel="noopener" class="m-link">🔗 View Registration Record →</a>
+    </div>
+  </div>
+
+  <!-- ═══════════ MODALS — Projects ═══════════ -->
+
+
+  <!-- ═══════════ MODALS — FDPs ═══════════ -->
+  <div class="modal-overlay" id="modal-f1"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-f1')">✕</button>
+    <div class="rc-type tf">🎓 Workshop Certificate</div>
+    <h2 class="m-title">Workshop on Modern Indian Languages - Marathi</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🏛️ <strong>S.N.D. College of Engineering / SPPU</strong></div>
+      <div class="m-meta-item">📅 January 2026 · 1 Day · Online/Offline</div>
+    </div>
+    <div class="m-section-lbl">Programme Details</div>
+    <p class="m-abstract">One-day workshop organized in association with Savitribai Phule Pune University. Focused on the academic integration of Marathi as a modern Indian language within technical and higher education frameworks to promote linguistic diversity.</p>
+    <div class="m-tags"><span class="m-tag">Marathi Language</span><span class="m-tag">Technical Education</span><span class="m-tag">Linguistics</span></div>
+     <a href="assets/FDP/Jan_2026_1.pdf" target="_blank" class="m-link">🎓 View / Download Certificate →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-f2"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-f2')">✕</button>
+    <div class="rc-type tf">🎓 International FDP Certificate</div>
+    <h2 class="m-title">Industry-Integrated AI & ML: Tools, Trends, and Agentive AI Evolution</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🏛️ <strong>Dr. D.Y. Patil Institute of Technology, Pimpri</strong></div>
+      <div class="m-meta-item">📅 January 2026 · 1 Week · Online</div>
+    </div>
+    <div class="m-section-lbl">Programme Details</div>
+    <p class="m-abstract">An International FDP focused on the evolution of Agentive AI and current industry trends in Machine Learning. Covered advanced AI/ML tools used in industrial settings and the shift toward autonomous, agent-based AI systems.</p>
+    <div class="m-tags"><span class="m-tag">Agentive AI</span><span class="m-tag">AI/ML Tools</span><span class="m-tag">Machine Learning</span><span class="m-tag">Industry 4.0</span></div>
+    <a href="assets/FDP/Jan_2026_2.pdf" target="_blank" class="m-link">🎓 View / Download Certificate →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-f3"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-f3')">✕</button>
+    <div class="rc-type tf">🎓 National FDP Certificate</div>
+    <h2 class="m-title">Data Driven Business Analytics Using DOMO BI</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🏛️ <strong>Keystone School of Engineering / ISTE / DOMO</strong></div>
+      <div class="m-meta-item">📅 September 2025 · 1 Week · National Level</div>
+    </div>
+    <div class="m-section-lbl">Programme Details</div>
+    <p class="m-abstract">National level program in association with ISTE Faculty Chapter. Provided hands-on training on the DOMO Business Intelligence platform, focusing on data-driven decision-making, dashboard creation, and real-time business analytics.</p>
+    <div class="m-tags"><span class="m-tag">Business Analytics</span><span class="m-tag">DOMO BI</span><span class="m-tag">Data Visualization</span><span class="m-tag">ISTE</span></div>
+     <a href="assets/FDP/Sep_2025_2.pdf" target="_blank" class="m-link">🎓 View / Download Certificate →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-f4"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-f4')">✕</button>
+    <div class="rc-type tf">🎓 FDP Lecture Series</div>
+    <h2 class="m-title">Next-Gen AI: From Research to Real-World Impact</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🏛️ <strong>Dr. D. Y. Patil Institute of Technology / Studinex</strong></div>
+      <div class="m-meta-item">📅 August - September 2025 · 5 Days · Online</div>
+    </div>
+    <div class="m-section-lbl">Programme Details</div>
+    <p class="m-abstract">Lecture series conducted by industry experts from Studinex. Explored the transition of AI research into multi-domain practical applications, covering next-generation AI architectures and their scalability in real-world scenarios.</p>
+    <div class="m-tags"><span class="m-tag">AI Research</span><span class="m-tag">Next-Gen AI</span><span class="m-tag">Multi-Domain Apps</span></div>
+    <a href="assets/FDP/Sep_2025_1.pdf" target="_blank" class="m-link">🎓 View / Download Certificate →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-f5"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-f5')">✕</button>
+    <div class="rc-type tf">🎓 FDP Certificate</div>
+    <h2 class="m-title">IPR and Patenting: An Academic Perspective</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🏛️ <strong>Ajeenkya DY Patil School of Engineering, Pune</strong></div>
+      <div class="m-meta-item">📅 August 2025 · 5 Days · Online</div>
+    </div>
+    <div class="m-section-lbl">Programme Details</div>
+    <p class="m-abstract">Faculty Development Program centered on Intellectual Property Rights (IPR). Covered the technicalities of patent filing for academic researchers, including prior art searching, drafting claims, and navigating the legal landscape for innovations.</p>
+    <div class="m-tags"><span class="m-tag">IPR</span><span class="m-tag">Patents</span><span class="m-tag">Academic Research</span></div>
+     <a href="assets/FDP/Aug_2025_2.pdf" target="_blank" class="m-link">🎓 View / Download Certificate →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-f6"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-f6')">✕</button>
+    <div class="rc-type tf">🎓 FDP Certificate</div>
+    <h2 class="m-title">Faculty Development Program on Generative AI</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🏛️ <strong>GH Raisoni College / AICTE / Brainovision</strong></div>
+      <div class="m-meta-item">📅 August 2025 · 5 Days · Online</div>
+    </div>
+    <div class="m-section-lbl">Programme Details</div>
+    <p class="m-abstract">Organized by Brainovision in collaboration with AICTE. This program focused on integrating cutting-edge Generative AI technologies into academic pedagogy, exploring Large Language Models (LLMs) and their role in future education.</p>
+    <div class="m-tags"><span class="m-tag">Generative AI</span><span class="m-tag">AICTE</span><span class="m-tag">Pedagogy</span><span class="m-tag">LLMs</span></div>
+     <a href="assets/FDP/Aug_2025_1.pdf" target="_blank" class="m-link">🎓 View / Download Certificate →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-f7"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-f7')">✕</button>
+    <div class="rc-type tf">🎓 FDP Certificate</div>
+    <h2 class="m-title">Generative AI & Applications</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🏛️ <strong>AISSMS Institute of Information Technology, Pune</strong></div>
+      <div class="m-meta-item">📅 July 2025 · 5 Days · Online</div>
+    </div>
+    <div class="m-section-lbl">Programme Details</div>
+    <p class="m-abstract">Focuses on practical applications of Generative AI frameworks. Organized by the Department of AI & Data Science, covering tools for automated content creation and the technical implementation of generative models in software environments.</p>
+    <div class="m-tags"><span class="m-tag">GenAI</span><span class="m-tag">Data Science</span><span class="m-tag">AI Applications</span></div>
+    <a href="assets/FDP/July_2025.pdf" target="_blank" class="m-link">🎓 View / Download Certificate →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-f8"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-f8')">✕</button>
+    <div class="rc-type tf">🎓 FDP Certificate</div>
+    <h2 class="m-title">Generative AI and its Multidomain Use Cases</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🏛️ <strong>Vishwakarma Institute of Technology (VIT), Pune</strong></div>
+      <div class="m-meta-item">📅 December 2024 · 1 Week · Online</div>
+    </div>
+    <div class="m-section-lbl">Programme Details</div>
+    <p class="m-abstract">Explored the diverse use cases of Generative AI across multiple sectors such as Information Technology, Healthcare, and Management. Analyzed multidomain strategies for deploying AI models at scale.</p>
+    <div class="m-tags"><span class="m-tag">GenAI</span><span class="m-tag">Multidomain AI</span><span class="m-tag">Digital Transformation</span></div>
+    <a href="assets/FDP/Dec_2024.pdf" target="_blank" class="m-link">🎓 View / Download Certificate →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-f9"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-f9')">✕</button>
+    <div class="rc-type tf">🎓 National FDP Certificate</div>
+    <h2 class="m-title">National Level FDP on Generative AI</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🏛️ <strong>PCCOER, Ravet, Pune</strong></div>
+      <div class="m-meta-item">📅 October 2024 · 6 Days · Online</div>
+    </div>
+    <div class="m-section-lbl">Programme Details</div>
+    <p class="m-abstract">Comprehensive national-level faculty training on Generative AI foundations. Focused on the latest developments in transformer architectures, prompt engineering, and the ethical implications of AI deployment.</p>
+    <div class="m-tags"><span class="m-tag">Generative AI</span><span class="m-tag">Prompt Engineering</span><span class="m-tag">AI Ethics</span></div>
+    <a href="assets/FDP/Oct_2024.pdf" target="_blank" class="m-link">🎓 View / Download Certificate →</a>
+  </div></div>
+
+  <div class="modal-overlay" id="modal-f10"><div class="modal-box"><button class="m-close" onclick="closeModal('modal-f10')">✕</button>
+    <div class="rc-type tf">🎓 Orientation Certificate</div>
+    <h2 class="m-title">Orientation for Chairmen and Paper Setters</h2>
+    <div class="m-meta">
+      <div class="m-meta-item">🏛️ <strong>Savitribai Phule Pune University (BoS Computer Eng.)</strong></div>
+      <div class="m-meta-item">📅 August 2023 · 1 Day · Offline</div>
+    </div>
+    <div class="m-section-lbl">Programme Details</div>
+    <p class="m-abstract">Academic orientation program for leadership roles in the examination process. Focused on paper-setting standards, curriculum evaluation protocols, and academic governance within the Board of Studies - Computer Engineering.</p>
+    <div class="m-tags"><span class="m-tag">Academic Leadership</span><span class="m-tag">Paper Setting</span><span class="m-tag">Curriculum Standards</span></div>
+    <a href="assets/FDP/Aug_2023.pdf" target="_blank" class="m-link">🎓 View / Download Certificate →</a>
+  </div></div>
+
+  <!-- ═══════════ SCRIPTS ═══════════ -->
+  <script src="js/theme.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/bg-motion.js"></script>
+  <script>
+    /* Tab switching */
+    document.querySelectorAll('.r-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.r-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.r-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const target = document.getElementById(btn.dataset.panel);
+        if (!target) return;
+        target.classList.add('active');
+        target.querySelectorAll('.reveal,.reveal-left').forEach((el, i) => {
+          el.classList.remove('visible');
+          setTimeout(() => el.classList.add('visible'), 100 + i * 70);
+        });
+      });
+    });
+
+    /* Open / close modal helpers */
+    function openModal(id)  { const m = document.getElementById(id); if(m){ m.classList.add('active'); document.body.style.overflow='hidden'; } }
+    function closeModal(id) { const m = document.getElementById(id); if(m){ m.classList.remove('active'); document.body.style.overflow=''; } }
+
+    /* Click card → open its modal */
+    document.querySelectorAll('.rc[data-modal]').forEach(c => {
+      c.addEventListener('click', () => openModal(c.dataset.modal));
+      c.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') openModal(c.dataset.modal); });
+    });
+    document.querySelectorAll('.fdp-row[data-modal]').forEach(r => {
+      r.addEventListener('click', () => openModal(r.dataset.modal));
+      r.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') openModal(r.dataset.modal); });
+    });
+
+    /* Backdrop & Escape close */
+    document.querySelectorAll('.modal-overlay').forEach(o => {
+      o.addEventListener('click', e => { if(e.target===o) closeModal(o.id); });
+    });
+    document.addEventListener('keydown', e => {
+      if(e.key==='Escape') document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m.id));
+    });
+
+    /* Cursor hover for interactive elements */
+    document.querySelectorAll('.rc,.fdp-row,.r-tab,.m-close,.m-link,.fdp-cert').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    /* Initial reveal trigger */
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('#p-papers .reveal').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), 200 + i * 80);
+      });
+    });
+  </script>
+</body>
+</html>

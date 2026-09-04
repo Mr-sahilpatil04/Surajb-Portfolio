@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experience — Suraj Bhoite</title>
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/cursor.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="stylesheet" href="css/bg-motion.css" />
+  <link rel="icon" type="image/x-icon" href="fevicon.ico" />
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Live Motion Background -->
+ <canvas id="particles-canvas"></canvas>
+ <div class="motion-orb motion-orb-1"></div>
+ <div class="motion-orb motion-orb-2"></div>
+ <div class="motion-orb motion-orb-3"></div>
+ <div class="motion-orb motion-orb-4"></div>
+ <div class="motion-grid"></div>
+ <div class="motion-scanline"></div>
+ <div class="motion-corner motion-corner-tl"></div>
+ <div class="motion-corner motion-corner-br"></div>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">SB</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Mr. Suraj Bhoite</span>
+          <span class="nav-logo-title">Assistant Professor</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">Profile</a>
+        <a href="skills.html" class="nav-link">Skills</a>
+        <a href="experience.html" class="nav-link active">Experience</a>
+        <a href="research.html" class="nav-link">Research</a>
+        <a href="courses.html" class="nav-link">Certificates</a>
+        <a href="notes.html"   class="nav-link">Notes</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle"><span class="theme-icon-dark">🌙</span><span class="theme-icon-light">☀️</span></button>
+        <button class="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html" class="nav-link">🏠 Home</a>
+    <a href="about.html" class="nav-link">👤 Profile</a>
+    <a href="skills.html" class="nav-link">⚡ Skills</a>
+    <a href="experience.html" class="nav-link active">💼 Experience</a>
+    <a href="research.html" class="nav-link">🔬 Research</a>
+    <a href="courses.html" class="nav-link">🎓 Certificates</a>
+    <a href="notes.html"   class="nav-link">📒 Notes</a>
+    <a href="gallery.html" class="nav-link">🖼️ Gallery</a>
+    <a href="contact.html" class="nav-link">📬 Contact</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="experience-hero">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag">// Career Journey</span>
+        <h1 class="section-title" style="margin-top:0.5rem">Experience & <span>Education</span></h1>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">A detailed timeline of academic journey, professional milestones, and scholarly qualifications.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tab Buttons -->
+  <div class="container" style="padding-bottom:1rem;">
+    <div class="exp-tabs">
+      <button class="exp-tab-btn" data-tab="tab-current">
+        <span class="exp-tab-icon">✅</span> Current Experience
+      </button>
+      <button class="exp-tab-btn" data-tab="tab-academic">
+        <span class="exp-tab-icon">🏛️</span> Department Level Experience
+      </button>
+      <button class="exp-tab-btn" data-tab="tab-past">
+        <span class="exp-tab-icon">📁</span> Past Experience
+      </button>
+      <button class="exp-tab-btn" data-tab="tab-education">
+        <span class="exp-tab-icon">🎓</span> Education & Qualifications
+      </button>
+    </div>
+  </div>
+
+  <!-- Timeline Panels -->
+  <div class="container" style="padding-bottom:6rem;">
+
+    <!-- Academic Experience -->
+    <div class="timeline-panel" id="tab-academic">
+      <div class="timeline">
+        <div class="timeline-item current reveal delay-1">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">AMC Coordinator - AI & DS Department</div>
+              <span class="timeline-period">2024 – 2025</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Oversaw Annual Maintenance Contracts for departmental equipment and infrastructure, ensuring timely servicing and operational efficiency.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-2">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">TNP Coordinator (Training & Placement) - AI & DS Department</div>
+              <span class="timeline-period">2024 – 2025</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Taught advanced courses in Artificial Intelligence, Machine Learning, and Data Science for UG and PG programs. 
+              Initiated the first AI Research Lab at the department with ₹15L seed funding. 
+              Guided 3 PhD scholars to successful completion.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-3">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Project Coordinator - AI & DS Department</div>
+              <span class="timeline-period">2024 – 2025</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Delivered foundational and intermediate courses in Data Structures, Algorithms, Operating Systems, 
+              and Computer Networks. Supervised 60+ BE/ME projects. Actively participated in departmental committees 
+              and started publishing research in international journals.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-3">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">S4DS Coordinator - AI & DS Department</div>
+              <span class="timeline-period">2024 – 2025</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Managed activities related to S4DS (Student/Skill Development Society), organizing programs aimed at enhancing technical and soft skills.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-3">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Conference Coordinator - AI & DS Department</div>
+              <span class="timeline-period">2024 – 2025</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Organized academic conferences, managing logistics, communication, and coordination with speakers, participants, and committees.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Current Experience -->
+    <div class="timeline-panel" id="tab-current">
+      <div class="timeline">
+        <div class="timeline-item current reveal delay-1">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Assistant Professor - AI & DS Department</div>
+              <span class="timeline-period"> Dec 2023 – Present</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+           <div class="timeline-description">
+              <b>Responsibility-</b><br>
+              <b>• Subject Teaches –</b>
+             <ol style="margin-top: 5px; padding-left: 25px;">
+               <li>Theory of Computation</li>
+               <li>Data Structures and Algorithms</li>
+               <li>Machine Learning</li>
+               <li>Linear Programming – III</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item current reveal delay-2">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Autonomous Coordinator - AI & DS Department</div>
+              <span class="timeline-period">Present</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Managed accreditation processes aligned with NBA standards, including documentation, data collection, and continuous quality improvement initiatives to ensure academic excellence.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item current reveal delay-2">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">NBA Coordinator - AI & DS Department</div>
+              <span class="timeline-period">Present</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Managed accreditation processes aligned with NBA standards, including documentation, data collection, and continuous quality improvement initiatives to ensure academic excellence.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item current reveal delay-3">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">IIC Coordinator - AI & DS Department</div>
+              <span class="timeline-period">Present</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Led Innovation and Incubation Cell activities, promoting entrepreneurship, organizing innovation challenges, workshops, and startup-related events for students.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item current reveal delay-4">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Internship Coordinator - AI & DS Department</div>
+              <span class="timeline-period">Present</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Facilitated student internships by coordinating with industries, tracking student progress, and ensuring successful completion of internship programs.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item current reveal delay-3">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">IPR Coordinator (Copyright & Patent) - AI & DS Department</div>
+              <span class="timeline-period">Present</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Guided students and faculty on Intellectual Property Rights, assisting in filing copyrights and patents, and conducting awareness sessions.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item current reveal delay-3">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">MoU Coordinator - AI & DS Department</div>
+              <span class="timeline-period">Present</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Led Innovation and Incubation Cell activities, promoting entrepreneurship, organizing innovation challenges, workshops, and startup-related events for students.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item current reveal delay-3">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Timetable Coordinator - AI & DS Department</div>
+              <span class="timeline-period">Present</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Designed and managed departmental timetables, ensuring optimal allocation of faculty, classrooms, and resources while minimizing scheduling conflicts.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item current reveal delay-3">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Teacher Guardian - AI & DS Department</div>
+              <span class="timeline-period">Present</span>
+            </div>
+            <div class="timeline-org">Dr. D. Y. Pail College of Engineering & Innovation, Varale, Talegaon, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Acted as a mentor for assigned students, providing academic guidance, personal support, and monitoring overall progress.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Past Experience -->
+    <div class="timeline-panel" id="tab-past">
+      <div class="timeline">
+        <div class="timeline-item reveal delay-1">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Assistant Professor</div>
+              <span class="timeline-period">July 2023 – Nov 2023</span>
+            </div>
+            <div class="timeline-org">SBM College of Engineering, Pune </div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              <b>Responsibility:</b><br>
+              <b>• Subject Teaches –</b>
+              <ol style="margin: 5px 0 15px 28px; padding: 0;">
+                <li>Theory of Computation</li>
+                <li>Design and Analysis of Algorithms</li>
+                <li>LP – III</li>
+              </ol>
+              <b>• SPPU Examination Work:</b>
+              <div style="margin-left: 20px; margin-top: 5px;">
+                Paper Setter and Examiner in Design and Analysis of Algorithms Course (Theory, 2019 Pat.)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-2">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Assistant Professor</div>
+              <span class="timeline-period">March 2022 – June 2023</span>
+            </div>
+            <div class="timeline-org">PES Modern College of Engineering, Pune</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description" style="line-height: 1.6;">
+              <b>Responsibility:</b><br>
+              <b>• Subject Teaches –</b>
+              <ol style="margin: 5px 0 15px 25px; padding: 0;">
+                <li>Theory of Computation.</li>
+                <li>Data Structures and Algorithms.</li>
+                <li>Machine Learning.</li>
+                <li>LP – III.</li>
+              </ol>
+              <b>• Portfolio:</b>
+              <ol style="margin: 5px 0 0 25px; padding: 0;">
+                <li>CSI Student Chapter Coordinator.</li>
+                <li>IPR Coordinator.</li>
+                <li>ED Cell Coordinator.</li>
+                <li>NAAC Criteria 3 as Supporting Staff.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-3">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Assistant Professor</div>
+              <span class="timeline-period">Sep 2021 – March 2022</span>
+            </div>
+            <div class="timeline-org">SRTTC Faculty of Engineering (VIT Kamshet), Pune</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description" style="line-height: 1.6;">
+              <b>Responsibility:</b><br>
+              <b>• Subject Teaches –</b>
+              <ol style="margin: 5px 0 15px 28px; padding: 0;">
+                <li>Theory of Computation.</li>
+                <li>Digital Electronics and Logic Design</li>
+              </ol>
+              <b>• Portfolio:</b>
+              <ol style="margin: 5px 0 0 28px; padding: 0;">
+                <li>Departmental Internal Examination (Unit Test, Prelim).</li>
+                <li>Departmental Time Table coordinator.</li>
+                <li>Academic Feedback Coordinator.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-2">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Assistant Professor</div>
+              <span class="timeline-period">Sep 2020 – May 2021</span>
+            </div>
+            <div class="timeline-org">Vidya Pratishthan's Kamalnayan Bajaj Institute of Engineering and Technology, Baramati, Pune.</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description" style="line-height: 1.6;">
+              <b>Responsibility:</b><br>
+              <b>• Subject Teaches –</b>
+              <ol style="margin: 5px 0 15px 28px; padding: 0;">
+                <li>Object Oriented Programming.</li>
+                <li>Object Oriented Programming Lab.</li>
+              </ol>
+              <b>• NBA Criteria 3 (Supporting Staff).</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-2">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Assistant Professor</div>
+              <span class="timeline-period">July 2019 – Sep 2020</span>
+            </div>
+            <div class="timeline-org">SMSMPITR, Akluj, Solapur</div>
+            <div class="timeline-location">📍 Solapur, Maharashtra</div>
+            <div class="timeline-description" style="line-height: 1.6;">
+              <b>Responsibility:</b><br>
+              <b>• Subject Teaches –</b>
+              <ol type="I" style="margin: 5px 0 15px 35px; padding: 0;">
+                <li>Design and Analysis of Algorithm</li>
+                <li>Theory of Computation</li>
+              </ol>
+              <b>• Activity Coordinator.</b><br>
+              <b style="display: block; margin-top: 10px;">• Worked as IT Coordinator for Solapur University Exam Oct/Nov 2019.</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-2">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role"> Junior Software Developer </div>
+              <span class="timeline-period">Sep 2016 – Aug 2017</span>
+            </div>
+            <div class="timeline-org">Curiosity Automation PVT. LTD </div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <!-- Education & Qualifications -->
+    <div class="timeline-panel" id="tab-education">
+      <div class="timeline">
+        <div class="timeline-item reveal delay-1">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">Doctor of Philosophy (Ph.D) — Artificial Intelligence & Machine Learning</div>
+              <span class="timeline-period">Pursuing</span>
+            </div>
+            <div class="timeline-org">Symbiosis Institute of Technology, Pune<br>Symbiosis International Deemed University </div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              <strong>Thesis:</strong> "Adaptive Deep Learning Frameworks for Intelligent Educational Assessment Systems" <br/>
+              Grade: Distinction <br/>
+            </div>
+            <div class="timeline-tags"><span class="timeline-tag">Artificial Intelligence</span><span class="timeline-tag">Deep Learning</span></div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-2">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">M.Tech — Computer Engineering</div>
+              <span class="timeline-period">2017 – 2019</span>
+            </div>
+            <div class="timeline-org">G. H. Raisoni College of Engineering and Management, Wagholi<br>"An Autonomous Institute & Affiliated to Savitribai Phule Pune University”</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              <strong>Dissertation:</strong> “Descriptive Clustering of Documents on the Basis of Predictive Network" <br/>
+              CGPA: 7.68 / 10 | First Class<br/>
+            </div>
+            <div class="timeline-tags"><span class="timeline-tag">Machine Learning</span><span class="timeline-tag">7.68 CGPA</span></div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-3">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">B.E. — Computer Engineering</div>
+              <span class="timeline-period">2012 – 2016</span>
+            </div>
+            <div class="timeline-org">SB Patil College of Engineering, Indapur<br>Savitribai Phule Pune University, Pune</div>
+            <div class="timeline-location">📍 Indapur, Maharashtra</div>
+            <div class="timeline-description">
+              <strong>Final Year Project:</strong> " Enhanced Translating Relational Queries Into Spreadsheets." <br/>
+              Aggregate: 64% | First Class <br/>
+            </div>
+            <div class="timeline-tags"><span class="timeline-tag">B.E. CSE</span><span class="timeline-tag">64% Aggregate</span></div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal delay-4">
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-role">HSC (Science) — 12th Grade</div>
+              <span class="timeline-period">2010 – 2012</span>
+            </div>
+            <div class="timeline-org">Fergusson College, Pune</div>
+            <div class="timeline-location">📍 Pune, Maharashtra</div>
+            <div class="timeline-description">
+              Maharashtra HSC Board | Stream: Science (PCM + CS) | Score: 91.2% <br/>
+              State rank holder in Mathematics. Active participant in Science Olympiad at national level.
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/theme.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/experience.js"></script>
+  <script src="js/bg-motion.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+/* =============================================
+   FACULTY PORTFOLIO - CSS VARIABLES & THEMES
+   ============================================= */
+
+:root {
+  /* Dark Theme (Default) */
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #0f1628;
+  --bg-card: #131c35;
+  --bg-glass: rgba(19, 28, 53, 0.7);
+  --bg-hover: rgba(212, 175, 55, 0.08);
+
+  --text-primary: #f0e6cc;
+  --text-secondary: #a89b7a;
+  --text-muted: #6b6050;
+  --text-white: #ffffff;
+
+  --accent-gold: #d4af37;
+  --accent-gold-light: #f5d470;
+  --accent-gold-dark: #a07c20;
+  --accent-blue: #4a9eff;
+  --accent-teal: #20b2aa;
+  --accent-rose: #c0392b;
+
+  --border-color: rgba(212, 175, 55, 0.2);
+  --border-strong: rgba(212, 175, 55, 0.5);
+  --border-subtle: rgba(240, 230, 204, 0.08);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+  --shadow-gold: 0 0 30px rgba(212, 175, 55, 0.2);
+  --shadow-glow: 0 0 60px rgba(212, 175, 55, 0.15);
+
+  --gradient-gold: linear-gradient(135deg, #d4af37, #f5d470, #a07c20);
+  --gradient-dark: linear-gradient(135deg, #0a0e1a, #131c35);
+  --gradient-hero: linear-gradient(135deg, #0a0e1a 0%, #1a2550 50%, #0a0e1a 100%);
+  --gradient-card: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(74,158,255,0.05));
+
+  --nav-height: 80px;
+  --border-radius: 16px;
+  --border-radius-sm: 8px;
+  --border-radius-lg: 24px;
+  --border-radius-full: 999px;
+
+  --transition-fast: 0.2s ease;
+  --transition-med: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Crimson Pro', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --bg-primary: #faf7f2;
+  --bg-secondary: #f3ede0;
+  --bg-card: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.8);
+  --bg-hover: rgba(160, 124, 32, 0.06);
+
+  --text-primary: #1a1208;
+  --text-secondary: #5c4a2a;
+  --text-muted: #9b8a6a;
+  --text-white: #1a1208;
+
+  --accent-gold: #a07c20;
+  --accent-gold-light: #c9a227;
+  --accent-gold-dark: #7a5c10;
+  --accent-blue: #1a5fa8;
+  --accent-teal: #147a73;
+  --accent-rose: #8b1a14;
+
+  --border-color: rgba(160, 124, 32, 0.25);
+  --border-strong: rgba(160, 124, 32, 0.6);
+  --border-subtle: rgba(26, 18, 8, 0.08);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
+  --shadow-gold: 0 0 30px rgba(160, 124, 32, 0.15);
+  --shadow-glow: 0 0 60px rgba(160, 124, 32, 0.1);
+
+  --gradient-gold: linear-gradient(135deg, #a07c20, #c9a227, #7a5c10);
+  --gradient-dark: linear-gradient(135deg, #faf7f2, #f3ede0);
+  --gradient-hero: linear-gradient(135deg, #faf7f2 0%, #ede3d0 50%, #faf7f2 100%);
+  --gradient-card: linear-gradient(135deg, rgba(160,124,32,0.06), rgba(26,95,168,0.03));
+}

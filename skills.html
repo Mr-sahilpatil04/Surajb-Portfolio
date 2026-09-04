@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills — Suraj Bhoite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/cursor.css" />
+  <link rel="stylesheet" href="css/bg-motion.css" />
+  <link rel="icon" type="image/x-icon" href="fevicon.ico" />
+  <style>
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    .skills-hero {
+      padding: 8rem 0 3rem;
+      text-align: center;
+      position: relative;
+    }
+
+    /* ══════════════════════════════════════
+       MAIN SKILLS GRID
+    ══════════════════════════════════════ */
+    .skills-main {
+      padding: 1rem 0 6rem;
+    }
+
+    .skills-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 860px) {
+      .skills-2col { grid-template-columns: 1fr; }
+    }
+
+    /* ══════════════════════════════════════
+       CATEGORY CARD  — matches screenshot style
+    ══════════════════════════════════════ */
+    .cat-card {
+      background: #0d1526;
+      border: 1px solid rgba(212,175,55,0.12);
+      border-radius: 18px;
+      padding: 1.8rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity   0.6s ease,
+        transform 0.6s cubic-bezier(0.4,0,0.2,1),
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    [data-theme="light"] .cat-card {
+      background: #ffffff;
+      border-color: rgba(160,124,32,0.15);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+
+    .cat-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger */
+    .cat-card:nth-child(1) { transition-delay: 0.05s; }
+    .cat-card:nth-child(2) { transition-delay: 0.15s; }
+    .cat-card:nth-child(3) { transition-delay: 0.1s;  }
+    .cat-card:nth-child(4) { transition-delay: 0.2s;  }
+    .cat-card:nth-child(5) { transition-delay: 0.08s; }
+    .cat-card:nth-child(6) { transition-delay: 0.18s; }
+
+    .cat-card:hover {
+      border-color: rgba(212,175,55,0.35);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35), 0 0 30px rgba(212,175,55,0.08);
+    }
+
+    /* subtle top accent line on hover */
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient-gold);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+      transform-origin: left;
+    }
+    .cat-card:hover::before { transform: scaleX(1); }
+
+    /* background circle glow */
+    .cat-card::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .cat-card:hover::after { opacity: 1; }
+
+    /* ── Card Header ── */
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.6rem;
+    }
+
+    /* Teal icon circle — exactly like screenshot */
+    .cat-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(32,178,170,0.15);
+      border: 1.5px solid rgba(32,178,170,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .cat-card:hover .cat-icon {
+      transform: rotate(-8deg) scale(1.1);
+      background: rgba(32,178,170,0.25);
+    }
+
+    .cat-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #f0e6cc;
+      letter-spacing: 0.01em;
+    }
+
+    [data-theme="light"] .cat-title { color: #1a1208; }
+
+    /* ── Skill Row ── */
+    .skill-item {
+      margin-bottom: 1.1rem;
+    }
+    .skill-item:last-child { margin-bottom: 0; }
+
+    .skill-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.42rem;
+    }
+
+    .skill-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: #a89b7a;
+      letter-spacing: 0.01em;
+    }
+
+    [data-theme="light"] .skill-label { color: #5c4a2a; }
+
+    .skill-pct {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #d4af37;
+      min-width: 36px;
+      text-align: right;
+    }
+
+    /* ── Track & Fill ── */
+    .skill-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    [data-theme="light"] .skill-track {
+      background: rgba(0,0,0,0.08);
+    }
+
+    .skill-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      position: relative;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* shimmer on bar */
+    .skill-fill::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.3) 50%,
+        transparent 100%
+      );
+      background-size: 200% 100%;
+      animation: barShimmer 3s linear infinite;
+      border-radius: inherit;
+    }
+
+    @keyframes barShimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position:  200% 0; }
+    }
+
+    /* Bar colour themes */
+    .bar-teal   { background: linear-gradient(90deg, #14a898, #20b2aa, #4dd8d0); box-shadow: 0 0 6px rgba(32,178,170,0.5); }
+    .bar-gold   { background: linear-gradient(90deg, #a07c20, #d4af37, #f0cc60); box-shadow: 0 0 6px rgba(212,175,55,0.5); }
+    .bar-blue   { background: linear-gradient(90deg, #1a5fa8, #4a9eff, #80bfff); box-shadow: 0 0 6px rgba(74,158,255,0.45); }
+    .bar-purple { background: linear-gradient(90deg, #5a2d8a, #8a4fcf, #b07ee0); box-shadow: 0 0 6px rgba(138,79,207,0.45); }
+    .bar-rose   { background: linear-gradient(90deg, #8b1a14, #c0392b, #e05a40); box-shadow: 0 0 6px rgba(192,57,43,0.4); }
+
+    /* ══════════════════════════════════════
+       LEGEND
+    ══════════════════════════════════════ */
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      color: #a89b7a;
+    }
+
+    .legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    .ld-expert   { background: #d4af37; }
+    .ld-advanced { background: #4a9eff; }
+    .ld-inter    { background: #20b2aa; }
+
+    /* small level dot beside skill name */
+    .lvl-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      margin-right: 5px;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .lvl-e { background: #d4af37; }
+    .lvl-a { background: #4a9eff; }
+    .lvl-i { background: #20b2aa; }
+
+    /* ══════════════════════════════════════
+       SECTION TAG / TITLE REUSE
+    ══════════════════════════════════════ */
+    .section-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #d4af37;
+      background: rgba(212,175,55,0.1);
+      border: 1px solid rgba(212,175,55,0.25);
+      padding: 0.38rem 1.1rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 900;
+      color: #f0e6cc;
+      margin-bottom: 0.8rem;
+    }
+
+    [data-theme="light"] .section-title { color: #1a1208; }
+
+    .section-title span {
+      background: linear-gradient(135deg, #a07c20, #d4af37, #f5d470);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-divider {
+      width: 56px; height: 3px;
+      background: linear-gradient(90deg, #a07c20, #d4af37, #f5d470);
+      margin: 1.2rem auto; border-radius: 2px;
+    }
+
+    .section-subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      color: #a89b7a;
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    [data-theme="light"] .section-subtitle { color: #5c4a2a; }
+
+  </style>
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Motion Background -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="motion-orb motion-orb-1"></div>
+  <div class="motion-orb motion-orb-2"></div>
+  <div class="motion-orb motion-orb-3"></div>
+  <div class="motion-orb motion-orb-4"></div>
+  <div class="motion-grid"></div>
+  <div class="motion-scanline"></div>
+  <div class="motion-corner motion-corner-tl"></div>
+  <div class="motion-corner motion-corner-br"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">SB</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Mr. Suraj Bhoite</span>
+          <span class="nav-logo-title">Assistant Professor</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html"      class="nav-link">Home</a>
+        <a href="about.html"      class="nav-link">About</a>
+        <a href="skills.html"     class="nav-link active">Skills</a>
+        <a href="experience.html" class="nav-link">Experience</a>
+        <a href="research.html"   class="nav-link">Research</a>
+        <a href="courses.html"    class="nav-link">Certificates</a>
+        <a href="notes.html"      class="nav-link">Notes</a>
+        <a href="gallery.html"    class="nav-link">Gallery</a>
+        <a href="contact.html"    class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle">
+          <span class="theme-icon-dark">🌙</span>
+          <span class="theme-icon-light">☀️</span>
+        </button>
+        <button class="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html"      class="nav-link">🏠 Home</a>
+    <a href="about.html"      class="nav-link">👤 About</a>
+    <a href="skills.html"     class="nav-link active">⚡ Skills</a>
+    <a href="experience.html" class="nav-link">💼 Experience</a>
+    <a href="research.html"   class="nav-link">🔬 Research</a>
+    <a href="courses.html"    class="nav-link">🎓 Certificates</a>
+    <a href="notes.html"      class="nav-link">📒 Notes</a>
+    <a href="gallery.html"    class="nav-link">🖼️ Gallery</a>
+    <a href="contact.html"    class="nav-link">📬 Contact</a>
+  </div>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="skills-hero">
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="reveal">
+        <div class="section-tag">// Expertise &amp; Proficiency</div>
+        <h1 class="section-title">Technical &amp; Academic <span>Skills</span></h1>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">
+          A comprehensive overview of technical proficiencies, teaching competencies, and professional skills.
+        </p>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend-row reveal">
+        <div class="legend-item"><span class="legend-dot ld-expert"></span> Expert (90–100%)</div>
+        <div class="legend-item"><span class="legend-dot ld-advanced"></span> Advanced (75–89%)</div>
+        <div class="legend-item"><span class="legend-dot ld-inter"></span> Intermediate (60–74%)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SKILLS GRID ═══════════ -->
+  <section class="skills-main">
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="skills-2col">
+
+        <!-- ══ 1. PROGRAMMING ══ -->
+        <div class="cat-card">
+          <div class="cat-header">
+            <div class="cat-icon">💻</div>
+            <div class="cat-title">Programming</div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Python</span>
+              <span class="skill-pct" data-pct="98">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-gold" data-width="98"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>C</span>
+              <span class="skill-pct" data-pct="90">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-gold" data-width="90"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>C++</span>
+              <span class="skill-pct" data-pct="88">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-gold" data-width="88"></div></div>
+          </div>
+        
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>SQL</span>
+              <span class="skill-pct" data-pct="85">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-gold" data-width="85"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Latex</span>
+              <span class="skill-pct" data-pct="90">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-gold" data-width="90"></div></div>
+          </div>
+        </div>
+
+        <!-- ══ 2. CORE / ACADEMIC SKILLS ══ -->
+        <div class="cat-card">
+          <div class="cat-header">
+            <div class="cat-icon">🎓</div>
+            <div class="cat-title">Core Academic Skills</div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Innovation Teaching Learning</span>
+              <span class="skill-pct" data-pct="98">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-teal" data-width="98"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Research Methodology</span>
+              <span class="skill-pct" data-pct="97">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-teal" data-width="97"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Curriculum Design (OBE)</span>
+              <span class="skill-pct" data-pct="95">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-teal" data-width="95"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Academic Writing</span>
+              <span class="skill-pct" data-pct="94">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-teal" data-width="94"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Paper Publication</span>
+              <span class="skill-pct" data-pct="96">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-teal" data-width="96"></div></div>
+          </div>
+        </div>
+
+        <!-- ══ 3. AI & MACHINE LEARNING ══ -->
+        <div class="cat-card">
+          <div class="cat-header">
+            <div class="cat-icon">🧠</div>
+            <div class="cat-title">AI &amp; Machine Learning</div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>PyTorch</span>
+              <span class="skill-pct" data-pct="85">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-blue" data-width="92"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Pandas</span>
+              <span class="skill-pct" data-pct="89">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-blue" data-width="95"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Power BI</span>
+              <span class="skill-pct" data-pct="96">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-blue" data-width="96"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-a"></span>Computer Vision</span>
+              <span class="skill-pct" data-pct="92">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-blue" data-width="92"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-a"></span>NLP / Transformers</span>
+              <span class="skill-pct" data-pct="85">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-blue" data-width="85"></div></div>
+          </div>
+        </div>
+
+        <!-- ══ 4. LEADERSHIP ══ -->
+        <div class="cat-card">
+          <div class="cat-header">
+            <div class="cat-icon">👥</div>
+            <div class="cat-title">Leadership &amp; Administration</div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Team Management</span>
+              <span class="skill-pct" data-pct="95">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-purple" data-width="95"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Public Speaking</span>
+              <span class="skill-pct" data-pct="92">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-purple" data-width="92"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Mentoring</span>
+              <span class="skill-pct" data-pct="96">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-purple" data-width="96"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Problem Solving</span>
+              <span class="skill-pct" data-pct="94">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-purple" data-width="94"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Strategic Planning</span>
+              <span class="skill-pct" data-pct="88">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-purple" data-width="88"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Project Planning</span>
+              <span class="skill-pct" data-pct="91">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-purple" data-width="91"></div></div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-top">
+              <span class="skill-label"><span class="lvl-dot lvl-e"></span>Critical Thinking</span>
+              <span class="skill-pct" data-pct="94">0%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill bar-purple" data-width="94"></div></div>
+          </div>
+        </div>
+      </div><!-- /skills-2col -->
+    </div>
+  </section>
+
+  <script src="js/theme.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/bg-motion.js"></script>
+  <script>
+  /* ── Animate cards + bars + counters on scroll ── */
+  const cards = document.querySelectorAll('.cat-card');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const card = entry.target;
+
+      /* Reveal card */
+      card.classList.add('visible');
+
+      /* Animate bars */
+      card.querySelectorAll('.skill-fill').forEach((bar, i) => {
+        setTimeout(() => {
+          bar.style.width = bar.dataset.width + '%';
+        }, 120 + i * 60);
+      });
+
+      /* Animate counters */
+      card.querySelectorAll('.skill-pct').forEach((el, i) => {
+        const target = parseInt(el.dataset.pct);
+        let current  = 0;
+        const inc    = target / 55;
+        setTimeout(() => {
+          const timer = setInterval(() => {
+            current = Math.min(current + inc, target);
+            el.textContent = Math.floor(current) + '%';
+            if (current >= target) {
+              el.textContent = target + '%';
+              clearInterval(timer);
+            }
+          }, 18);
+        }, 100 + i * 55);
+      });
+
+      observer.unobserve(card);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  cards.forEach(c => observer.observe(c));
+
+  /* Reveal for hero */
+  document.querySelectorAll('.reveal').forEach(el => {
+    const ro = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { el.classList.add('visible'); ro.unobserve(el); }
+    }, { threshold: 0.1 });
+    ro.observe(el);
+  });
+
+  /* Navbar scroll */
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar')
+      .classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  /* Hamburger */
+  const ham = document.querySelector('.hamburger');
+  const mob = document.querySelector('.mobile-menu');
+  if (ham) ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    mob.classList.toggle('open');
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Suraj Bhoite</title>
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/cursor.css" />
+  <link rel="stylesheet" href="css/secondary-pages.css" />
+  <link rel="stylesheet" href="css/bg-motion.css" />
+  <link rel="icon" type="image/x-icon" href="fevicon.ico" />
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Live Motion Background -->
+ <canvas id="particles-canvas"></canvas>
+ <div class="motion-orb motion-orb-1"></div>
+ <div class="motion-orb motion-orb-2"></div>
+ <div class="motion-orb motion-orb-3"></div>
+ <div class="motion-orb motion-orb-4"></div>
+ <div class="motion-grid"></div>
+ <div class="motion-scanline"></div>
+ <div class="motion-corner motion-corner-tl"></div>
+ <div class="motion-corner motion-corner-br"></div>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">SB</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Mr. Suraj Bhoite</span>
+          <span class="nav-logo-title">Assistant Professor</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">Profile</a>
+        <a href="skills.html" class="nav-link">Skills</a>
+        <a href="experience.html" class="nav-link">Experience</a>
+        <a href="research.html" class="nav-link">Research</a>
+        <a href="courses.html" class="nav-link">Certificates</a>
+        <a href="notes.html"   class="nav-link">Notes</a>
+        <a href="gallery.html" class="nav-link active">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle"><span class="theme-icon-dark">🌙</span><span class="theme-icon-light">☀️</span></button>
+        <button class="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html" class="nav-link">🏠 Home</a>
+    <a href="about.html" class="nav-link">👤 Profile</a>
+    <a href="skills.html" class="nav-link">⚡ Skills</a>
+    <a href="experience.html" class="nav-link">💼 Experience</a>
+    <a href="research.html" class="nav-link">🔬 Research</a>
+    <a href="courses.html" class="nav-link">🎓 Certificates</a>
+    <a href="notes.html" class="nav-link">📒 Notes</a>
+    <a href="gallery.html" class="nav-link active">🖼️ Gallery</a>
+    <a href="contact.html" class="nav-link">📬 Contact</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="gallery-hero">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag">// Moments & Memories</span>
+        <h1 class="section-title" style="margin-top:0.5rem">Activity <span>Gallery</span></h1>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Capturing milestones, conferences, lectures, and memorable moments from academic life.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter -->
+  <div class="container">
+    <div class="gallery-filter reveal">
+      <button class="filter-btn active" data-filter="all">🌐 All</button>
+      <button class="filter-btn" data-filter="conference">🎤 Conferences</button>
+      <button class="filter-btn" data-filter="lecture">📚 Lectures</button>
+      <button class="filter-btn" data-filter="award">🏆 Awards</button>
+      <button class="filter-btn" data-filter="workshop">🛠️ Workshops</button>
+      <button class="filter-btn" data-filter="student">🎓 Student Activities</button>
+    </div>
+  </div>
+
+  <!-- Gallery Masonry -->
+  <div class="container">
+    <div class="gallery-masonry" id="gallery-grid">
+
+      <!-- Item 1 -->
+      <div class="gallery-item reveal" data-category="conference">
+       <img src="{css,js,assets/gallerypictures/gallery (10).jpg" alt="IEEE ICAI 2024" class="gallery-item-placeholder" style="height:275px;;background:linear-gradient(135deg,#221a00,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="gallery-item reveal" data-category="workshop">
+        <img src="{css,js,assets/gallerypictures/gallery.jpg" alt="Best Faculty Award — SPPU 2023" class="gallery-item-placeholder" style="height:350px;background:linear-gradient(135deg,#2a1800,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="gallery-item reveal" data-category="workshop">
+        <img src="{css,js,assets/gallerypictures/gallery (7).jpg" alt="Guest Lecture on Deep Learning" class="gallery-item-placeholder" style="height:300px; background:linear-gradient(135deg,#0a2218,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="gallery-item reveal" data-category="conference">
+        <img src="{css,js,assets/gallerypictures/gallery (11).jpg" alt="Cybersecurity Workshop" class="gallery-item-placeholder" style="height:275; background:linear-gradient(135deg,#1a0a2a,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="gallery-item reveal" data-category="award">
+        <img src="{css,js,assets/gallerypictures/gallery (8).jpg" alt="Research Excellence Award — DST" class="gallery-item-placeholder" style="height:275px;background:linear-gradient(135deg,#1a0018,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="gallery-item reveal" data-category="student">
+        <img src="{css,js,assets/gallerypictures/gallery (3).jpg" alt="International Conference — Singapore 2022" class="gallery-item-placeholder" style="height:220px; background:linear-gradient(135deg,#1a1500,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 7 -->
+      <div class="gallery-item reveal" data-category="student">
+        <img src="{css,js,assets/gallerypictures/gallery (9).jpg" alt="PhD Scholar Graduation 2023" class="gallery-item-placeholder" style="height:280px; background:linear-gradient(135deg,#001a1a,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 8 -->
+      <div class="gallery-item reveal" data-category="workshop">
+        <img src="{css,js,assets/gallerypictures/gallery (6).jpg" alt="Hackathon Mentoring — Smart India" class="gallery-item-placeholder" style="height:275px; background:linear-gradient(135deg,#00181a,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 9 -->
+      <div class="gallery-item reveal" data-category="workshop">
+        <img src="{css,js,assets/gallerypictures/gallery (2).jpg" alt="NPTEL Course Instructor — ML" class="gallery-item-placeholder" style="height:270px; background:linear-gradient(135deg,#0a1820,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 10 -->
+      <div class="gallery-item reveal">
+        <img src="{css,js,assets/gallerypictures/gallery (4).jpg" alt="TCS Industry-Academia Collaboration" class="gallery-item-placeholder" style="height:275px;;; background:linear-gradient(135deg,#181a00,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 11 -->
+      <div class="gallery-item reveal" data-category="student">
+        <img src="{css,js,assets/gallerypictures/gallery (12).jpg" alt="National Seminar on AI — IIT Delhi" class="gallery-item-placeholder" style="height:240px; background:linear-gradient(135deg,#200010,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 12 -->
+      <div class="gallery-item reveal">
+        <img src="{css,js,assets/gallerypictures/gallery (5).jpg" alt="Women in Tech Leadership Award 2021" class="gallery-item-placeholder" style="height:290px; background:linear-gradient(135deg,#001020,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 13 -->
+      <div class="gallery-item reveal">
+        <img src="{css,js,assets/gallerypictures/gallery (13).jpeg" alt="Women in Tech Leadership Award 2021" class="gallery-item-placeholder" style="height:290px; background:linear-gradient(135deg,#001020,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+      <!-- Item 14 -->
+      <div class="gallery-item reveal">
+        <img src="{css,js,assets/gallerypictures/gallery (14).jpeg" alt="Women in Tech Leadership Award 2021" class="gallery-item-placeholder" style="height:290px; background:linear-gradient(135deg,#001020,#0a0e1a);">
+        <div class="gallery-item-overlay">
+          <div class="gallery-item-title"></div>
+          <div class="gallery-item-tag"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close">✕</button>
+      <button class="lightbox-nav lightbox-prev">‹</button>
+      <button class="lightbox-nav lightbox-next">›</button>
+      <img class="lightbox-img" src="" alt="Gallery Image"
+     style="width:100%; border-radius:var(--border-radius); border:1px solid var(--border-color);" />
+      <div class="lightbox-caption">
+        <h3 class="lightbox-title" style="color:#fff;">Gallery Item</h3>
+        <p class="lightbox-tag" style="color:var(--accent-gold);"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/theme.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/bg-motion.js"></script>
+</body>
+</html>

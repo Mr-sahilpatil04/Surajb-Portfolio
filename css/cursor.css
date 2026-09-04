@@ -1,0 +1,98 @@
+/* =============================================
+   CUSTOM ANIMATED CURSOR
+   ============================================= */
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  mix-blend-mode: normal;
+  will-change: transform;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--accent-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.7;
+  will-change: transform;
+}
+
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99997;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: var(--accent-gold);
+}
+
+/* Hover states */
+body.cursor-hover .cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-gold-light);
+}
+
+body.cursor-hover .cursor-ring {
+  width: 56px;
+  height: 56px;
+  border-color: var(--accent-gold-light);
+  opacity: 0.5;
+}
+
+/* Click state */
+body.cursor-click .cursor-dot {
+  transform: translate(-50%, -50%) scale(0.5);
+  background: var(--accent-gold-light);
+}
+
+body.cursor-click .cursor-ring {
+  transform: translate(-50%, -50%) scale(0.8);
+  border-color: var(--accent-gold-light);
+}
+
+/* Text cursor */
+body.cursor-text .cursor-dot {
+  width: 2px;
+  height: 20px;
+  border-radius: 1px;
+  background: var(--accent-gold);
+}
+
+body.cursor-text .cursor-ring {
+  opacity: 0;
+}
+
+/* Hide on mobile */
+@media (hover: none) {
+  .cursor-dot,
+  .cursor-ring,
+  .cursor-trail {
+    display: none;
+  }
+  body { cursor: auto; }
+  button { cursor: pointer; }
+}

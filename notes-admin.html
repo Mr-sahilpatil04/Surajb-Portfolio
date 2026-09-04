@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Notes Management — Suraj Bhoite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/notes.css" />
+  <link rel="icon" type="image/x-icon" href="fevicon.ico" />
+</head>
+<body class="cursor-default">
+
+  <!-- Minimal navbar — no public nav links, just brand + back link -->
+  <nav class="navbar scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">SB</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Notes Management</span>
+          <span class="nav-logo-title">Faculty / Admin</span>
+        </div>
+      </a>
+      <div class="nav-actions">
+        <button id="logout-btn" class="btn btn-outline" style="display:none;padding:0.55rem 1.2rem;font-size:0.8rem;">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- LOGIN -->
+  <div class="admin-login-wrap" id="admin-login-wrap">
+    <div class="admin-login-box card">
+      <h1>Faculty Sign In</h1>
+      <p>Access is restricted to authorized faculty/admin accounts.</p>
+      <form id="login-form">
+        <div class="access-form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" required autocomplete="username" />
+        </div>
+        <div class="access-form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" required autocomplete="current-password" />
+        </div>
+        <button type="submit" class="btn btn-primary access-form-submit">Sign In</button>
+        <div class="admin-login-error" id="admin-login-error"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="admin-shell" id="admin-dashboard" style="display:none;">
+    <div class="admin-header">
+      <h1>Notes Dashboard</h1>
+      <span class="badge">👋 <span id="admin-name"></span></span>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="card stat-card"><div class="stat-card-label">Total Notes</div><div class="stat-card-value" id="stat-total-notes">0</div></div>
+      <div class="card stat-card"><div class="stat-card-label">Total Accesses</div><div class="stat-card-value" id="stat-total-access">0</div></div>
+      <div class="card stat-card"><div class="stat-card-label">Uploaded This Month</div><div class="stat-card-value" id="stat-month-notes">0</div></div>
+      <div class="card stat-card"><div class="stat-card-label">Most Accessed</div><div class="stat-card-value" style="font-size:1.05rem;" id="stat-most-accessed">—</div></div>
+      <div class="card stat-card"><div class="stat-card-label">Most Active Class</div><div class="stat-card-value" style="font-size:1.05rem;" id="stat-active-class">—</div></div>
+    </div>
+
+    <!-- Add Subject -->
+    <section class="admin-section">
+      <h2 class="admin-section-title">➕ Add Subject</h2>
+      <form id="add-subject-form" class="card upload-form">
+        <div class="access-form-group">
+          <label>Subject Name</label>
+          <input type="text" id="new-subject-name" placeholder="e.g. Artificial Intelligence" required />
+        </div>
+        <div class="access-form-group">
+          <label>Class</label>
+          <select id="new-subject-class" class="class-select" required>
+            <option value="" disabled selected>Select Class</option>
+          </select>
+        </div>
+        <div class="access-form-group form-full">
+          <label>Units (optional, comma separated)</label>
+          <input type="text" id="new-subject-units" placeholder="Unit 1, Unit 2, Unit 3" />
+        </div>
+        <div class="form-full">
+          <button type="submit" class="btn btn-primary">Add Subject</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Delete Subject -->
+    <section class="admin-section">
+      <h2 class="admin-section-title">🗑️ Delete Subject</h2>
+      <form id="delete-subject-form" class="card upload-form">
+        <div class="access-form-group form-full">
+          <label>Subject</label>
+          <select id="delete-subject-select" required>
+            <option value="">Select Subject</option>
+          </select>
+        </div>
+        <div class="form-full">
+          <button type="submit" class="btn btn-primary" style="background:var(--accent-rose);box-shadow:none;">Delete Subject</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Upload -->
+    <section class="admin-section">
+      <h2 class="admin-section-title">📤 Upload Note</h2>
+      <form id="upload-form" class="card upload-form">
+        <div class="access-form-group">
+          <label>Subject</label>
+          <select id="upload-subject" class="subject-select" required><option value="" disabled selected>Subject</option></select>
+        </div>
+        <div class="access-form-group">
+          <label>Class</label>
+          <select id="upload-class" class="class-select" required><option value="" disabled selected>Class</option></select>
+        </div>
+        <div class="access-form-group">
+          <label>Unit</label>
+          <select id="upload-unit" required><option value="" disabled selected>Unit</option></select>
+        </div>
+        <div class="access-form-group">
+          <label>Division <span style="opacity:.6;">(optional)</span></label>
+          <select id="upload-division" class="division-select"><option value="">— Not division-specific —</option></select>
+        </div>
+        <div class="access-form-group form-full">
+          <label>File (.pdf, .ppt, .pptx — max 30 MB)</label>
+          <input type="file" id="upload-file" accept=".pdf,.ppt,.pptx" required />
+        </div>
+        <div class="form-full">
+          <button type="submit" id="upload-submit-btn" class="btn btn-primary">Upload Note</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Notes CRUD table -->
+    <section class="admin-section">
+      <h2 class="admin-section-title">📚 Manage Notes</h2>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Title</th><th>Subject</th><th>Unit</th><th>Class</th><th>Type</th><th>Size</th><th>Accesses</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="notes-admin-table-body">
+            <tr><td colspan="8" style="text-align:center;color:var(--text-muted);">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Most accessed -->
+    <section class="admin-section">
+      <h2 class="admin-section-title">🔥 Most Accessed Notes</h2>
+      <div class="card" id="most-accessed-list"></div>
+    </section>
+
+    <!-- All access panel -->
+    <section class="admin-section">
+      <h2 class="admin-section-title">👥 All Notes Access</h2>
+      <div class="filters-bar">
+        <input type="text" id="af-student" placeholder="Search student…" />
+        <select id="af-class" class="class-select"><option value="">All Classes</option></select>
+        <select id="af-division" class="division-select"><option value="">All Divisions</option></select>
+        <select id="af-subject" class="subject-select"><option value="">All Subjects</option></select>
+        <select id="af-unit"><option value="">All Units</option></select>
+        <input type="date" id="af-from" title="From date" />
+        <input type="date" id="af-to" title="To date" />
+        <span id="af-total-count" style="margin-left:auto;color:var(--text-secondary);font-size:0.8rem;"></span>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Student</th><th>Class</th><th>Div</th><th>Subject</th><th>Unit</th><th>Note</th><th>Accessed</th></tr>
+          </thead>
+          <tbody id="access-admin-table-body">
+            <tr><td colspan="7" style="text-align:center;color:var(--text-muted);">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination-bar">
+        <button class="btn btn-ghost" id="af-prev">← Prev</button>
+        <span id="af-page-label">Page 1</span>
+        <button class="btn btn-ghost" id="af-next">Next →</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal-box access-form-box">
+      <button class="modal-close">✕</button>
+      <div class="access-form-title">Edit Note</div>
+      <form id="edit-form">
+        <div class="access-form-group"><label>Title</label><input type="text" id="edit-title" required /></div>
+        <div class="access-form-group"><label>Subject</label>
+          <select id="edit-subject" class="subject-select" required></select>
+        </div>
+        <div class="access-form-group"><label>Class</label>
+          <select id="edit-class" class="class-select" required></select>
+        </div>
+        <div class="access-form-group"><label>Unit</label><input type="text" id="edit-unit" required /></div>
+        <div class="access-form-group"><label>Division</label>
+          <select id="edit-division" class="division-select"><option value="">— None —</option></select>
+        </div>
+        <div class="access-form-group" style="display:flex;align-items:center;gap:0.5rem;">
+          <input type="checkbox" id="edit-active" style="width:auto;" />
+          <label for="edit-active" style="margin:0;">Active / visible to students</label>
+        </div>
+        <button type="submit" class="btn btn-primary access-form-submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div class="modal-overlay" id="confirm-modal">
+    <div class="modal-box confirm-box">
+      <div class="access-form-title">Delete this note?</div>
+      <p style="color:var(--text-muted);font-size:0.85rem;">This removes the note and its file permanently. This cannot be undone.</p>
+      <div class="btn-row">
+        <button class="btn btn-outline" id="cancel-delete-btn">Cancel</button>
+        <button class="btn btn-primary" id="confirm-delete-btn" style="background:var(--accent-rose);box-shadow:none;">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="js/notes-admin.js"></script>
+</body>
+</html>

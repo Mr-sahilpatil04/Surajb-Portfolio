@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome — To my website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;1,300&display=swap" rel="stylesheet" />
+  <style>
+
+    /* ══ Reset ══ */
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: #050810;
+      cursor: none;
+    }
+
+    /* ══ Neural canvas ══ */
+    #neural-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+
+    /* ══ Dark vignette centre focus ══ */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse 70% 70% at 50% 50%,
+        transparent 30%,
+        rgba(5,8,16,0.60) 80%,
+        rgba(5,8,16,0.90) 100%
+      );
+    }
+
+    /* ══ Content wrapper ══ */
+    .welcome-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      gap: 2.5rem;
+    }
+
+    /* ══ Big WELCOME ══ */
+    .welcome-word {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(4.5rem, 16vw, 13rem);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      background: linear-gradient(
+        135deg,
+        #7a5a10 0%,
+        #d4af37 25%,
+        #f5e070 50%,
+        #d4af37 75%,
+        #7a5a10 100%
+      );
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      animation:
+        wFadeUp   1.4s cubic-bezier(0.22,1,0.36,1) 0.4s forwards,
+        wShimmer  5s  linear                        1.8s infinite;
+    }
+
+    @keyframes wFadeUp {
+      from { opacity:0; transform: translateY(50px) scale(0.96); }
+      to   { opacity:1; transform: translateY(0)    scale(1);    }
+    }
+
+    @keyframes wShimmer {
+      0%   { background-position: 0%   center; }
+      100% { background-position: 300% center; }
+    }
+
+    /* ══ Divider line ══ */
+    .welcome-line {
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent, rgba(212,175,55,0.6), rgba(245,224,112,0.9), rgba(212,175,55,0.6), transparent
+      );
+      border: none;
+      animation: lineExpand 1.1s ease 1.6s forwards;
+    }
+
+    @keyframes lineExpand {
+      to { width: min(520px, 72vw); }
+    }
+
+    /* ══ Quote ══ */
+    .welcome-quote {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: clamp(1.15rem, 3vw, 1.85rem);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(240,230,204,0.78);
+      max-width: 700px;
+      line-height: 1.75;
+      letter-spacing: 0.015em;
+      opacity: 0;
+      animation: qFadeUp 1.3s cubic-bezier(0.22,1,0.36,1) 2s forwards;
+    }
+
+    @keyframes qFadeUp {
+      from { opacity:0; transform: translateY(30px); }
+      to   { opacity:1; transform: translateY(0);    }
+    }
+
+    .welcome-quote-author {
+      display: block;
+      margin-top: 0.75rem;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: normal;
+      font-size: 0.65em;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(212,175,55,0.5);
+    }
+
+    /* ══ Gold progress bar at bottom ══ */
+    .progress-track {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: rgba(212,175,55,0.1);
+      z-index: 5;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #7a5a10, #f5e070, #d4af37);
+      box-shadow: 0 0 10px rgba(212,175,55,0.7);
+      animation: fillBar 8s linear 0.5s forwards;
+    }
+
+    @keyframes fillBar {
+      to { width: 100%; }
+    }
+
+    /* ══ Skip hint ══ */
+    .skip-hint {
+      position: fixed;
+      bottom: 1.6rem;
+      right: 2rem;
+      z-index: 6;
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(212,175,55,0.32);
+      cursor: pointer;
+      transition: color 0.35s ease, letter-spacing 0.35s ease;
+      opacity: 0;
+      animation: skipFade 0.8s ease 3.5s forwards;
+      user-select: none;
+    }
+
+    .skip-hint:hover {
+      color: rgba(212,175,55,0.9);
+      letter-spacing: 0.22em;
+    }
+
+    @keyframes skipFade {
+      to { opacity: 1; }
+    }
+
+    /* ══ Page exit ══ */
+    body.exiting {
+      animation: exitAnim 0.85s ease forwards;
+    }
+
+    @keyframes exitAnim {
+      0%   { opacity:1; filter: blur(0px);   transform: scale(1);    }
+      100% { opacity:0; filter: blur(12px);  transform: scale(1.06); }
+    }
+
+    /* ══ Custom cursor ══ */
+    #c-dot {
+      position: fixed;
+      width: 7px; height: 7px;
+      background: #d4af37;
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    #c-ring {
+      position: fixed;
+      width: 30px; height: 30px;
+      border: 1.5px solid rgba(212,175,55,0.55);
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* ══ Responsive ══ */
+    @media (max-width: 600px) {
+      .welcome-wrap { gap: 2rem; }
+      .welcome-quote { font-size: 1.15rem; }
+      .skip-hint { right: 1.2rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Cursor -->
+  <div id="c-dot"></div>
+  <div id="c-ring"></div>
+
+  <!-- Neural canvas -->
+  <canvas id="neural-canvas"></canvas>
+
+  <!-- Vignette -->
+  <div class="vignette"></div>
+
+  <!-- Content -->
+  <div class="welcome-wrap">
+    <h1 class="welcome-word">Welcome</h1>
+    <hr class="welcome-line" />
+    <p class="welcome-quote">
+      "The beautiful thing about learning is that<br />
+      no one can take it away from you."
+      <span class="welcome-quote-author">— Suraj Bhoite</span>
+    </p>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-track">
+    <div class="progress-fill"></div>
+  </div>
+
+  <!-- Skip -->
+  <div class="skip-hint" id="skip-btn">Skip ›</div>
+
+  <script>
+  /* ═══════════════════════════════════════════
+     NEURAL NETWORK
+  ═══════════════════════════════════════════ */
+  const canvas = document.getElementById('neural-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, nodes = [], pulses = [];
+  const mouse = { x:-9999, y:-9999 };
+
+  const GOLD  = a => `rgba(212,175,55,${a})`;
+  const BLUE  = a => `rgba(74,158,255,${a})`;
+  const TEAL  = a => `rgba(32,178,170,${a})`;
+  const CREAM = a => `rgba(240,230,204,${a})`;
+  const PALETTE = [GOLD,GOLD,GOLD,GOLD,BLUE,TEAL,CREAM];
+
+  function r(a,b){ return Math.random()*(b-a)+a; }
+
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function makeNode(sx, sy){
+    return {
+      x:     sx ?? r(0,W),
+      y:     sy ?? r(0,H),
+      vx:    r(-0.28, 0.28),
+      vy:    r(-0.28, 0.28),
+      rad:   r(2.5, 5.5),
+      col:   PALETTE[Math.floor(Math.random()*PALETTE.length)],
+      alpha: r(0.45, 0.95),
+      pulse: 0,
+    };
+  }
+
+  function buildNodes(){
+    const n = Math.min(Math.floor((W*H)/11000), 80);
+    nodes   = Array.from({length:n}, makeNode);
+  }
+
+  function firePulse(from){
+    nodes.forEach(to=>{
+      if(to===from) return;
+      if(Math.hypot(from.x-to.x, from.y-to.y) < 200 && Math.random()>0.42)
+        pulses.push({from, to, t:0, col:from.col});
+    });
+  }
+
+  function autoFire(){
+    const n = nodes[Math.floor(Math.random()*nodes.length)];
+    if(n){ n.pulse=1; firePulse(n); }
+  }
+
+  /* draw */
+  function drawLines(){
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const d=Math.hypot(nodes[i].x-nodes[j].x, nodes[i].y-nodes[j].y);
+        if(d<195){
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x,nodes[i].y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle=GOLD((1-d/195)*0.28);
+          ctx.lineWidth=0.75;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function drawNodes(){
+    nodes.forEach(n=>{
+      if(n.pulse>0){
+        ctx.beginPath();
+        ctx.arc(n.x,n.y, n.rad+n.pulse*24, 0, Math.PI*2);
+        ctx.strokeStyle=n.col(n.pulse*0.5);
+        ctx.lineWidth=1.5;
+        ctx.stroke();
+        n.pulse=Math.max(0, n.pulse-0.022);
+      }
+      /* Outer glow */
+      const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.rad*3.5);
+      g.addColorStop(0,n.col(0.12)); g.addColorStop(1,n.col(0));
+      ctx.beginPath(); ctx.arc(n.x,n.y,n.rad*3.5,0,Math.PI*2);
+      ctx.fillStyle=g; ctx.fill();
+      /* Core */
+      const c=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.rad);
+      c.addColorStop(0,n.col(n.alpha)); c.addColorStop(1,n.col(n.alpha*0.25));
+      ctx.beginPath(); ctx.arc(n.x,n.y,n.rad,0,Math.PI*2);
+      ctx.fillStyle=c; ctx.fill();
+    });
+  }
+
+  function drawPulses(){
+    for(let i=pulses.length-1;i>=0;i--){
+      const p=pulses[i];
+      p.t+=0.024;
+      if(p.t>=1){pulses.splice(i,1);continue;}
+      const x=p.from.x+(p.to.x-p.from.x)*p.t;
+      const y=p.from.y+(p.to.y-p.from.y)*p.t;
+      const a=Math.sin(p.t*Math.PI);
+      /* Glow blob */
+      const g=ctx.createRadialGradient(x,y,0,x,y,12);
+      g.addColorStop(0,p.col(a*0.65)); g.addColorStop(1,p.col(0));
+      ctx.beginPath(); ctx.arc(x,y,12,0,Math.PI*2);
+      ctx.fillStyle=g; ctx.fill();
+      /* Bright dot */
+      ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2);
+      ctx.fillStyle=p.col(a*0.95); ctx.fill();
+      if(p.t>0.94) p.to.pulse=0.9;
+    }
+  }
+
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    /* Mouse repulsion */
+    nodes.forEach(n=>{
+      const dx=n.x-mouse.x, dy=n.y-mouse.y;
+      const d=Math.hypot(dx,dy);
+      if(d<160&&d>0){const f=(160-d)/160*0.75; n.vx+=(dx/d)*f; n.vy+=(dy/d)*f;}
+      n.vx*=0.97; n.vy*=0.97;
+      const spd=Math.hypot(n.vx,n.vy);
+      if(spd>1.5){n.vx=(n.vx/spd)*1.5; n.vy=(n.vy/spd)*1.5;}
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<n.rad){n.x=n.rad;n.vx*=-1;}
+      if(n.x>W-n.rad){n.x=W-n.rad;n.vx*=-1;}
+      if(n.y<n.rad){n.y=n.rad;n.vy*=-1;}
+      if(n.y>H-n.rad){n.y=H-n.rad;n.vy*=-1;}
+    });
+    drawLines(); drawNodes(); drawPulses();
+    requestAnimationFrame(loop);
+  }
+
+  resize(); buildNodes(); loop();
+  window.addEventListener('resize',()=>{resize();buildNodes();},{passive:true});
+  window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;},{passive:true});
+  window.addEventListener('click',e=>{
+    let near=null,minD=Infinity;
+    nodes.forEach(n=>{const d=Math.hypot(n.x-e.clientX,n.y-e.clientY);if(d<minD){minD=d;near=n;}});
+    if(near){near.pulse=1;firePulse(near);}
+  });
+
+  /* Auto fire pulses every 2s */
+  const autoInterval = setInterval(autoFire, 2000);
+
+  /* ═══════════════════════════════════════════
+     CURSOR
+  ═══════════════════════════════════════════ */
+  const dot=document.getElementById('c-dot');
+  const ring=document.getElementById('c-ring');
+  let rx=innerWidth/2, ry=innerHeight/2, mx=rx, my=ry;
+
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX; my=e.clientY;
+    dot.style.left=mx+'px'; dot.style.top=my+'px';
+  },{passive:true});
+
+  (function cursorRaf(){
+    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(cursorRaf);
+  })();
+
+  /* ═══════════════════════════════════════════
+     REDIRECT  — 8 seconds then go to index.html
+  ═══════════════════════════════════════════ */
+  function goNow(){
+    clearInterval(autoInterval);
+    clearTimeout(autoRedirect);
+    document.body.classList.add('exiting');
+    setTimeout(()=>{ window.location.href='index.html'; }, 850);
+  }
+
+  const autoRedirect = setTimeout(goNow, 8000);
+
+  /* Skip button */
+  document.getElementById('skip-btn').addEventListener('click', goNow);
+
+  /* Any key also skips */
+  document.addEventListener('keydown', goNow);
+  </script>
+
+</body>
+</html>
