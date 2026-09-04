@@ -5,7 +5,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { getNotesStructure, loadSharedNotesStructure, CLASS_OPTIONS, DIVISION_OPTIONS, relativeTime, formatFileSize, fileIcon } from "./notes-common.js";
 
-const SESSION_KEY = "notesStudentInfo";
 let allNotes = [];
 let pendingNote = null;
 
@@ -157,15 +156,9 @@ let pendingIntent = "open";
 function handleNoteAction(noteId, intent) {
   const note = allNotes.find(n => n.id === noteId);
   if (!note) return;
-  const saved = sessionStorage.getItem(SESSION_KEY);
-  if (saved) {
-    triggerNoteAction(note, intent);
-    logAccess(note, JSON.parse(saved));
-  } else {
-    pendingNote = note;
-    pendingIntent = intent;
-    openModal();
-  }
+  pendingNote = note;
+  pendingIntent = intent;
+  openModal();
 }
 
 function triggerNoteAction(note, intent) {
@@ -202,7 +195,6 @@ function setupModal() {
     errorEl.style.display = "none";
 
     const studentInfo = { name, className, division };
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify(studentInfo));
     closeModal();
     if (pendingNote) {
       triggerNoteAction(pendingNote, pendingIntent);   // open/download immediately, still inside the submit gesture
@@ -216,6 +208,9 @@ function setupModal() {
 function openModal() {
   const modal = document.getElementById("access-modal");
   if (!modal) { console.error("access-modal element not found in the page."); return; }
+  document.getElementById("access-form")?.reset();
+  const errorEl = document.getElementById("access-form-error");
+  if (errorEl) errorEl.style.display = "none";
   if (typeof modal.showModal === "function") {
     modal.showModal();
   } else {
