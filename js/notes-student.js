@@ -1,7 +1,7 @@
 import { db } from "./firebase-config.js";
 import {
-  collection, query, where, orderBy, limit, getDocs, addDoc, doc, updateDoc,
-  increment, serverTimestamp, onSnapshot
+  collection, query, where, orderBy, getDocs, addDoc, doc, updateDoc,
+  increment, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { getNotesStructure, loadSharedNotesStructure, CLASS_OPTIONS, DIVISION_OPTIONS, relativeTime, formatFileSize, fileIcon } from "./notes-common.js";
 
@@ -15,9 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   populateFilterDropdowns();
   populateFormDropdowns();
   loadNotes();
-  listenRecentActivity();
   setupModal();
-  setInterval(refreshRelativeTimes, 30000);
 });
 
 function populateFilterDropdowns() {
@@ -35,15 +33,22 @@ function populateFilterDropdowns() {
     const structureNow = getNotesStructure();
     classSel.innerHTML = `<option value="">All Classes</option>`;
     unitSel.innerHTML = `<option value="">All Units</option>`;
-    const classes = structureNow[subjectSel.value] ? Object.keys(structureNow[subjectSel.value]) : [];
-    classes.forEach(c => classSel.insertAdjacentHTML("beforeend", `<option value="${c}">${c}</option>`));
+    const subjectClasses = structureNow[subjectSel.value] || {};
+    CLASS_OPTIONS.forEach(className => {
+      const legacyClassName = className === "S.Y B.Tech" ? "SY B.Tech" : className;
+      if (subjectClasses[className] || subjectClasses[legacyClassName]) {
+        classSel.insertAdjacentHTML("beforeend", `<option value="${className}">${className}</option>`);
+      }
+    });
     renderFilteredNotes();
   });
 
   classSel.addEventListener("change", () => {
     const structureNow = getNotesStructure();
     unitSel.innerHTML = `<option value="">All Units</option>`;
-    const units = (structureNow[subjectSel.value] || {})[classSel.value] || [];
+    const subjectClasses = structureNow[subjectSel.value] || {};
+    const legacyClassName = classSel.value === "S.Y B.Tech" ? "SY B.Tech" : classSel.value;
+    const units = subjectClasses[classSel.value] || subjectClasses[legacyClassName] || [];
     units.forEach(u => unitSel.insertAdjacentHTML("beforeend", `<option value="${u}">${u}</option>`));
     renderFilteredNotes();
   });
@@ -54,7 +59,7 @@ function populateFilterDropdowns() {
 function populateFormDropdowns() {
   const classSel = document.getElementById("access-class");
   const divSel = document.getElementById("access-division");
-  const classList = ["S.Y B.Tech", "TE", "BE"];
+  const classList = CLASS_OPTIONS;
   const divisionMap = {
     "S.Y B.Tech": ["A - AIDS", "B - AIDS", "A - AIML", "B - AIML"],
     "TE": ["A"],
@@ -97,9 +102,10 @@ function renderFilteredNotes() {
   const className = document.getElementById("filter-class")?.value || "";
   const unit = document.getElementById("filter-unit")?.value || "";
 
+  const selectedLegacyClass = className === "S.Y B.Tech" ? "SY B.Tech" : className;
   const filtered = allNotes.filter(n =>
     (!subject || n.subject === subject) &&
-    (!className || n.className === className) &&
+    (!className || n.className === className || n.className === selectedLegacyClass) &&
     (!unit || n.unit === unit)
   );
 
@@ -258,44 +264,4 @@ async function logAccess(note, studentInfo) {
   } catch (err) {
     console.error("Failed to log access:", err);
   }
-}
-
-/* ---------- Recent activity table ---------- */
-let recentLogs = [];
-
-function listenRecentActivity() {
-  const tbody = document.getElementById("activity-table-body");
-  if (!tbody) return;
-
-  const q = query(collection(db, "noteAccessLogs"), orderBy("accessedAt", "desc"), limit(10));
-  onSnapshot(q, (snap) => {
-    recentLogs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderActivityTable();
-  }, (err) => console.error("Activity listener error:", err));
-}
-
-function renderActivityTable() {
-  const tbody = document.getElementById("activity-table-body");
-  if (!tbody) return;
-  if (!recentLogs.length) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);">No activity yet.</td></tr>`;
-    return;
-  }
-  tbody.innerHTML = recentLogs.map(log => `
-    <tr>
-      <td>${escapeHtml(log.studentName)}</td>
-      <td>${escapeHtml(log.subject)}</td>
-      <td>${escapeHtml(log.unit)}</td>
-      <td>${escapeHtml(log.noteTitle)}</td>
-      <td>${escapeHtml(log.className)} ${log.division ? `- ${escapeHtml(log.division)}` : ""}</td>
-      <td class="activity-time" data-ts="${log.accessedAt ? log.accessedAt.toMillis() : ""}">${log.accessedAt ? relativeTime(log.accessedAt) : "just now"}</td>
-    </tr>
-  `).join("");
-}
-
-function refreshRelativeTimes() {
-  document.querySelectorAll(".activity-time[data-ts]").forEach(el => {
-    const ts = Number(el.dataset.ts);
-    if (ts) el.textContent = relativeTime(new Date(ts));
-  });
 }
