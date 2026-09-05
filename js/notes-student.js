@@ -181,6 +181,7 @@ function setupModal() {
   modal.addEventListener("click", (e) => {
     if (e.target === modal) closeModal(); // click on backdrop
   });
+  modal.addEventListener("close", () => moveCursorToBody(modal));
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -220,15 +221,31 @@ function openModal() {
     // Fallback for very old browsers without <dialog> support
     modal.setAttribute("open", "");
   }
+  moveCursorToDialog(modal);
 }
 function closeModal() {
   const modal = document.getElementById("access-modal");
   if (!modal) return;
+  moveCursorToBody(modal);
   if (typeof modal.close === "function") {
     modal.close();
   } else {
     modal.removeAttribute("open");
   }
+}
+
+function moveCursorToDialog(modal) {
+  const dot = document.querySelector(".cursor-dot");
+  const ring = document.querySelector(".cursor-ring");
+  if (dot && !modal.contains(dot)) modal.appendChild(dot);
+  if (ring && !modal.contains(ring)) modal.appendChild(ring);
+}
+
+function moveCursorToBody(modal) {
+  const dot = modal.querySelector(".cursor-dot");
+  const ring = modal.querySelector(".cursor-ring");
+  if (dot) document.body.appendChild(dot);
+  if (ring) document.body.appendChild(ring);
 }
 
 function openNoteFile(note) {
