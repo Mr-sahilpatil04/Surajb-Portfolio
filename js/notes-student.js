@@ -213,6 +213,7 @@ function openModal() {
   document.getElementById("access-form")?.reset();
   const errorEl = document.getElementById("access-form-error");
   if (errorEl) errorEl.style.display = "none";
+  window.notesAds?.render("notes-ad-slot");
   if (typeof modal.showModal === "function") {
     modal.showModal();
   } else {
