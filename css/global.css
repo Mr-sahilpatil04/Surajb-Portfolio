@@ -605,10 +605,20 @@ p {
   font-size: 0.78rem;
 }
 
+.footer-contact-label {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
 .footer-contact-link {
   color: var(--text-muted);
   text-decoration: none;
   transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.footer-contact-icon {
+  color: var(--accent-gold);
+  font-weight: 700;
 }
 
 .footer-contact-link:hover {
