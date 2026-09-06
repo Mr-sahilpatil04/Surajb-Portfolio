@@ -255,14 +255,14 @@
   <script>
     const form = document.getElementById('contact-form');
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
       const fname = document.getElementById('fname').value.trim();
       const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
 
       if (!fname || !email || !message) {
-        event.preventDefault();
-        const btn = document.querySelector('.btn-primary');
+        const btn = form.querySelector('.btn-primary');
         btn.textContent = '⚠️ Please fill required fields';
         btn.style.background = 'rgba(192,57,43,0.8)';
         setTimeout(() => {
@@ -272,8 +272,26 @@
         return;
       }
 
-      document.querySelector('.form-submit').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
+      const btn = form.querySelector('.btn-primary');
+      const success = document.getElementById('form-success');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+        if (!response.ok) throw new Error('Contact form submission failed.');
+        form.querySelector('.form-submit').style.display = 'none';
+        success.style.display = 'block';
+      } catch (error) {
+        console.error(error);
+        btn.disabled = false;
+        btn.textContent = '📨 Send Message';
+        alert('Unable to send your message right now. Please try again.');
+      }
     });
   </script>
           
