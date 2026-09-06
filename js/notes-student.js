@@ -275,7 +275,9 @@ async function logAccess(note, studentInfo) {
       division: studentInfo.division,
       accessedAt: serverTimestamp()
     });
-    updateDoc(doc(db, "notes", note.id), { accessCount: increment(1) }).catch(() => {});
+    await updateDoc(doc(db, "notes", note.id), { accessCount: increment(1) });
+    note.accessCount = (note.accessCount || 0) + 1;
+    renderFilteredNotes();
   } catch (err) {
     console.error("Failed to log access:", err);
   }

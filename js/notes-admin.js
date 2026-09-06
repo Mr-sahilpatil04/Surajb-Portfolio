@@ -268,7 +268,7 @@ function renderStats() {
   const totalAccess = allAccessLogs.length;
   const now = new Date();
   const thisMonth = allNotes.filter(n => n.createdAt && n.createdAt.toDate().getMonth() === now.getMonth() && n.createdAt.toDate().getFullYear() === now.getFullYear()).length;
-  const mostAccessed = [...allNotes].sort((a, b) => (b.accessCount || 0) - (a.accessCount || 0))[0];
+  const mostAccessed = [...allNotes].sort((a, b) => getAccessCount(b) - getAccessCount(a))[0];
   const classCounts = {};
   allAccessLogs.forEach(l => { classCounts[l.className] = (classCounts[l.className] || 0) + 1; });
   const mostActiveClass = Object.entries(classCounts).sort((a, b) => b[1] - a[1])[0];
@@ -281,14 +281,20 @@ function renderStats() {
 }
 function setStat(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
 
+function getAccessCount(note) {
+  const storedCount = Number(note.accessCount) || 0;
+  const loggedCount = allAccessLogs.filter(log => log.noteId === note.id).length;
+  return Math.max(storedCount, loggedCount);
+}
+
 function renderMostAccessed() {
   const el = document.getElementById("most-accessed-list");
   if (!el) return;
-  const top = [...allNotes].sort((a, b) => (b.accessCount || 0) - (a.accessCount || 0)).slice(0, 5);
+  const top = [...allNotes].sort((a, b) => getAccessCount(b) - getAccessCount(a)).slice(0, 5);
   el.innerHTML = top.map(n => `
     <div class="notes-widget-item" style="border-top:1px solid var(--border-subtle);padding:0.75rem 0;">
       <div class="notes-widget-name">${escapeHtml(generateDisplayTitle(n))}</div>
-      <div class="notes-widget-sub">${n.accessCount || 0} accesses</div>
+      <div class="notes-widget-sub">${getAccessCount(n)} accesses</div>
     </div>`).join("") || `<p style="color:var(--text-muted);">No data yet.</p>`;
 }
 
@@ -308,7 +314,7 @@ function renderNotesTable() {
       <td>${escapeHtml(n.className)}</td>
       <td>${(n.fileType || "").toUpperCase()}</td>
       <td>${formatFileSize(n.fileSize)}</td>
-      <td>${n.accessCount || 0}</td>
+      <td>${getAccessCount(n)}</td>
       <td>
         <div class="admin-table-actions">
           <button data-id="${n.id}" class="edit-btn">Edit</button>

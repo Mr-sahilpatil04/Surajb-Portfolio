@@ -18,7 +18,11 @@ service cloud.firestore {
     // Notes metadata
     match /notes/{noteId} {
       allow read: if resource.data.isActive == true || isAdmin();
-      allow create, update, delete: if isAdmin();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() ||
+        (resource.data.isActive == true &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['accessCount']) &&
+         request.resource.data.accessCount == resource.data.accessCount + 1);
     }
 
     // Student access logs — students can create their own access record
