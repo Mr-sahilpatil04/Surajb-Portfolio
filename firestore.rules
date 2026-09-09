@@ -38,6 +38,22 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    // Students can submit requests, but only faculty can review them.
+    match /noteAccessRequests/{requestId} {
+      allow create: if request.resource.data.status == "pending" &&
+                       request.resource.data.studentName is string &&
+                       request.resource.data.studentName.size() > 0 &&
+                       request.resource.data.studentName.size() < 100 &&
+                       request.resource.data.studentEmail is string &&
+                       request.resource.data.studentEmail.size() > 3 &&
+                       request.resource.data.studentEmail.size() < 200 &&
+                       request.resource.data.noteId is string &&
+                       request.resource.data.noteTitle is string &&
+                       request.resource.data.className is string &&
+                       request.resource.data.division is string;
+      allow read, update, delete: if isAdmin();
+    }
+
     // Shared subject catalog — readable by students, editable by admins.
     match /settings/{settingId} {
       allow read: if true;

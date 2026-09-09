@@ -121,13 +121,17 @@
   <dialog id="access-modal" class="access-dialog">
     <div class="access-form-box">
       <button type="button" class="modal-close" id="access-modal-close">✕</button>
-      <div class="access-form-title">Quick access</div>
-      <p class="access-form-sub">A couple of details before opening the note — this helps us track resource usage.</p>
+      <div class="access-form-title">Request note access</div>
+      <p class="access-form-sub">Submit your details for faculty approval. We will email you when the note is ready.</p>
       <div class="notes-ad-slot" id="notes-ad-slot" aria-label="Advertisement"></div>
       <form id="access-form">
         <div class="access-form-group">
           <label for="access-name">Full Name</label>
           <input type="text" id="access-name" required autocomplete="name" />
+        </div>
+        <div class="access-form-group">
+          <label for="access-email">Email Address</label>
+          <input type="email" id="access-email" required autocomplete="email" />
         </div>
         <div class="access-form-group">
           <label for="access-class">Class</label>
@@ -138,7 +142,7 @@
           <select id="access-division" required><option value="" disabled selected>Select division</option></select>
         </div>
         <div class="access-form-error" id="access-form-error"></div>
-        <button type="submit" class="btn btn-primary access-form-submit">Continue / Open Note →</button>
+        <button type="submit" class="btn btn-primary access-form-submit">Send Access Request</button>
       </form>
     </div>
   </dialog>

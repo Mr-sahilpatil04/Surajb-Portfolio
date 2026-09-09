@@ -3,6 +3,7 @@
 This feature runs on **two free backends, no credit card required for either**:
 - **Firebase** (Firestore + Authentication) — notes metadata, access logs, faculty login.
 - **Supabase** (Storage only) — the actual PDF/PPT/PPTX files.
+- **Vercel Functions + Resend** — approval emails to students.
 
 Why two? Firebase Storage now requires a paid Blaze plan even at zero usage
 (a Feb 2026 policy change), while Firestore and Auth remain free forever on
@@ -90,6 +91,43 @@ writing — happy to build that if you'd like the extra hardening later.
 2. **Upload Note** → Subject: Data Structure, Class: SY B.Tech, Unit 1 or 2,
    choose a PDF/PPT/PPTX.
 3. It appears immediately on the public `notes.html` page.
+
+## Part C — Access requests and approval emails
+
+Students now submit their name, email, class, and division as an access request.
+The note is not opened immediately. Faculty review pending requests in
+`notes-admin.html`; approving a request sends the student an email containing
+the note details and link, and records the approved access.
+
+### 1. Create a Resend sender
+1. Create an account at https://resend.com.
+2. Add and verify the domain you will send from, or use a Resend test sender
+   while developing.
+3. Create an API key with permission to send email.
+
+### 2. Add Vercel environment variables
+
+In the Vercel project settings, add these variables for the Production
+environment:
+
+- `FIREBASE_SERVICE_ACCOUNT_JSON`: the complete Firebase service-account JSON
+  from **Project settings → Service accounts → Generate new private key**.
+- `RESEND_API_KEY`: the Resend API key.
+- `EMAIL_FROM`: a verified sender such as `Notes Portal <notes@example.com>`.
+
+Never put the service-account JSON or Resend key in browser JavaScript or commit
+them to the repository. Redeploy after adding or changing these variables.
+
+If approval returns the request to Pending, open the browser developer console
+or Vercel function logs. Common causes are an unverified `EMAIL_FROM`, an
+incorrect service-account JSON value, or missing environment variables in the
+Production environment.
+
+### 3. Publish the updated rules
+
+Paste `firestore.rules` into the Firebase Firestore Rules tab and publish it.
+Without the updated rules, students cannot submit requests and admins cannot
+review them.
 
 ## Other notes
 - `notes-admin.html` isn't linked from the site nav — reachable only by URL

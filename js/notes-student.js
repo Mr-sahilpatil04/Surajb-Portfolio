@@ -183,29 +183,74 @@ function setupModal() {
   });
   modal.addEventListener("close", () => moveCursorToBody(modal));
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("access-name").value.trim();
+    const email = document.getElementById("access-email").value.trim().toLowerCase();
     const className = document.getElementById("access-class").value;
     const division = document.getElementById("access-division").value;
     const errorEl = document.getElementById("access-form-error");
 
-    if (!name || !className || !division) {
+    if (!name || !email || !className || !division) {
       errorEl.textContent = "Please fill in all fields.";
+      errorEl.style.display = "block";
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errorEl.textContent = "Please enter a valid email address.";
       errorEl.style.display = "block";
       return;
     }
     errorEl.style.display = "none";
 
-    const studentInfo = { name, className, division };
+    const studentInfo = { name, email, className, division };
     closeModal();
     if (pendingNote) {
-      triggerNoteAction(pendingNote, pendingIntent);   // open/download immediately, still inside the submit gesture
-      logAccess(pendingNote, studentInfo);             // log in the background — doesn't block the action
+      await submitAccessRequest(pendingNote, studentInfo, pendingIntent);
     }
     pendingNote = null;
     pendingIntent = "open";
   });
+}
+
+async function submitAccessRequest(note, studentInfo, intent) {
+  const submitButton = document.querySelector(".access-form-submit");
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending request...";
+  }
+  try {
+    await addDoc(collection(db, "noteAccessRequests"), {
+      noteId: note.id,
+      noteTitle: note.title,
+      subject: note.subject,
+      unit: note.unit,
+      fileType: note.fileType,
+      fileUrl: note.fileUrl,
+      originalFileName: note.originalFileName || note.title,
+      intent,
+      studentName: studentInfo.name,
+      studentEmail: studentInfo.email,
+      className: studentInfo.className,
+      division: studentInfo.division,
+      status: "pending",
+      requestedAt: serverTimestamp()
+    });
+    alert("Your request was sent. You will receive the note details by email after faculty approval.");
+  } catch (err) {
+    console.error("Failed to submit note access request:", err);
+    const message = err?.code === "permission-denied"
+      ? "Access requests are not enabled yet. Please ask the administrator to publish the latest Firestore rules."
+      : err?.code === "unavailable"
+        ? "The request service is temporarily unavailable. Please try again."
+        : "Could not send your request. Please check your details and try again.";
+    alert(message);
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = "Send Access Request";
+    }
+  }
 }
 
 function openModal() {

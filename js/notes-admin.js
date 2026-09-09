@@ -2,18 +2,19 @@ import { db, auth } from "./firebase-config.js";
 import { supabase, NOTES_BUCKET } from "./supabase-config.js";
 import {
   collection, query, orderBy, limit, getDocs, addDoc, doc, updateDoc, deleteDoc, getDoc,
-  serverTimestamp, where
+  serverTimestamp, where, increment
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import {
   signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, inMemoryPersistence
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 import {
-  getNotesStructure, ensureDefaultSubjects, saveSharedNotesStructure, addCustomSubject, deleteSubject, CLASS_OPTIONS, DIVISION_OPTIONS, ALLOWED_FILE_TYPES, MAX_FILE_SIZE_BYTES,
+  getNotesStructure, ensureDefaultSubjects, saveSharedNotesStructure, addCustomSubject, deleteSubject, CLASS_OPTIONS, DIVISION_OPTIONS, DIVISION_BY_CLASS, ALLOWED_FILE_TYPES, MAX_FILE_SIZE_BYTES,
   relativeTime, formatFileSize, generateSafeFileName, generateDisplayTitle, fileIcon
 } from "./notes-common.js";
 
 let allNotes = [];
 let allAccessLogs = [];
+let allAccessRequests = [];
 let editingNoteId = null;
 let currentPage = 1;
 const PAGE_SIZE = 15;
@@ -213,11 +214,12 @@ function populateDropdowns() {
 
 /* ---------- Load data ---------- */
 async function loadAll() {
-  await Promise.all([loadNotes(), loadAccessLogs()]);
+  await Promise.all([loadNotes(), loadAccessLogs(), loadAccessRequests()]);
   renderStats();
   renderNotesTable();
   renderMostAccessed();
   renderAccessTable();
+  renderAccessRequests();
 }
 
 async function loadNotes() {
@@ -229,6 +231,98 @@ async function loadAccessLogs() {
   // Fetch the most recent 500 logs for client-side filtering/pagination — adequate at portfolio scale.
   const snap = await getDocs(query(collection(db, "noteAccessLogs"), orderBy("accessedAt", "desc"), limit(500)));
   allAccessLogs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+}
+
+async function loadAccessRequests() {
+  const snap = await getDocs(query(collection(db, "noteAccessRequests"), orderBy("requestedAt", "desc"), limit(200)));
+  allAccessRequests = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+}
+
+function renderAccessRequests() {
+  const tbody = document.getElementById("access-requests-table-body");
+  if (!tbody) return;
+  const requests = allAccessRequests.filter(request => request.status === "pending");
+  if (!requests.length) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);">No pending requests.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = requests.map(request => `
+    <tr>
+      <td>${escapeHtml(request.studentName)}</td>
+      <td>${escapeHtml(request.studentEmail)}</td>
+      <td>${escapeHtml(request.className)} ${request.division ? `- ${escapeHtml(request.division)}` : ""}</td>
+      <td>${escapeHtml(request.noteTitle)}</td>
+      <td>${request.requestedAt ? relativeTime(request.requestedAt) : "—"}</td>
+      <td><span class="badge">Pending</span></td>
+      <td><div class="admin-table-actions">
+        <button data-id="${request.id}" class="approve-request-btn">Approve</button>
+        <button data-id="${request.id}" class="danger reject-request-btn">Reject</button>
+      </div></td>
+    </tr>`).join("");
+
+  tbody.querySelectorAll(".approve-request-btn").forEach(button => {
+    button.addEventListener("click", () => reviewAccessRequest(button.dataset.id, "approved"));
+  });
+  tbody.querySelectorAll(".reject-request-btn").forEach(button => {
+    button.addEventListener("click", () => reviewAccessRequest(button.dataset.id, "rejected"));
+  });
+}
+
+async function reviewAccessRequest(requestId, status) {
+  const request = allAccessRequests.find(item => item.id === requestId);
+  if (!request) return;
+  if (status === "rejected" && !window.confirm(`Reject the access request from ${request.studentName}?`)) return;
+
+  try {
+    await updateDoc(doc(db, "noteAccessRequests", requestId), {
+      status,
+      reviewedAt: serverTimestamp(),
+      reviewedBy: auth.currentUser?.email || "Faculty"
+    });
+
+    if (status === "approved") {
+      const token = await auth.currentUser.getIdToken();
+      const response = await fetch("/api/send-note-access-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ requestId, request })
+      });
+      if (!response.ok) {
+        let errorDetails = "Email service failed";
+        try {
+          const errorBody = await response.json();
+          errorDetails = errorBody.details || errorBody.error || errorDetails;
+        } catch (_) {
+          // Keep the generic message when the function does not return JSON.
+        }
+        throw new Error(errorDetails);
+      }
+      await addDoc(collection(db, "noteAccessLogs"), {
+        noteId: request.noteId,
+        noteTitle: request.noteTitle,
+        subject: request.subject,
+        unit: request.unit,
+        fileType: request.fileType,
+        studentName: request.studentName,
+        studentEmail: request.studentEmail,
+        className: request.className,
+        division: request.division,
+        accessedAt: serverTimestamp()
+      });
+      await updateDoc(doc(db, "notes", request.noteId), { accessCount: increment(1) });
+      toast("Request approved and email sent.");
+    } else {
+      toast("Request rejected.");
+    }
+    await loadAll();
+  } catch (err) {
+    console.error("Failed to review access request:", err);
+    if (status === "approved") {
+      await updateDoc(doc(db, "noteAccessRequests", requestId), { status: "pending" }).catch(() => {});
+    }
+    toast(status === "approved" ? `Email failed: ${err.message}. Request returned to pending.` : "Could not reject request.");
+    await loadAll();
+  }
 }
 
 async function resetAccessHistory() {

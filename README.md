@@ -86,6 +86,7 @@ This project is a static HTML/CSS/JavaScript portfolio built for a faculty membe
 - Notes are stored in Supabase storage
 - Metadata and access logs are stored in Firestore
 - Access tracking is recorded for each note
+- Students request access with an email address; faculty approval sends note details by email
 
 ### Admin dashboard
 - Faculty login via Firebase Authentication
@@ -93,6 +94,7 @@ This project is a static HTML/CSS/JavaScript portfolio built for a faculty membe
 - Edit or delete notes
 - Manage subject list
 - View note access analytics
+- Review pending note access requests and approve or reject them
 
 ## Setup
 
