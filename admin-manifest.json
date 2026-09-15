@@ -7,11 +7,13 @@
   "background_color": "#10100f",
   "theme_color": "#10100f",
   "description": "Mobile-friendly faculty notes management panel",
+  "id": "/notes-admin.html",
   "icons": [
     {
-      "src": "/fevicon.ico",
-      "sizes": "any",
-      "type": "image/x-icon"
+      "src": "/assets/faculty%20img%20(2).png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

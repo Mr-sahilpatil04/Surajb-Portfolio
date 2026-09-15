@@ -9,7 +9,8 @@ const APP_SHELL = [
   "/js/firebase-config.js",
   "/js/supabase-config.js",
   "/js/notes-common.js",
-  "/admin-manifest.json"
+  "/admin-manifest.json",
+  "/assets/faculty%20img%20(2).png"
 ];
 
 self.addEventListener("install", event => {
