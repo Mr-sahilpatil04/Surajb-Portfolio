@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">624167309716</string>
+    <string name="google_api_key" translatable="false">AIzaSyApAvS_IFmztWIROB-a_zSy0upBFkuAvsE</string>
+    <string name="google_app_id" translatable="false">1:624167309716:android:366ecf3473184a225a7f81</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyApAvS_IFmztWIROB-a_zSy0upBFkuAvsE</string>
+    <string name="google_storage_bucket" translatable="false">surajb-portfolio-system-fe5d7.firebasestorage.app</string>
+    <string name="project_id" translatable="false">surajb-portfolio-system-fe5d7</string>
+</resources>

@@ -220,7 +220,7 @@ async function submitAccessRequest(note, studentInfo, intent) {
     submitButton.textContent = "Sending request...";
   }
   try {
-    await addDoc(collection(db, "noteAccessRequests"), {
+    const requestRef = await addDoc(collection(db, "noteAccessRequests"), {
       noteId: note.id,
       noteTitle: note.title,
       subject: note.subject,
@@ -236,6 +236,11 @@ async function submitAccessRequest(note, studentInfo, intent) {
       status: "pending",
       requestedAt: serverTimestamp()
     });
+    fetch("/api/notify-admin-request", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ requestId: requestRef.id })
+    }).catch(error => console.error("Admin notification failed:", error));
     alert("Your request was sent. You will receive the note details by email after faculty approval.");
   } catch (err) {
     console.error("Failed to submit note access request:", err);

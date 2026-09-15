@@ -5,7 +5,7 @@ import {
   serverTimestamp, where, increment
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import {
-  signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, inMemoryPersistence
+  signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence, inMemoryPersistence
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 import {
   getNotesStructure, ensureDefaultSubjects, saveSharedNotesStructure, addCustomSubject, deleteSubject, CLASS_OPTIONS, DIVISION_OPTIONS, DIVISION_BY_CLASS, ALLOWED_FILE_TYPES, MAX_FILE_SIZE_BYTES,
@@ -18,7 +18,8 @@ let allAccessRequests = [];
 let editingNoteId = null;
 let currentPage = 1;
 const PAGE_SIZE = 15;
-const authPersistenceReady = setPersistence(auth, inMemoryPersistence);
+const isApp = new URLSearchParams(window.location.search).get("app") === "1";
+const authPersistenceReady = setPersistence(auth, isApp ? browserLocalPersistence : inMemoryPersistence);
 
 let deferredInstallPrompt;
 
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("logout-btn")?.addEventListener("click", () => signOut(auth));
   document.getElementById("reset-access-btn")?.addEventListener("click", resetAccessHistory);
 
-  authPersistenceReady.then(() => signOut(auth)).then(() => onAuthStateChanged(auth, async (user) => {
+  authPersistenceReady.then(() => isApp ? null : signOut(auth)).then(() => onAuthStateChanged(auth, async (user) => {
     if (!user) {
       showLogin();
       return;
@@ -69,6 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
 function showLogin(errorMsg) {
   document.getElementById("admin-login-wrap").style.display = "flex";
   document.getElementById("admin-dashboard").style.display = "none";
+  const logoutButton = document.getElementById("logout-btn");
+  if (logoutButton) logoutButton.style.display = "none";
   const err = document.getElementById("admin-login-error");
   if (errorMsg && err) { err.textContent = errorMsg; err.style.display = "block"; }
 }
@@ -82,14 +85,31 @@ async function handleLogin(e) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (e2) {
-    err.textContent = "Invalid email or password.";
+    console.error("Faculty sign-in failed:", e2);
+    err.textContent = getAuthErrorMessage(e2);
     err.style.display = "block";
   }
+}
+
+function getAuthErrorMessage(error) {
+  const messages = {
+    "auth/invalid-credential": "Invalid email or password.",
+    "auth/invalid-login-credentials": "Invalid email or password.",
+    "auth/user-not-found": "No account exists for this email.",
+    "auth/wrong-password": "Invalid email or password.",
+    "auth/too-many-requests": "Too many attempts. Try again later.",
+    "auth/operation-not-allowed": "Email/password sign-in is not enabled in Firebase.",
+    "auth/network-request-failed": "Network error. Check the phone internet connection.",
+    "auth/unauthorized-domain": "Add surajbhoite.in to Firebase Authentication authorized domains."
+  };
+  return messages[error?.code] || `Sign-in failed (${error?.code || "unknown error"}).`;
 }
 
 function showDashboard(user, adminData) {
   document.getElementById("admin-login-wrap").style.display = "none";
   document.getElementById("admin-dashboard").style.display = "block";
+  const logoutButton = document.getElementById("logout-btn");
+  if (logoutButton) logoutButton.style.display = "inline-flex";
   document.getElementById("admin-name").textContent = adminData?.name || user.email;
   populateDropdowns();
   document.getElementById("upload-form")?.addEventListener("submit", handleUpload);

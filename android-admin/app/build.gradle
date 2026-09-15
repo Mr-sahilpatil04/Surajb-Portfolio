@@ -1,0 +1,22 @@
+plugins {
+    id "com.android.application"
+    id "com.google.gms.google-services"
+}
+
+dependencies {
+    implementation "com.google.firebase:firebase-messaging:24.1.0"
+    implementation "androidx.core:core:1.15.0"
+}
+
+android {
+    namespace "com.surajbhoite.facultyadmin"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.surajbhoite.facultyadmin"
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+    }
+}

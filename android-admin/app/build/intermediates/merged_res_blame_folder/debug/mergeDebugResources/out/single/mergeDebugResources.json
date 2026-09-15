@@ -1,0 +1,146 @@
+[
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/drawable_ic_launcherr_background.xml.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/drawable/ic_launcherr_background.xml"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xhdpi_ic_launcherr.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xhdpi/ic_launcherr.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-anydpi-v26_ic_launcherr.xml.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-anydpi-v26/ic_launcherr.xml"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xhdpi_ic_launcherr_round.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xhdpi/ic_launcherr_round.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxxhdpi_ic_launcherr.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxxhdpi/ic_launcherr.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xhdpi_ic_launcherr_foreground.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xhdpi/ic_launcherr_foreground.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-hdpi_ic_launcherr_foreground.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-hdpi/ic_launcherr_foreground.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-mdpi_ic_launcherr_foreground.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-mdpi/ic_launcherr_foreground.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxhdpi_ic_launcherr_round.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxhdpi/ic_launcherr_round.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-hdpi_ic_launcherr.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-hdpi/ic_launcherr.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxxhdpi_ic_launcherr_round.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxxhdpi/ic_launcherr_round.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-mdpi_ic_launcherr.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-mdpi/ic_launcherr.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-anydpi-v26_ic_launcherr_round.xml.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-anydpi-v26/ic_launcherr_round.xml"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-hdpi_ic_launcherr_round.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-hdpi/ic_launcherr_round.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxhdpi_ic_launcherr_foreground.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxhdpi/ic_launcherr_foreground.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxhdpi_ic_launcherr.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxhdpi/ic_launcherr.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-xxxhdpi_ic_launcherr_foreground.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-xxxhdpi/ic_launcherr_foreground.webp"
+    },
+    {
+        "merged": "com.surajbhoite.facultyadmin.app-debug-19:/mipmap-mdpi_ic_launcherr_round.webp.flat",
+        "source": "com.surajbhoite.facultyadmin.app-main-21:/mipmap-mdpi/ic_launcherr_round.webp"
+    }
+]

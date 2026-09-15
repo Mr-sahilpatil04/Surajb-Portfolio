@@ -152,6 +152,33 @@ Paste `firestore.rules` into the Firebase Firestore Rules tab and publish it.
 Without the updated rules, students cannot submit requests and admins cannot
 review them.
 
+## Part D — Android request notifications
+
+The Android admin app can receive a notification when a student submits a note
+access request, even while the app is closed.
+
+### 1. Register the Android app in Firebase
+1. Open **Firebase Console → Project settings → Your apps → Add app → Android**.
+2. Enter this package name exactly:
+  `com.surajbhoite.facultyadmin`
+3. Download `google-services.json`.
+4. Put it at `android-admin/app/google-services.json`.
+  This file is ignored by Git and must not be committed.
+
+### 2. Enable notifications
+1. Open the Android project in Android Studio.
+2. Build and install the new APK.
+3. On first launch, tap **Allow** when Android asks for notification permission.
+
+The app subscribes to the `faculty-admin` Firebase Cloud Messaging topic. The
+Vercel function sends a notification to that topic after a student creates a
+pending request. Ensure `FIREBASE_SERVICE_ACCOUNT_JSON` is configured in Vercel
+Production, then redeploy the site.
+
+Test by submitting a request from `notes.html` while the app is closed. The
+phone should show **New note access request**. Android notification settings
+must allow notifications for **SB Notes Admin**.
+
 ## Other notes
 - `notes-admin.html` isn't linked from the site nav — reachable only by URL
   plus a valid faculty login.
