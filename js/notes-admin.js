@@ -23,7 +23,14 @@ const isApp = new URLSearchParams(window.location.search).get("app") === "1"
 const authPersistenceReady = setPersistence(auth, isApp ? browserLocalPersistence : inMemoryPersistence);
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("admin-sw.js"));
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    registrations.forEach(registration => registration.unregister());
+  });
+  if ("caches" in window) {
+    caches.keys().then(keys => keys
+      .filter(key => key.startsWith("faculty-notes-admin-"))
+      .forEach(key => caches.delete(key)));
+  }
 }
 
 /* ---------- Auth gate ---------- */
