@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:1:1-27:12
-INJECTED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:1:1-27:12
-INJECTED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:1:1-27:12
-INJECTED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:1:1-27:12
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:1:1-33:12
+INJECTED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:1:1-33:12
+INJECTED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:1:1-33:12
+INJECTED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:1:1-33:12
 MERGED from [com.google.firebase:firebase-messaging:24.1.0] C:\Users\Sahil Patil\.gradle\caches\9.3.0\transforms\3150ef29b07d848278368cca107815da\workspace\transformed\jetified-firebase-messaging-24.1.0\AndroidManifest.xml:17:1-66:12
 MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\Sahil Patil\.gradle\caches\9.3.0\transforms\8d1dc917e9f42431d0b35ae219638f7d\workspace\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:16:1-24:12
 MERGED from [com.google.firebase:firebase-installations:17.2.0] C:\Users\Sahil Patil\.gradle\caches\9.3.0\transforms\f10818eaa839e53da5bcf1fbdf3dc000\workspace\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:2:1-24:12
@@ -69,8 +69,8 @@ MERGED from [com.google.firebase:firebase-messaging:24.1.0] C:\Users\Sahil Patil
 	android:name
 		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:3:22-74
 application
-ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:5:5-26:19
-INJECTED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:5:5-26:19
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:5:5-32:19
+INJECTED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:5:5-32:19
 MERGED from [com.google.firebase:firebase-messaging:24.1.0] C:\Users\Sahil Patil\.gradle\caches\9.3.0\transforms\3150ef29b07d848278368cca107815da\workspace\transformed\jetified-firebase-messaging-24.1.0\AndroidManifest.xml:28:5-64:19
 MERGED from [com.google.firebase:firebase-messaging:24.1.0] C:\Users\Sahil Patil\.gradle\caches\9.3.0\transforms\3150ef29b07d848278368cca107815da\workspace\transformed\jetified-firebase-messaging-24.1.0\AndroidManifest.xml:28:5-64:19
 MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\Sahil Patil\.gradle\caches\9.3.0\transforms\8d1dc917e9f42431d0b35ae219638f7d\workspace\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:19:5-23:19
@@ -119,34 +119,46 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Sa
 		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:10:9-40
 	android:usesCleartextTraffic
 		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:8:9-45
+meta-data#com.google.firebase.messaging.default_notification_channel_id
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:11:9-13:48
+	android:value
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:13:13-45
+	android:name
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:12:13-89
+meta-data#com.google.firebase.messaging.default_notification_icon
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:14:9-16:54
+	android:resource
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:16:13-51
+	android:name
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:15:13-83
 activity#com.surajbhoite.facultyadmin.MainActivity
-ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:11:9-18:20
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:17:9-24:20
 	android:exported
-		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:13:13-36
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:19:13-36
 	android:name
-		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:12:13-41
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:18:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:14:13-17:29
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:20:13-23:29
 action#android.intent.action.MAIN
-ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:15:17-69
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:21:17-69
 	android:name
-		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:15:25-66
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:21:25-66
 category#android.intent.category.LAUNCHER
-ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:16:17-77
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:22:17-77
 	android:name
-		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:16:27-74
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:22:27-74
 service#com.surajbhoite.facultyadmin.AdminMessagingService
-ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:19:9-25:19
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:25:9-31:19
 	android:exported
-		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:21:13-37
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:27:13-37
 	android:name
-		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:20:13-50
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:26:13-50
 intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
-ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:22:13-24:29
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:28:13-30:29
 action#com.google.firebase.MESSAGING_EVENT
-ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:23:17-78
+ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:29:17-78
 	android:name
-		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:23:25-75
+		ADDED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml:29:25-75
 uses-sdk
 INJECTED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\faculty-portfolio_IC_SB-main\android-admin\app\src\main\AndroidManifest.xml

@@ -29,6 +29,13 @@
         android:label="SB Notes Admin"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false" >
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="faculty_requests" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />
+
         <activity
             android:name="com.surajbhoite.facultyadmin.MainActivity"
             android:exported="true" >
