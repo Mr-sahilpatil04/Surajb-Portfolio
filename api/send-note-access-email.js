@@ -1,4 +1,5 @@
 const admin = require("firebase-admin");
+const nodemailer = require("nodemailer");
 
 function getFirebaseAdmin() {
   if (admin.apps.length) return admin;
@@ -41,20 +42,8 @@ module.exports = async function handler(req, res) {
     }
 
     const noteRequest = requestSnapshot.data();
-    if (!process.env.RESEND_API_KEY || !process.env.EMAIL_FROM) {
-      throw new Error("RESEND_API_KEY or EMAIL_FROM is not configured");
-    }
-    const emailResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        from: process.env.EMAIL_FROM,
-        to: [noteRequest.studentEmail],
-        subject: `Note access approved: ${noteRequest.noteTitle}`,
-        html: `
+    const subject = `Note access approved: ${noteRequest.noteTitle}`;
+    const html = `
           <p>Hello ${escapeHtml(noteRequest.studentName)},</p>
           <p>Your request for the following note has been approved:</p>
           <ul>
@@ -65,14 +54,20 @@ module.exports = async function handler(req, res) {
           </ul>
           <p><a href="${escapeAttribute(noteRequest.fileUrl)}">Open or download the note</a></p>
           <p>Regards,<br />Faculty Notes Portal</p>
-        `
-      })
-    });
+        `;
 
-    if (!emailResponse.ok) {
-      const errorText = await emailResponse.text();
-      console.error("Resend error:", errorText);
-      return res.status(502).json({ error: "Email provider failed", details: errorText });
+    if ((process.env.EMAIL_PROVIDER || "resend").toLowerCase() === "gmail") {
+      await sendWithGmail({
+        to: noteRequest.studentEmail,
+        subject,
+        html
+      });
+    } else {
+      await sendWithResend({
+        to: noteRequest.studentEmail,
+        subject,
+        html
+      });
     }
 
     await requestSnapshot.ref.update({ emailSentAt: new Date() });
@@ -82,6 +77,53 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: "Unable to send note access email", details: error.message });
   }
 };
+
+async function sendWithGmail({ to, subject, html }) {
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    throw new Error("GMAIL_USER or GMAIL_APP_PASSWORD is not configured");
+  }
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_APP_PASSWORD
+    }
+  });
+
+  await transporter.sendMail({
+    from: process.env.GMAIL_USER,
+    to,
+    subject,
+    html
+  });
+}
+
+async function sendWithResend({ to, subject, html }) {
+  if (!process.env.RESEND_API_KEY || !process.env.EMAIL_FROM) {
+    throw new Error("RESEND_API_KEY or EMAIL_FROM is not configured");
+  }
+
+  const emailResponse = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: process.env.EMAIL_FROM,
+      to: [to],
+      subject,
+      html
+    })
+  });
+
+  if (!emailResponse.ok) {
+    const errorText = await emailResponse.text();
+    console.error("Resend error:", errorText);
+    throw new Error(`Email provider failed: ${errorText}`);
+  }
+}
 
 function escapeHtml(value = "") {
   return String(value).replace(/[&<>\"']/g, character => ({

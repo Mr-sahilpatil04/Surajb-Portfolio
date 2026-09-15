@@ -99,10 +99,29 @@ The note is not opened immediately. Faculty review pending requests in
 `notes-admin.html`; approving a request sends the student an email containing
 the note details and link, and records the approved access.
 
-### 1. Create a Resend sender
+### 1. Choose an email provider
+#### Option A: Gmail
+1. Use a Gmail or Google Workspace account for sending.
+2. Enable 2-Step Verification in the Google Account security settings.
+3. Create an **App password** under **Security → App passwords**. Use the
+  generated 16-character password, not your normal Gmail password.
+4. Set these Vercel environment variables:
+   - `EMAIL_PROVIDER=gmail`
+   - `GMAIL_USER=your.address@gmail.com`
+   - `GMAIL_APP_PASSWORD=the_generated_app_password`
+
+Gmail has sending limits and may block unusually high-volume or automated
+traffic. This option does not require buying a domain.
+
+#### Option B: Resend
 1. Create an account at https://resend.com.
-2. Add and verify the domain you will send from, or use a Resend test sender
-   while developing.
+2. You do **not** need a personal domain to test this feature. Use Resend's
+  test sender `onboarding@resend.dev`. With the test sender, Resend may only
+  deliver messages to the email address used for your Resend account. To send
+  approval emails to any student, you must later add and verify a domain.
+  A Gmail address such as `something@gmail.com` cannot be used as `EMAIL_FROM`
+  unless `gmail.com` is verified in Resend, which is generally not possible
+  for a personal address.
 3. Create an API key with permission to send email.
 
 ### 2. Add Vercel environment variables
@@ -112,8 +131,12 @@ environment:
 
 - `FIREBASE_SERVICE_ACCOUNT_JSON`: the complete Firebase service-account JSON
   from **Project settings → Service accounts → Generate new private key**.
-- `RESEND_API_KEY`: the Resend API key.
-- `EMAIL_FROM`: a verified sender such as `Notes Portal <notes@example.com>`.
+- For Gmail, use the three variables listed above. Do not add the Resend
+  variables unless you are using Resend.
+- For Resend, add `RESEND_API_KEY` and `EMAIL_FROM`: use
+  `onboarding@resend.dev` if you do not have a domain. After
+  domain verification, replace it with a sender such as `Notes Portal
+  <notes@example.com>`.
 
 Never put the service-account JSON or Resend key in browser JavaScript or commit
 them to the repository. Redeploy after adding or changing these variables.
