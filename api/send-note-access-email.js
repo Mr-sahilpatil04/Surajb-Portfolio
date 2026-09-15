@@ -53,7 +53,7 @@ module.exports = async function handler(req, res) {
             <li><strong>Class:</strong> ${escapeHtml(noteRequest.className)}${noteRequest.division ? ` - ${escapeHtml(noteRequest.division)}` : ""}</li>
           </ul>
           <p><a href="${escapeAttribute(noteRequest.fileUrl)}">Open or download the note</a></p>
-          <p>Regards,<br />Faculty Notes Portal</p>
+          <p>Regards,<br />Mr. Suraj Bhoite</p>
         `;
 
     if ((process.env.EMAIL_PROVIDER || "resend").toLowerCase() === "gmail") {
