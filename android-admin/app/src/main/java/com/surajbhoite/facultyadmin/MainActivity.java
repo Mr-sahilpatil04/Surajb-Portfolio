@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
+        settings.setUserAgentString(settings.getUserAgentString() + " SBNotesAdminApp/1.0");
         settings.setAllowFileAccess(false);
         settings.setAllowContentAccess(false);
         settings.setSupportZoom(false);

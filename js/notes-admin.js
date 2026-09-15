@@ -18,25 +18,9 @@ let allAccessRequests = [];
 let editingNoteId = null;
 let currentPage = 1;
 const PAGE_SIZE = 15;
-const isApp = new URLSearchParams(window.location.search).get("app") === "1";
+const isApp = new URLSearchParams(window.location.search).get("app") === "1"
+  || navigator.userAgent.includes("SBNotesAdminApp");
 const authPersistenceReady = setPersistence(auth, isApp ? browserLocalPersistence : inMemoryPersistence);
-
-let deferredInstallPrompt;
-
-window.addEventListener("beforeinstallprompt", event => {
-  event.preventDefault();
-  deferredInstallPrompt = event;
-  const installButton = document.getElementById("install-admin-btn");
-  if (installButton) installButton.hidden = false;
-});
-
-document.getElementById("install-admin-btn")?.addEventListener("click", async () => {
-  if (!deferredInstallPrompt) return;
-  deferredInstallPrompt.prompt();
-  await deferredInstallPrompt.userChoice;
-  deferredInstallPrompt = null;
-  document.getElementById("install-admin-btn").hidden = true;
-});
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => navigator.serviceWorker.register("admin-sw.js"));
