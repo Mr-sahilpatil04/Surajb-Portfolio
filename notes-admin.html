@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Notes Management — Suraj Bhoite</title>
+  <meta name="theme-color" content="#10100f" />
+  <link rel="manifest" href="admin-manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -30,6 +32,7 @@
       </a>
       <div class="nav-actions">
         <span class="admin-credit">Develop By Sahil Patil</span>
+        <button id="install-admin-btn" class="btn btn-outline admin-install-btn" type="button" hidden>Install app</button>
         <button id="logout-btn" class="btn btn-outline" style="display:none;padding:0.55rem 1.2rem;font-size:0.8rem;">Sign Out</button>
       </div>
     </div>
@@ -58,7 +61,10 @@
   <!-- DASHBOARD -->
   <div class="admin-shell" id="admin-dashboard" style="display:none;">
     <div class="admin-header">
-      <h1>Notes Dashboard</h1>
+      <div>
+        <p class="admin-eyebrow">Faculty workspace</p>
+        <h1>Notes Dashboard</h1>
+      </div>
       <span class="badge">👋 <span id="admin-name"></span></span>
     </div>
 

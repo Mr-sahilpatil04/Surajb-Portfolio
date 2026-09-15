@@ -20,6 +20,27 @@ let currentPage = 1;
 const PAGE_SIZE = 15;
 const authPersistenceReady = setPersistence(auth, inMemoryPersistence);
 
+let deferredInstallPrompt;
+
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  const installButton = document.getElementById("install-admin-btn");
+  if (installButton) installButton.hidden = false;
+});
+
+document.getElementById("install-admin-btn")?.addEventListener("click", async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  document.getElementById("install-admin-btn").hidden = true;
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("admin-sw.js"));
+}
+
 /* ---------- Auth gate ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login-form")?.addEventListener("submit", handleLogin);
@@ -248,13 +269,13 @@ function renderAccessRequests() {
   }
   tbody.innerHTML = requests.map(request => `
     <tr>
-      <td>${escapeHtml(request.studentName)}</td>
-      <td>${escapeHtml(request.studentEmail)}</td>
-      <td>${escapeHtml(request.className)} ${request.division ? `- ${escapeHtml(request.division)}` : ""}</td>
-      <td>${escapeHtml(request.noteTitle)}</td>
-      <td>${request.requestedAt ? relativeTime(request.requestedAt) : "—"}</td>
-      <td><span class="badge">Pending</span></td>
-      <td><div class="admin-table-actions">
+      <td data-label="Student">${escapeHtml(request.studentName)}</td>
+      <td data-label="Email">${escapeHtml(request.studentEmail)}</td>
+      <td data-label="Class / Div">${escapeHtml(request.className)} ${request.division ? `- ${escapeHtml(request.division)}` : ""}</td>
+      <td data-label="Note">${escapeHtml(request.noteTitle)}</td>
+      <td data-label="Requested">${request.requestedAt ? relativeTime(request.requestedAt) : "—"}</td>
+      <td data-label="Status"><span class="badge">Pending</span></td>
+      <td data-label="Actions"><div class="admin-table-actions">
         <button data-id="${request.id}" class="approve-request-btn">Approve</button>
         <button data-id="${request.id}" class="danger reject-request-btn">Reject</button>
       </div></td>
@@ -402,14 +423,14 @@ function renderNotesTable() {
   }
   tbody.innerHTML = allNotes.map(n => `
     <tr>
-      <td>${fileIcon(n.fileType)} ${escapeHtml(n.title)}</td>
-      <td>${escapeHtml(n.subject)}</td>
-      <td>${escapeHtml(n.unit)}</td>
-      <td>${escapeHtml(n.className)}</td>
-      <td>${(n.fileType || "").toUpperCase()}</td>
-      <td>${formatFileSize(n.fileSize)}</td>
-      <td>${getAccessCount(n)}</td>
-      <td>
+      <td data-label="Title">${fileIcon(n.fileType)} ${escapeHtml(n.title)}</td>
+      <td data-label="Subject">${escapeHtml(n.subject)}</td>
+      <td data-label="Unit">${escapeHtml(n.unit)}</td>
+      <td data-label="Class">${escapeHtml(n.className)}</td>
+      <td data-label="Type">${(n.fileType || "").toUpperCase()}</td>
+      <td data-label="Size">${formatFileSize(n.fileSize)}</td>
+      <td data-label="Accesses">${getAccessCount(n)}</td>
+      <td data-label="Actions">
         <div class="admin-table-actions">
           <button data-id="${n.id}" class="edit-btn">Edit</button>
           <button data-id="${n.id}" class="danger delete-btn">Delete</button>
@@ -605,13 +626,13 @@ function renderAccessTable() {
 
   tbody.innerHTML = pageItems.map(l => `
     <tr>
-      <td>${escapeHtml(l.studentName)}</td>
-      <td>${escapeHtml(l.className)}</td>
-      <td>${escapeHtml(l.division || "—")}</td>
-      <td>${escapeHtml(l.subject)}</td>
-      <td>${escapeHtml(l.unit)}</td>
-      <td>${escapeHtml(l.noteTitle)}</td>
-      <td>${l.accessedAt ? relativeTime(l.accessedAt) : "—"}</td>
+      <td data-label="Student">${escapeHtml(l.studentName)}</td>
+      <td data-label="Class">${escapeHtml(l.className)}</td>
+      <td data-label="Division">${escapeHtml(l.division || "—")}</td>
+      <td data-label="Subject">${escapeHtml(l.subject)}</td>
+      <td data-label="Unit">${escapeHtml(l.unit)}</td>
+      <td data-label="Note">${escapeHtml(l.noteTitle)}</td>
+      <td data-label="Accessed">${l.accessedAt ? relativeTime(l.accessedAt) : "—"}</td>
     </tr>`).join("");
 }
 

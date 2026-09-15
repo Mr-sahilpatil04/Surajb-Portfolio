@@ -1,0 +1,9 @@
+{
+  "name": "Faculty Notes Admin",
+  "short_name": "Notes Admin",
+  "start_url": "/notes-admin.html",
+  "display": "standalone",
+  "background_color": "#10100f",
+  "theme_color": "#10100f",
+  "description": "Mobile-friendly faculty notes management panel"
+}
