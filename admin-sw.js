@@ -1,4 +1,4 @@
-const CACHE_NAME = "faculty-notes-admin-v1";
+const CACHE_NAME = "faculty-notes-admin-v2";
 const APP_SHELL = [
   "/notes-admin.html",
   "/css/variables.css",

@@ -2,8 +2,16 @@
   "name": "Faculty Notes Admin",
   "short_name": "Notes Admin",
   "start_url": "/notes-admin.html",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#10100f",
   "theme_color": "#10100f",
-  "description": "Mobile-friendly faculty notes management panel"
+  "description": "Mobile-friendly faculty notes management panel",
+  "icons": [
+    {
+      "src": "/fevicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
 }
