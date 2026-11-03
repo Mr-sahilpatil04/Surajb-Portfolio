@@ -35,6 +35,7 @@
     ═══════════════════════════════════════ */
     .cert-envelope {
       position: relative;
+      height: 560px;
       border-radius: 18px;
       overflow: visible;
       transition: transform 0.35s ease, box-shadow 0.35s ease;
@@ -51,6 +52,7 @@
       border-radius: 18px;
       overflow: hidden;
       position: relative;
+      height: 100%;
       display: flex;
       flex-direction: column;
       transition: border-color 0.35s ease, box-shadow 0.35s ease;
@@ -98,6 +100,7 @@
     /* ── Content area below flap ── */
     .open-peek {
       display: flex;
+      flex: 1;
       flex-direction: column;
       align-items: center;
       padding: 1.5rem 1.5rem 1.75rem;
@@ -124,6 +127,11 @@
       transition: transform 0.5s ease;
     }
 
+    .cert-preview-pdf,
+    .cert-modal-pdf {
+      border: 0;
+    }
+
     .cert-envelope:hover .cert-preview-img {
       transform: scale(1.04);
     }
@@ -141,6 +149,7 @@
     .cert-org-badge {
       display: inline-flex;
       align-items: center;
+      min-height: 2.15rem;
       padding: 0.28rem 0.85rem;
       border-radius: 999px;
       border: 1px solid;
@@ -154,6 +163,7 @@
 
     /* ── Certificate title ── */
     .cert-peek-title {
+      min-height: 2.7rem;
       font-family: var(--font-display);
       font-size: 1rem;
       font-weight: 700;
@@ -165,6 +175,7 @@
 
     /* ── Date & validity row ── */
     .cert-validity-row {
+      min-height: 2.2rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -188,7 +199,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.6rem;
-      margin-top: 0.5rem;
+      margin-top: auto;
       padding: 0.85rem 1.5rem;
       border-radius: 12px;
       border: 2px solid;
@@ -443,6 +454,7 @@
     }
 
     @media (max-width: 600px) {
+      .cert-envelope { height: 550px; }
       .cert-modal-header { flex-direction: column; }
       .cert-modal-img-container,
       .cert-modal-img-fallback { width: 100%; }

@@ -100,7 +100,23 @@ const certificatesData = [
     color: '#1BA0D7',
     image: 'assets\\Courses Certificate\\image8.jpg',
   },
+  {
+    id: 'cert9',
+    title: 'Python for Data Science',
+    org: 'NPTEL Online Certification — IIT Madras',
+    date: 'January – February 2026',
+    validity: '4-week course',
+    credentialId: 'NPTEL26CS80S466203757',
+    skills: ['Python', 'Data Science', 'NPTEL', 'IIT Madras'],
+    description: 'Completed the NPTEL online certification course Python for Data Science with a consolidated score of 51%.',
+    verifyLink: 'assets/Courses%20Certificate/image9.pdf',
+    color: '#D4AF37',
+    image: 'assets/Courses%20Certificate/image9.jpg',
+  },
 ];
+
+const certificateOrder = ['cert9', 'cert8', 'cert7', 'cert6', 'cert5', 'cert4', 'cert2', 'cert3', 'cert1'];
+certificatesData.sort((a, b) => certificateOrder.indexOf(a.id) - certificateOrder.indexOf(b.id));
 
 /* ═══════════════════════════════════════
    RENDER — envelopes open on load
@@ -127,15 +143,20 @@ function renderCertificates() {
           <!-- Certificate image -->
           <div class="cert-img-wrap">
             ${cert.image
-              ? `<img
+              ? cert.fileType === 'pdf'
+                ? `<object
+                   data="${cert.image}"
+                   type="application/pdf"
+                   aria-label="${cert.title}"
+                   class="cert-preview-img cert-preview-pdf"
+                 ></object>`
+                : `<img
                    src="${cert.image}"
                    alt="${cert.title}"
                    class="cert-preview-img"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
                  />
-                 <div class="cert-img-fallback" style="display:none;background:linear-gradient(135deg,${cert.color}22,${cert.color}08);">
-                   <span style="font-size:3rem;">${cert.emoji}</span>
-                 </div>`
+                `
               : `<div class="cert-img-fallback" style="background:linear-gradient(135deg,${cert.color}22,${cert.color}08);">
                    <span style="font-size:3rem;">${cert.emoji}</span>
                  </div>`
@@ -153,8 +174,10 @@ function renderCertificates() {
           <!-- Date & validity -->
           <div class="cert-validity-row">
             <span>📅 ${cert.date}</span>
-            <span class="cert-dot">·</span>
-            <span>⏱️ ${cert.validity}</span>
+            ${cert.validity ? `
+              <span class="cert-dot">·</span>
+              <span>⏱️ ${cert.validity}</span>
+            ` : ''}
           </div>
 
           <!-- VIEW FULL CERTIFICATE BUTTON -->
@@ -243,18 +266,22 @@ function populateCertModal(cert, container) {
       <!-- Full certificate image -->
       <div class="cert-modal-img-container">
         ${cert.image
-          ? `<img
+          ? cert.fileType === 'pdf'
+            ? `<object
+               data="${cert.image}"
+               type="application/pdf"
+               aria-label="${cert.title}"
+               class="cert-modal-full-img cert-modal-pdf"
+             ></object>`
+            : `<img
                src="${cert.image}"
                alt="${cert.title}"
                class="cert-modal-full-img"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
              />
-             <div class="cert-modal-img-fallback"
-                  style="display:none;background:linear-gradient(135deg,${cert.color}18,${cert.color}08);">
-               <span style="font-size:5rem;">${cert.emoji}</span>
-             </div>`
+            `
           : `<div class="cert-modal-img-fallback"
-                  style="background:linear-gradient(135deg,${cert.color}18,${cert.color}08);">
+                  style="display:none;background:linear-gradient(135deg,${cert.color}18,${cert.color}08);">
                <span style="font-size:5rem;">${cert.emoji}</span>
              </div>`
         }
@@ -276,7 +303,7 @@ function populateCertModal(cert, container) {
       </div>
       <div class="cert-detail-item">
         <div class="cert-detail-label">Validity</div>
-        <div class="cert-detail-value">⏱️ ${cert.validity}</div>
+        <div class="cert-detail-value">${cert.validity ? `⏱️ ${cert.validity}` : 'Not specified'}</div>
       </div>
       <div class="cert-detail-item">
         <div class="cert-detail-label">Credential ID</div>
